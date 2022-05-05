@@ -39,6 +39,11 @@ public class FreezingAspectEnchantment extends Enchantment {
         return super.getMinPower(level) + 50;
     }
 
+    /**
+     * Slows the {@code target} for a short duration.
+     * @param target The {@link LivingEntity} target.
+     * @param level The level of the enchantment.
+     */
     public static void freeze(LivingEntity target, int level) {
         if (!target.world.isClient()) {
             target.extinguish();

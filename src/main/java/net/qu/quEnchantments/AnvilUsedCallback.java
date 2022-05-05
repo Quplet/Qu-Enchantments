@@ -8,6 +8,9 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
 
 public interface AnvilUsedCallback {
+    /**
+     * Called at the end of an Anvil usage.
+     */
     Event<AnvilUsedCallback> EVENT = EventFactory.createArrayBacked(AnvilUsedCallback.class,
             (listeners) -> (player, stack, handler) -> {
                 for (AnvilUsedCallback listener : listeners) {

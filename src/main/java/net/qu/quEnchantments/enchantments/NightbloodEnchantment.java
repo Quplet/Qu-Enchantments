@@ -1,6 +1,8 @@
 package net.qu.quEnchantments.enchantments;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -33,7 +35,18 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         return 2;
     }
 
-    public static void onTargetHit(LivingEntity user, LivingEntity target) {
+    /**
+     * Custom implementation of {@link net.minecraft.enchantment.Enchantment#onTargetDamaged(LivingEntity, Entity, int)
+     * onTargetDamaged} that allows for client side activity. Unlike
+     * {@link net.minecraft.enchantment.Enchantment#onTargetDamaged(LivingEntity, Entity, int) onTargetDamaged},
+     * this will not automatically be called. Has to called manually from an on hit event.
+     * <p>If the user hit with a weapon that has the Nightblood Enchantment on it, will instakill all non-boss enemies
+     * (excluding Wither Skeleton). This does include players. Upon instakill, will create smoke particles around the
+     * target.
+     * @param user The {@link LivingEntity} attacker.
+     * @param target the {@link Entity} subject being attacked.
+     */
+    public static void onTargetHit(LivingEntity user, Entity target) {
         if (!(target instanceof EnderDragonEntity) && !(target instanceof WitherEntity) && !(target instanceof WitherSkeletonEntity)) {
             if (!target.world.isClient()) {
                 if (user instanceof PlayerEntity) {
@@ -52,20 +65,24 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         }
     }
 
+    /**
+     * Will remove 2/level xp from the user until drained, then hunger, then health.
+     * @param user The {@link LivingEntity} to drain.
+     * @param level The level of the enchantment.
+     */
     public static void drain(LivingEntity user, int level) {
-        if (user instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) user;
+        if (user instanceof PlayerEntity player) {
             if (!player.getAbilities().creativeMode) {
                 if (player.experienceLevel > 0 || player.experienceProgress > 0) {
                     player.addExperience(-2 / level);
                 } else if (user.world.getDifficulty().getId() != 0 && player.getHungerManager().getFoodLevel() > 0) {
                     player.getHungerManager().addExhaustion(1.0f / level);
                 } else {
-                    player.damage(DamageSource.MAGIC, 2 / level);
+                    player.damage(DamageSource.MAGIC, 2.0f / level);
                 }
             }
         } else {
-            user.damage(DamageSource.MAGIC, 2 / level);
+            user.damage(DamageSource.MAGIC, 2.0f / level);
         }
     }
 }

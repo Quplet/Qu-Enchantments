@@ -6,6 +6,9 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
 
 public interface AnvilUpdateResultCallback {
+    /**
+     * Called at the end of an Anvil contents update.
+     */
     Event<AnvilUpdateResultCallback> EVENT = EventFactory.createArrayBacked(AnvilUpdateResultCallback.class,
             (listeners) -> (handler) -> {
                 for (AnvilUpdateResultCallback listener : listeners) {

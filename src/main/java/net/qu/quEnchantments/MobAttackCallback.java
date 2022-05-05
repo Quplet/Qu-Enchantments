@@ -8,6 +8,9 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.ActionResult;
 
 public interface MobAttackCallback {
+    /**
+     * Callback for a mob attacking an {@link Entity}. Called at the beginning.
+     */
     Event<MobAttackCallback> EVENT = EventFactory.createArrayBacked(MobAttackCallback.class,
             (listeners) -> (user, target) -> {
                 for (MobAttackCallback listener : listeners) {

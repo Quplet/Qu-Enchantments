@@ -29,10 +29,10 @@ public class ModRegistries {
                 if (freeze > 0) FreezingAspectEnchantment.freeze((LivingEntity) entity, freeze);
                 // Player logic for Leeching Aspect enchantment
                 int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, player.getMainHandStack());
-                if (leech > 0) LeechingAspectEnchantment.leech(player, (LivingEntity) entity, leech);
+                if (leech > 0) LeechingAspectEnchantment.leech(player, leech);
                 // Player logic for Nightblood enchantment
                 int nightblood = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, player.getMainHandStack());
-                if (nightblood > 0) NightbloodEnchantment.onTargetHit(player, (LivingEntity) entity);
+                if (nightblood > 0) NightbloodEnchantment.onTargetHit(player, entity);
             }
             return ActionResult.PASS;
         });
@@ -44,10 +44,10 @@ public class ModRegistries {
                 if (freeze > 0) FreezingAspectEnchantment.freeze((LivingEntity) target, freeze);
                 // Mob logic for Leeching Aspect enchantment
                 int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, user.getMainHandStack());
-                if (leech > 0) LeechingAspectEnchantment.leech(user, (LivingEntity) target, leech);
+                if (leech > 0) LeechingAspectEnchantment.leech(user, leech);
                 // Mob logic for Nightblood enchantment
                 int nightblood = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, user.getMainHandStack());
-                if (nightblood > 0) NightbloodEnchantment.onTargetHit(user, (LivingEntity) target);
+                if (nightblood > 0) NightbloodEnchantment.onTargetHit(user, target);
             }
             return ActionResult.PASS;
         });
@@ -58,10 +58,9 @@ public class ModRegistries {
                 if ((handler.getSlot(0).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(0).getStack()) > 0) ||
                         (handler.getSlot(1).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(1).getStack()) > 0)) {
                     if (!player.world.isClient()) {
-                        stack.setDamage(stack.getMaxDamage() - 1);
-                        stack.damage(1, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+                        stack.damage(Integer.MAX_VALUE, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
                     }
-                    player.world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                    player.world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 5.0f, 1.0f);
                 }
             }
 

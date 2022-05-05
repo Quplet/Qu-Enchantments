@@ -3,8 +3,11 @@ package net.qu.quEnchantments.enchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.FireAspectEnchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
 
 import java.util.Random;
@@ -37,15 +40,20 @@ public class LeechingAspectEnchantment extends Enchantment {
         return super.getMinPower(level) + 50;
     }
 
-    public static void leech(LivingEntity user, LivingEntity target, int level) {
-        if (!target.world.isClient()) {
-            user.heal(((float) level)/2);
+    /**
+     * Gives the user regeneration for {@code level} seconds.
+     * @param user The {@link LivingEntity} to heal.
+     * @param level The level of the enchantment.
+     */
+    public static void leech(LivingEntity user, int level) {
+        if (!user.world.isClient()) {
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, level, 1, false, false, false));
         } else {
             Random random = new Random();
             double d = random.nextGaussian() * 0.02;
             double e = random.nextGaussian() * 0.02;
             double f = random.nextGaussian() * 0.02;
-            target.world.addParticle(ParticleTypes.HEART, user.getParticleX(1.0), user.getRandomBodyY(), user.getParticleZ(1.0), d, e, f);
+            user.world.addParticle(ParticleTypes.HEART, user.getParticleX(1.0), user.getRandomBodyY(), user.getParticleZ(1.0), d, e, f);
         }
     }
 }
