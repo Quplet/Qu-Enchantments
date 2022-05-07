@@ -8,7 +8,7 @@ import net.minecraft.entity.LivingEntity;
 
 public class ShapedGlassEnchantment extends CorruptedEnchantment {
 
-    protected ShapedGlassEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
+    protected ShapedGlassEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(enchantmentType, weight, type, slotTypes);
     }
 

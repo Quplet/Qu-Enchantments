@@ -13,7 +13,7 @@ import net.minecraft.particle.ParticleTypes;
 import java.util.Random;
 
 public class LeechingAspectEnchantment extends Enchantment {
-    public LeechingAspectEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
+    public LeechingAspectEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
 

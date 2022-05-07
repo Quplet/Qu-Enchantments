@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:fire_aspect",
+    "qu-enchantments:freezing_aspect",
+    "qu-enchantments:leeching_aspect"
+  ]
+}

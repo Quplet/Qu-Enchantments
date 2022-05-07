@@ -3,6 +3,7 @@ package net.qu.quEnchantments.enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -16,7 +17,7 @@ import java.util.Random;
 
 public class NightbloodEnchantment extends CorruptedEnchantment {
 
-    protected NightbloodEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
+    protected NightbloodEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(enchantmentType, weight, type, slotTypes);
     }
 
@@ -47,7 +48,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
      * @param target the {@link Entity} subject being attacked.
      */
     public static void onTargetHit(LivingEntity user, Entity target) {
-        if (!(target instanceof EnderDragonEntity) && !(target instanceof WitherEntity) && !(target instanceof WitherSkeletonEntity)) {
+        if (target.getType() != EntityType.ENDER_DRAGON && target.getType() != EntityType.WITHER && target.getType() != EntityType.WITHER_SKELETON) {
             if (!target.world.isClient()) {
                 if (user instanceof PlayerEntity) {
                     target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);

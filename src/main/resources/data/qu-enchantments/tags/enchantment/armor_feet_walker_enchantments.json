@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:frost_walker",
+    "qu-enchantments:molten_walker"
+  ]
+}

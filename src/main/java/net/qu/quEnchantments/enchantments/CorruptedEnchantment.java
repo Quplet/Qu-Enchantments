@@ -3,14 +3,17 @@ package net.qu.quEnchantments.enchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.registry.Registry;
+import net.qu.quEnchantments.util.ModTags;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A Corrupted Enchantment abstraction with a custom getName(int level) method implementation.
@@ -93,9 +96,11 @@ public abstract class CorruptedEnchantment extends Enchantment {
             return false;
         }
         int levels = 0;
-        for (Enchantment enchantment : corruptedEnchantment.enchantmentType.getCorruptableEnchantments()) {
-            Integer i = enchantments.remove(enchantment);
-            levels += (i == null) ? 0 : i;
+        Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
+        for (Enchantment enchantment : newSet) {
+            if (Registry.ENCHANTMENT.getOrCreateEntry(Registry.ENCHANTMENT.getKey(enchantment).get()).isIn(corruptedEnchantment.enchantmentType.corruptible)) {
+                levels += enchantments.remove(enchantment);
+            }
         }
         enchantments.put(corruptedEnchantment, Math.min(Math.max(EnchantmentHelper.getLevel(corruptedEnchantment, stack), levels), corruptedEnchantment.getMaxLevel()));
         EnchantmentHelper.set(enchantments, stack);
@@ -106,22 +111,25 @@ public abstract class CorruptedEnchantment extends Enchantment {
      * Contains a record of enchantment types currently in use by Corrupted Enchantments.
      */
     public enum EnchantmentType {
-        DAMAGE(Enchantments.SHARPNESS, Enchantments.BANE_OF_ARTHROPODS, Enchantments.SMITE),
-        ASPECT(Enchantments.FIRE_ASPECT, ModEnchantments.FREEZING_ASPECT, ModEnchantments.LEECHING_ASPECT);
+        DAMAGE(ModTags.Enchantments.WEAPON_DAMAGE_ENCHANTMENTS),
+        ASPECT(ModTags.Enchantments.WEAPON_ASPECT_ENCHANTMENTS),
 
-        private final Enchantment[] corruptable;
+        WALKER(ModTags.Enchantments.ARMOR_FEET_WALKER_ENCHANTMENTS);
 
-        EnchantmentType(Enchantment ... enchantments) {
-            corruptable = enchantments;
+        private final TagKey<Enchantment> corruptible;
+
+        EnchantmentType(TagKey<Enchantment> tag) {
+            corruptible = tag;
         }
 
         /**
-         * Returns the list of enchantments given to the type. There is no automatic system that categorizes
-         * enchantments. All elements must be added manually.
-         * @return The list of enchantments given to the type.
+         * Returns a {@link TagKey} of enchantments given to the type. There is no automatic system that categorizes
+         * enchantments. All elements must be added manually through the tag system:
+         * {@code src/main/resources/data/qu-enchantments/tags/enchantment/<table to alter>.json}.
+         * @return The {@link TagKey} of enchantments given to the type.
          */
-        public Enchantment[] getCorruptableEnchantments() {
-            return corruptable;
+        public TagKey<Enchantment> getCorruptibleEnchantments() {
+            return corruptible;
         }
 
     }

@@ -12,7 +12,7 @@ import net.minecraft.particle.ParticleTypes;
 import java.util.Random;
 
 public class FreezingAspectEnchantment extends Enchantment {
-    public FreezingAspectEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
+    public FreezingAspectEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
 
