@@ -9,17 +9,17 @@
     "Qu"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
+    "homepage": "https://github.com/Quplet/Qu-Enchantments",
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/more-enchantments/icon.png",
+  "icon": "assets/qu-enchantments/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.qu.quEnchantments.quEnchantments"
+      "net.qu.quEnchantments.QuEnchantments"
     ]
   },
   "mixins": [

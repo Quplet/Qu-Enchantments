@@ -16,6 +16,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypeFilter;
 import net.qu.quEnchantments.AnvilUpdateResultCallback;
 import net.qu.quEnchantments.AnvilUsedCallback;
+import net.qu.quEnchantments.ApplyMovementEffectsCallback;
 import net.qu.quEnchantments.MobAttackCallback;
 import net.qu.quEnchantments.enchantments.*;
 
@@ -90,6 +91,16 @@ public class ModRegistries {
                     }
                 }
             }
+        });
+
+        ApplyMovementEffectsCallback.EVENT.register((entity, blockPos) -> {
+            if (!entity.world.isClient) {
+                int i;
+                if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
+                    MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
+                }
+            }
+            return ActionResult.PASS;
         });
     }
 }

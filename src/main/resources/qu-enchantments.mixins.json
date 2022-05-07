@@ -5,10 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "MobAttackMixin",
-    "AnvilMixin"
+    "AnvilMixin",
+    "LivingEntityMixin"
   ],
   "client": [
-    "MobAttackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
