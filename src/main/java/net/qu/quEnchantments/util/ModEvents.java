@@ -1,26 +1,18 @@
 package net.qu.quEnchantments.util;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.TypeFilter;
-import net.qu.quEnchantments.AnvilUpdateResultCallback;
-import net.qu.quEnchantments.AnvilUsedCallback;
-import net.qu.quEnchantments.ApplyMovementEffectsCallback;
-import net.qu.quEnchantments.MobAttackCallback;
+import net.qu.quEnchantments.callbacks.*;
 import net.qu.quEnchantments.enchantments.*;
+import net.qu.quEnchantments.world.ModWorldEvents;
 
-public class ModRegistries {
+public class ModEvents {
 
     public static void RegisterModEvents() {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
@@ -53,54 +45,42 @@ public class ModRegistries {
             return ActionResult.PASS;
         });
 
-        AnvilUsedCallback.EVENT.register((player, stack, handler) -> {
+        AnvilEvents.ANVIL_USED.register((player, stack, handler) -> {
             // Logic for Shaped Glass enchantment. Causes item to break upon anvil use.
             if (!player.getAbilities().creativeMode) {
                 if ((handler.getSlot(0).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(0).getStack()) > 0) ||
                         (handler.getSlot(1).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(1).getStack()) > 0)) {
-                    if (!player.world.isClient()) {
-                        stack.damage(Integer.MAX_VALUE, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
-                    }
-                    player.world.playSound(player, player.getBlockPos(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 5.0f, 1.0f);
+                    stack.damage(Integer.MAX_VALUE, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+                    player.world.syncWorldEvent(ModWorldEvents.SHAPED_GLASS_BREAK, player.getBlockPos(), 0);
                 }
             }
-
-            return ActionResult.PASS;
         });
 
-        AnvilUpdateResultCallback.EVENT.register((handler) -> {
-            // Logic for Shaped Glass Enchantment
-            ItemStack result = handler.getSlot(2).getStack();
-            CorruptedEnchantment.corruptEnchantments(result);
-            return ActionResult.PASS;
+        AnvilEvents.ANVIL_UPDATE.register(handler -> {
+            CorruptedEnchantment.corruptEnchantments(handler.getSlot(2).getStack());
         });
 
-        ServerTickEvents.END_SERVER_TICK.register((server) -> {
-            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                int i;
-                if (!player.getAbilities().creativeMode && (i = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, player.getMainHandStack())) > 0) {
-                    NightbloodEnchantment.drain(player, i);
+        LivingEntityTickCallback.EVENT.register(livingEntity -> {
+            if (livingEntity instanceof PlayerEntity player) {
+                for (ItemStack stack : player.getInventory().main) {
+                    CorruptedEnchantment.corruptEnchantments(stack);
+                }
+            } else {
+                for (ItemStack stack : livingEntity.getItemsEquipped()) {
+                    CorruptedEnchantment.corruptEnchantments(stack);
                 }
             }
-
-            for (ServerWorld world : server.getWorlds()) {
-                for (MobEntity mob : world.getEntitiesByType(TypeFilter.instanceOf(MobEntity.class), MobEntity::canPickUpLoot)) {
-                    int i;
-                    if ((i = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, mob.getMainHandStack())) > 0) {
-                        NightbloodEnchantment.drain(mob, i);
-                    }
-                }
+            int i;
+            if ((i = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, livingEntity.getMainHandStack())) > 0) {
+                NightbloodEnchantment.drain(livingEntity, i);
             }
         });
 
         ApplyMovementEffectsCallback.EVENT.register((entity, blockPos) -> {
-            if (!entity.world.isClient) {
-                int i;
-                if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
-                    MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
-                }
+            int i;
+            if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
+                MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
             }
-            return ActionResult.PASS;
         });
     }
 }
