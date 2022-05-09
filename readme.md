@@ -43,5 +43,4 @@ You can add or edit what enchantments fall under which category by changing the 
 
 ## License
 
-I haven't really set up anything.  If you wish to use or distribute this mod, go ahead. All I would request is to 
-credit me and link back to this github page.
+Copyright 2022 Quplet, Apache License 2.0. Please credit if you use or distribute my work.
