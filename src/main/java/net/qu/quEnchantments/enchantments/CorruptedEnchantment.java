@@ -2,13 +2,17 @@ package net.qu.quEnchantments.enchantments;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.qu.quEnchantments.util.ModTags;
 
@@ -21,6 +25,7 @@ import java.util.Set;
 public abstract class CorruptedEnchantment extends Enchantment {
 
     private final CorruptedEnchantment.EnchantmentType enchantmentType;
+
     public CorruptedEnchantment(CorruptedEnchantment.EnchantmentType enchantmentType, Rarity weight,
                                 EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
@@ -78,17 +83,18 @@ public abstract class CorruptedEnchantment extends Enchantment {
      * @return True if successfully corrupted, false otherwise.
      */
     public static boolean corruptEnchantments(ItemStack stack) {
-        if(stack == null) {
-            return false;
-        }
-        if (stack.isEmpty() && !stack.hasEnchantments()) {
-            return false;
-        }
+        if (stack == null) return false;
+        if (stack.isEmpty()) return false;
+        if (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) return false;
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
+        if (enchantments.size() < 2) return false;
+        if (stack.getOrCreateNbt().getShort("Corrupted") > 0 && stack.getOrCreateNbt().getShort("Corrupted") <= enchantments.size()) return false;
         CorruptedEnchantment corruptedEnchantment = null;
+        int cLevel = 0;
         for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
             if (entry.getKey() instanceof CorruptedEnchantment) {
                 corruptedEnchantment = (CorruptedEnchantment) entry.getKey();
+                cLevel = entry.getValue();
                 break;
             }
         }
@@ -102,8 +108,16 @@ public abstract class CorruptedEnchantment extends Enchantment {
                 levels += enchantments.remove(enchantment);
             }
         }
-        enchantments.put(corruptedEnchantment, Math.min(Math.max(EnchantmentHelper.getLevel(corruptedEnchantment, stack), levels), corruptedEnchantment.getMaxLevel()));
+        if (levels == 0) return false;
+        if (levels == cLevel) levels++;
+
+        levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
+        enchantments.put(corruptedEnchantment, levels);
+        if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt("StoredEnchantments");
         EnchantmentHelper.set(enchantments, stack);
+        NbtCompound nbtCompound = new NbtCompound();
+        nbtCompound.putShort("Corrupted", (short) enchantments.size());
+        stack.getOrCreateNbt().put("Corrupted", nbtCompound);
         return true;
     }
 
@@ -114,7 +128,8 @@ public abstract class CorruptedEnchantment extends Enchantment {
         DAMAGE(ModTags.Enchantments.WEAPON_DAMAGE_ENCHANTMENTS),
         ASPECT(ModTags.Enchantments.WEAPON_ASPECT_ENCHANTMENTS),
 
-        WALKER(ModTags.Enchantments.ARMOR_FEET_WALKER_ENCHANTMENTS);
+
+        WALKER(ModTags.Enchantments.ARMOR_FEET_WALKER_ENCHANTMENTS); //Unused atm
 
         private final TagKey<Enchantment> corruptible;
 
