@@ -43,5 +43,5 @@ You can add or edit what enchantments fall under which category by changing the 
 
 ## License
 
-I haven't really set up anything.  If you have any reason to distribute this mod, go ahead. All I would request is to 
+I haven't really set up anything.  If you wish to use or distribute this mod, go ahead. All I would request is to 
 credit me and link back to this github page.
