@@ -3,8 +3,8 @@ package net.qu.quEnchantments;
 import net.fabricmc.api.ModInitializer;
 import net.qu.quEnchantments.blocks.ModBlocks;
 import net.qu.quEnchantments.enchantments.ModEnchantments;
+import net.qu.quEnchantments.util.ModEvents;
 import net.qu.quEnchantments.util.ModLootTableModifier;
-import net.qu.quEnchantments.util.ModRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class QuEnchantments implements ModInitializer {
 
 		ModBlocks.registerModBlocks();
 
-		ModRegistries.RegisterModEvents();
+		ModEvents.RegisterModEvents();
 
 		ModLootTableModifier.ModifyLootTables();
 

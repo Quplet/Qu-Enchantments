@@ -7,8 +7,10 @@
     "MobAttackMixin",
     "AnvilMixin",
     "LivingEntityMixin"
+
   ],
   "client": [
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
