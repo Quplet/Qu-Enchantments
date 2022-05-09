@@ -3,9 +3,9 @@
 # Qu Enchantments Mod (For Fabric)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
-the game while keeping with a Vanilla feel.
+the game while maintaining a Vanilla feel.
 
-This project is my first Fabric mod, and mostly me just learning my way around the modding environment. So while I'm 
+This project is my first Fabric mod and is mostly me just learning my way around the modding environment. So while I'm 
 proud of my work, I will not claim it is professional-level. I do think what I've done is cool, however.
 
 ## Installation
@@ -36,12 +36,12 @@ your battles wisely with these...
 If you want to use this mod for a modpack, I've put in some features to allow for more compatibility between the 
 functionality of my mod and others that add enchantments.
 
-Corrupted Enchantments are sorted by categories based on their effect. Right now there are only two that do anything: 
-Damage and Aspect. Walker also exists, but currently has no corrupted enchantments for it.
+Corrupted enchantments are sorted by categories based on their effect. Right now there are only two that do anything: 
+`Damage` and `Aspect`. Walker also exists, but currently has no corrupted enchantments for it. (Coming soon)
 
 You can add or edit what enchantments fall under which category by changing the .json files in `data/qu-enchantments/tags/enchantment/`.
 
 ## License
 
-I haven't really set up anything. You can consider this under the Creative Commons 1.0 License. If you have any reason to 
-distribute this mod, go ahead. All I would request is to credit me somewhere.
+I haven't really set up anything.  If you have any reason to distribute this mod, go ahead. All I would request is to 
+credit me and link back to this github page.
