@@ -1,4 +1,4 @@
-package net.qu.quEnchantments;
+package net.qu.quEnchantments.callbacks;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
@@ -15,14 +15,9 @@ public interface ApplyMovementEffectsCallback {
     Event<ApplyMovementEffectsCallback> EVENT = EventFactory.createArrayBacked(ApplyMovementEffectsCallback.class,
             (listeners) -> (entity, blockPos) -> {
                 for (ApplyMovementEffectsCallback listener : listeners) {
-                    ActionResult result = listener.interact(entity, blockPos);
-
-                    if (result != ActionResult.PASS) {
-                        return result;
-                    }
+                    listener.interact(entity, blockPos);
                 }
-                return ActionResult.PASS;
             });
 
-    ActionResult interact(LivingEntity entity, BlockPos blockPos);
+    void interact(LivingEntity entity, BlockPos blockPos);
 }

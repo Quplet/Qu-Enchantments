@@ -17,6 +17,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldEvents;
 
 import java.util.Random;
 // TODO make texture for this block
@@ -90,6 +92,15 @@ public class HotObsidianBlock extends Block {
             this.melt(world, pos);
         }
         super.neighborUpdate(state, world, pos, block, fromPos, notify);
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (direction != Direction.DOWN && neighborState.getBlock() == Blocks.WATER) {
+            world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState(), Block.NOTIFY_ALL);
+            world.syncWorldEvent(WorldEvents.LAVA_EXTINGUISHED, pos, 0);
+        }
+        return state;
     }
 
     private boolean canMelt(BlockView world, BlockPos pos, int maxNeighbors) {

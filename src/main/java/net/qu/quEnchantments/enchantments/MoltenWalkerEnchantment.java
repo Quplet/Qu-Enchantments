@@ -5,10 +5,14 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.qu.quEnchantments.blocks.ModBlocks;
+import net.qu.quEnchantments.world.ModWorldEvents;
+
+import java.util.Random;
 
 public class MoltenWalkerEnchantment extends Enchantment {
     public MoltenWalkerEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {
@@ -50,6 +54,7 @@ public class MoltenWalkerEnchantment extends Enchantment {
             if (!blockState2.isAir() || (blockState3 = world.getBlockState(blockPos2)).getMaterial() != Material.LAVA || blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
             world.setBlockState(blockPos2, blockState);
             world.createAndScheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
+            world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
         }
     }
 }

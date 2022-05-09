@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "qu-enchantments:block/hot_obsidian_0"
+    },
+    "age=1": {
+      "model": "qu-enchantments:block/hot_obsidian_1"
+    },
+    "age=2": {
+      "model": "qu-enchantments:block/hot_obsidian_2"
+    },
+    "age=3": {
+      "model": "qu-enchantments:block/hot_obsidian_3"
+    },
+    "age=4": {
+      "model": "qu-enchantments:block/hot_obsidian_4"
+    },
+    "age=5": {
+      "model": "qu-enchantments:block/hot_obsidian_5"
+    }
+  }
+}
