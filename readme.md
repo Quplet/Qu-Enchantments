@@ -28,8 +28,8 @@ This mod currently has 5 new enchantments as of 0.5.5-1.18.2.
   - Shaped Glass Enchantment (I-V)
   - Nightblood Enchantment (I-II)
 
-Corrupted Enchantments are a new type of enchantments that offer a powerful ability with a drawback. Might want to pick 
-your battles wisely with these...
+Corrupted Enchantments are a new type of enchantments that offer a powerful ability with a drawback. They will consume 
+other enchantments of the same type. Might want to pick your battles wisely with these...
 
 ## Modpacks
 
