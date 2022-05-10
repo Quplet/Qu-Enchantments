@@ -20,13 +20,14 @@ so make sure you have that as well.
 This mod currently has 5 new enchantments as of 0.5.5-1.18.2.
 
 - Normal Enchantments
-  - Freezing Aspect Enchantment (I-II)
-  - Leeching Aspect Enchantment (I-II)
-  - Molten Walker Enchantment (I-II) (Work in Progress)
+  - Freezing Aspect Enchantment (I-II) - Slows enemy on hit.
+  - Leeching Aspect Enchantment (I-II) - Heals a small amount on hit.
+  - Molten Walker Enchantment (I-II) (Work in Progress) - Harden's lava for a short time as you walk.
 
 - Corrupted Enchantments 
-  - Shaped Glass Enchantment (I-V)
-  - Nightblood Enchantment (I-II)
+  - Shaped Glass Enchantment (I-V) - Increased damage, but increases damage to item. Corrupts all damage enchantments.
+  - Nightblood Enchantment (I-II) - Will oneshot any non-boss enemy (and Wither Skeletons), but will drain your xp, hunger,
+then health while held. Corrupts all aspect enchantments.
 
 Corrupted Enchantments are a new type of enchantments that offer a powerful ability with a drawback. They will consume 
 other enchantments of the same type. Might want to pick your battles wisely with these...
@@ -37,7 +38,7 @@ If you want to use this mod for a modpack, I've put in some features to allow fo
 functionality of my mod and others that add enchantments.
 
 Corrupted enchantments are sorted by categories based on their effect. Right now there are only two that do anything: 
-`Damage` and `Aspect`. Walker also exists, but currently has no corrupted enchantments for it. (Coming soon)
+`Damage` and `Aspect`. `Walker` also exists, but currently has no corrupted enchantments for it. (Coming soon)
 
 You can add or edit what enchantments fall under which category by changing the .json files in `data/qu-enchantments/tags/enchantment/`.
 
