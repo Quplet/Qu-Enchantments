@@ -1,4 +1,4 @@
-<img src="src/main/resources/assets/qu-enchantments/icon.png" width="128">
+<img src="src/main/resources/assets/qu-enchantments/banner.png" width="2048">
 
 # Qu Enchantments Mod (For Fabric)
 
