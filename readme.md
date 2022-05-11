@@ -3,7 +3,7 @@
 # Qu Enchantments Mod (For Fabric)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
-the game while maintaining a Vanilla feel.
+in the game while maintaining a Vanilla feel.
 
 This project is my first Fabric mod and is mostly me just learning my way around the modding environment. So while I'm 
 proud of my work, I will not claim it is professional-level. I do think what I've done is cool, however.
