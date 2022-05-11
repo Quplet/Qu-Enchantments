@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "more-enchantments",
+  "id": "qu-enchantments",
   "version": "${version}",
 
   "name": "Qu's Enchantments",
@@ -13,7 +13,7 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
 
-  "license": "CC0-1.0",
+  "license": "Apache-2.0",
   "icon": "assets/qu-enchantments/icon.png",
 
   "environment": "*",
