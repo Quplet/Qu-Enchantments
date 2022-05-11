@@ -1,8 +1,10 @@
 package net.qu.quEnchantments.enchantments;
 
 import net.minecraft.block.*;
+import net.minecraft.enchantment.DepthStriderEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -37,6 +39,13 @@ public class MoltenWalkerEnchantment extends Enchantment {
     @Override
     public int getMaxLevel() {
         return 2;
+    }
+
+    @Override
+    public boolean canAccept(Enchantment other) {
+        if (other instanceof FrostWalkerEnchantment || other instanceof DepthStriderEnchantment)
+            return false;
+        return super.canAccept(other);
     }
 
     public static void hardenLava(LivingEntity entity, World world, BlockPos blockPos, int level) {
