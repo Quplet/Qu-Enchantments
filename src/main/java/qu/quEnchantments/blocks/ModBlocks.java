@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.blocks;
+package qu.quEnchantments.blocks;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -6,7 +6,7 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.QuEnchantments;
 
 public class ModBlocks {
 

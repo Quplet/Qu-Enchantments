@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.callbacks;
+package qu.quEnchantments.callbacks;
 
 
 import net.fabricmc.fabric.api.event.Event;

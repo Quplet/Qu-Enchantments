@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.world;
+package qu.quEnchantments.world;
 
 import net.minecraft.world.WorldEvents;
 

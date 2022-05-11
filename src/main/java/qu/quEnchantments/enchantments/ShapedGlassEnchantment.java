@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.enchantments;
+package qu.quEnchantments.enchantments;
 
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.Entity;

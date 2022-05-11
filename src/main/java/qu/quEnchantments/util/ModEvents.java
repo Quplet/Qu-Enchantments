@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.util;
+package qu.quEnchantments.util;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -8,9 +8,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ActionResult;
-import net.qu.quEnchantments.callbacks.*;
-import net.qu.quEnchantments.enchantments.*;
-import net.qu.quEnchantments.world.ModWorldEvents;
+import qu.quEnchantments.enchantments.*;
+import qu.quEnchantments.world.ModWorldEvents;
+import qu.quEnchantments.callbacks.AnvilEvents;
+import qu.quEnchantments.callbacks.ApplyMovementEffectsCallback;
+import qu.quEnchantments.callbacks.LivingEntityTickCallback;
+import qu.quEnchantments.callbacks.MobAttackCallback;
 
 public class ModEvents {
 

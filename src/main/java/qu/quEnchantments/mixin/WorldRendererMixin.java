@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.mixin;
+package qu.quEnchantments.mixin;
 
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;

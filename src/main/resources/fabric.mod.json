@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.qu.quEnchantments.QuEnchantments"
+      "qu.quEnchantments.QuEnchantments"
     ]
   },
   "mixins": [

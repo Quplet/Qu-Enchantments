@@ -1,11 +1,11 @@
-package net.qu.quEnchantments.enchantments;
+package qu.quEnchantments.enchantments;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.QuEnchantments;
 
 public class ModEnchantments {
     public static final Enchantment FREEZING_ASPECT = register("freezing_aspect", new FreezingAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));

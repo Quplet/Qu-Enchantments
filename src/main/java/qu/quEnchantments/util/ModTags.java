@@ -1,14 +1,11 @@
-package net.qu.quEnchantments.util;
+package qu.quEnchantments.util;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.QuEnchantments;
 
 public class ModTags {
 

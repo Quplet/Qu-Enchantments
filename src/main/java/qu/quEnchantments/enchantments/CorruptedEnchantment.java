@@ -1,8 +1,7 @@
-package net.qu.quEnchantments.enchantments;
+package qu.quEnchantments.enchantments;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -12,9 +11,8 @@ import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.qu.quEnchantments.util.ModTags;
+import qu.quEnchantments.util.ModTags;
 
 import java.util.Map;
 import java.util.Set;

@@ -1,9 +1,8 @@
-package net.qu.quEnchantments.callbacks;
+package qu.quEnchantments.callbacks;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 
 public interface ApplyMovementEffectsCallback {

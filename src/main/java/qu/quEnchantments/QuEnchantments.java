@@ -1,10 +1,10 @@
-package net.qu.quEnchantments;
+package qu.quEnchantments;
 
 import net.fabricmc.api.ModInitializer;
-import net.qu.quEnchantments.blocks.ModBlocks;
-import net.qu.quEnchantments.enchantments.ModEnchantments;
-import net.qu.quEnchantments.util.ModEvents;
-import net.qu.quEnchantments.util.ModLootTableModifier;
+import qu.quEnchantments.blocks.ModBlocks;
+import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.util.ModEvents;
+import qu.quEnchantments.util.ModLootTableModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

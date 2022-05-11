@@ -1,4 +1,4 @@
-package net.qu.quEnchantments.enchantments;
+package qu.quEnchantments.enchantments;
 
 import net.minecraft.block.*;
 import net.minecraft.enchantment.DepthStriderEnchantment;
@@ -7,14 +7,11 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.qu.quEnchantments.blocks.ModBlocks;
-import net.qu.quEnchantments.world.ModWorldEvents;
-
-import java.util.Random;
+import qu.quEnchantments.blocks.ModBlocks;
+import qu.quEnchantments.world.ModWorldEvents;
 
 public class MoltenWalkerEnchantment extends Enchantment {
     public MoltenWalkerEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {

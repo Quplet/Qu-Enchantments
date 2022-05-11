@@ -1,10 +1,9 @@
-package net.qu.quEnchantments.mixin;
+package qu.quEnchantments.mixin;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.qu.quEnchantments.callbacks.ApplyMovementEffectsCallback;
-import net.qu.quEnchantments.callbacks.LivingEntityTickCallback;
+import qu.quEnchantments.callbacks.ApplyMovementEffectsCallback;
+import qu.quEnchantments.callbacks.LivingEntityTickCallback;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

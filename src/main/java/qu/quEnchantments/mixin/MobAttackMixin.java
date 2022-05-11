@@ -1,9 +1,8 @@
-package net.qu.quEnchantments.mixin;
+package qu.quEnchantments.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.ActionResult;
-import net.qu.quEnchantments.callbacks.MobAttackCallback;
+import qu.quEnchantments.callbacks.MobAttackCallback;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

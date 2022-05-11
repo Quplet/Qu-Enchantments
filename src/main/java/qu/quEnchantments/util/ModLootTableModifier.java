@@ -1,7 +1,6 @@
-package net.qu.quEnchantments.util;
+package qu.quEnchantments.util;
 
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
@@ -13,7 +12,7 @@ import net.minecraft.loot.function.SetEnchantmentsLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.util.Identifier;
-import net.qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.enchantments.ModEnchantments;
 
 public class ModLootTableModifier {
     private static final Identifier END_CITY_TREASURE_ID = new Identifier("minecraft", "chests/end_city_treasure");
