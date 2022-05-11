@@ -42,6 +42,9 @@ Corrupted enchantments are sorted by categories based on their effect. Right now
 
 You can add or edit what enchantments fall under which category by changing the .json files in `data/qu-enchantments/tags/enchantment/`.
 
+The Nightblood corrupted enchantment will one-hit kill every entity not listed in 
+`data/qu-enchantments/tags/entity_types/nightblood_immune_entities.json`.
+
 ## License
 
 Copyright 2022 Quplet, Apache License 2.0. Please credit if you use or distribute my work.

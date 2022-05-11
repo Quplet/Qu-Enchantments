@@ -12,6 +12,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.WitherSkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.registry.Registry;
+import net.qu.quEnchantments.util.ModTags;
 
 import java.util.Random;
 
@@ -43,12 +45,13 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
      * this will not automatically be called. Has to called manually from an on hit event.
      * <p>If the user hit with a weapon that has the Nightblood Enchantment on it, will instakill all non-boss enemies
      * (excluding Wither Skeleton). This does include players. Upon instakill, will create smoke particles around the
-     * target.
+     * target. Entities that you wish to exclude from the instakill should be specified in
+     * {@code data/qu-enchantments/tags/entity_types/nightblood_immune_entities.json}.
      * @param user The {@link LivingEntity} attacker.
      * @param target the {@link Entity} subject being attacked.
      */
     public static void onTargetHit(LivingEntity user, Entity target) {
-        if (target.getType() != EntityType.ENDER_DRAGON && target.getType() != EntityType.WITHER && target.getType() != EntityType.WITHER_SKELETON) {
+        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.EntityTypes.NIGHTBLOOD_IMMUNE_ENTITIES)) {
             if (!target.world.isClient()) {
                 if (user instanceof PlayerEntity) {
                     target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
@@ -61,7 +64,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
                 double f = random.nextGaussian() * 0.02;
-                target.world.addParticle(ParticleTypes.SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), d, e, f);
+                target.world.addParticle(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), d, e, f);
             }
         }
     }
