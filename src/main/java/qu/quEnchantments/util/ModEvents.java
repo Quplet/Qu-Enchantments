@@ -64,19 +64,22 @@ public class ModEvents {
         });
 
         LivingEntityTickCallback.EVENT.register(livingEntity -> {
-            if (livingEntity instanceof PlayerEntity player) {
-                for (ItemStack stack : player.getInventory().main) {
-                    CorruptedEnchantment.corruptEnchantments(stack);
+            if (!livingEntity.world.isClient) {
+                if (livingEntity instanceof PlayerEntity player) {
+                    for (ItemStack stack : player.getInventory().main) {
+                        CorruptedEnchantment.corruptEnchantments(stack);
+                    }
+                } else {
+                    for (ItemStack stack : livingEntity.getItemsEquipped()) {
+                        CorruptedEnchantment.corruptEnchantments(stack);
+                    }
                 }
-            } else {
-                for (ItemStack stack : livingEntity.getItemsEquipped()) {
-                    CorruptedEnchantment.corruptEnchantments(stack);
+                int i;
+                if ((i = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, livingEntity.getMainHandStack())) > 0) {
+                    NightbloodEnchantment.drain(livingEntity, i);
                 }
             }
-            int i;
-            if ((i = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, livingEntity.getMainHandStack())) > 0) {
-                NightbloodEnchantment.drain(livingEntity, i);
-            }
+
         });
 
         ApplyMovementEffectsCallback.EVENT.register((entity, blockPos) -> {
@@ -85,5 +88,7 @@ public class ModEvents {
                 MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
             }
         });
+
+
     }
 }
