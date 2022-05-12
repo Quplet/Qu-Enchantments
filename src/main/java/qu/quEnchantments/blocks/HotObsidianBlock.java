@@ -36,7 +36,7 @@ public class HotObsidianBlock extends Block {
         if (!entity.isFireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
             int i = state.get(AGE);
             if (i > 0 && i < 4) {
-                entity.damage(DamageSource.HOT_FLOOR, 1.0f + 0.1f * i - 1);
+                entity.damage(DamageSource.HOT_FLOOR, 1.0f + 0.1f * (i - 1));
             }
         }
         super.onSteppedOn(world, pos, state, entity);
