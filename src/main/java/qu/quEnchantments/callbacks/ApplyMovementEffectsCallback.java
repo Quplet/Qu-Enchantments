@@ -9,7 +9,7 @@ public interface ApplyMovementEffectsCallback {
 
     /**
      * Called at the end of {@link LivingEntity}'s applyMovementEffects method. Ie, at the end of each tick the
-     * LivingEntity is moving (not while crouched).
+     * LivingEntity is moving (not while crouched). This is only called Server side.
      */
     Event<ApplyMovementEffectsCallback> EVENT = EventFactory.createArrayBacked(ApplyMovementEffectsCallback.class,
             (listeners) -> (entity, blockPos) -> {
