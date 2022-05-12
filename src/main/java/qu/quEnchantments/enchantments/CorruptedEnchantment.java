@@ -15,6 +15,7 @@ import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.util.ModTags;
 
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -39,8 +40,10 @@ public abstract class CorruptedEnchantment extends Enchantment {
      */
     @Override
     public Text getName(int level) {
+        Random random = new Random();
         TranslatableText mutableText = new TranslatableText(this.getTranslationKey());
         mutableText.formatted(Formatting.LIGHT_PURPLE);
+        if (random.nextFloat() < 0.02f * level) mutableText.formatted(Formatting.OBFUSCATED);
         if (level != 1) {
             mutableText.append(" ").append(new TranslatableText("enchantment.level." + level));
         }
