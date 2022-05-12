@@ -6,6 +6,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.util.ModTags;
@@ -54,7 +56,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
                     target.damage(DamageSource.mob(user), Float.MAX_VALUE);
                 }
             }
-            Random random = new Random();
+            Random random = target.world.getRandom();
             for (int i = 0; i < 20; ++i) {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;

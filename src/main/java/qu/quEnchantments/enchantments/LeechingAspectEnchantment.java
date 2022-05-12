@@ -48,7 +48,7 @@ public class LeechingAspectEnchantment extends Enchantment {
         if (!user.world.isClient()) {
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, level, 1, false, false, false));
         } else {
-            Random random = new Random();
+            Random random = user.world.getRandom();
             double d = random.nextGaussian() * 0.02;
             double e = random.nextGaussian() * 0.02;
             double f = random.nextGaussian() * 0.02;

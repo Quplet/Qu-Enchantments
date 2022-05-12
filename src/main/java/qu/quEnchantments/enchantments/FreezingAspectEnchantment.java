@@ -52,7 +52,7 @@ public class FreezingAspectEnchantment extends Enchantment {
                 target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 50 + 25 * (level - 1), 1, false, false, false));
             }
         } else {
-            Random random = new Random();
+            Random random = target.world.getRandom();
             for (int i = 0; i < 20; ++i) {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
