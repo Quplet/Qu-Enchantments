@@ -8,6 +8,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import qu.quEnchantments.enchantments.*;
 import qu.quEnchantments.world.ModWorldEvents;
 import qu.quEnchantments.callbacks.AnvilEvents;
@@ -59,15 +63,17 @@ public class ModEvents {
             }
         });
 
-        AnvilEvents.ANVIL_UPDATE.register(handler -> {
-            CorruptedEnchantment.corruptEnchantments(handler.getSlot(2).getStack());
-        });
+        AnvilEvents.ANVIL_UPDATE.register(handler -> CorruptedEnchantment.corruptEnchantments(handler.getSlot(2).getStack()));
 
         LivingEntityTickCallback.EVENT.register(livingEntity -> {
             if (!livingEntity.world.isClient) {
                 if (livingEntity instanceof PlayerEntity player) {
                     for (ItemStack stack : player.getInventory().main) {
                         CorruptedEnchantment.corruptEnchantments(stack);
+                    }
+                    int i;
+                    if (player.world.getRegistryKey() != World.NETHER && player.isSneaking() && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.SKYWALKER, player)) > 0) {
+                        SkywalkerEnchantment.condenseCloud(player, player.world, i);
                     }
                 } else {
                     for (ItemStack stack : livingEntity.getItemsEquipped()) {
@@ -79,7 +85,6 @@ public class ModEvents {
                     NightbloodEnchantment.drain(livingEntity, i);
                 }
             }
-
         });
 
         ApplyMovementEffectsCallback.EVENT.register((entity, blockPos) -> {

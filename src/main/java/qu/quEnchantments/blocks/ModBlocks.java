@@ -1,16 +1,17 @@
 package qu.quEnchantments.blocks;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
 import qu.quEnchantments.QuEnchantments;
 
 public class ModBlocks {
 
     public static Block HOT_OBSIDIAN = register("hot_obsidian", new HotObsidianBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(50.0f, 1200.0f).luminance(state -> 7)));
+    public static Block CLOUD = register("cloud", new CloudBlock(AbstractBlock.Settings.of(Material.POWDER_SNOW).sounds(BlockSoundGroup.SNOW).breakInstantly().nonOpaque().suffocates(ModBlocks::never)));
 
     private static Block register(String name, Block block) {
         return Registry.register(Registry.BLOCK, new Identifier(QuEnchantments.MOD_ID, name), block);
@@ -18,5 +19,12 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         QuEnchantments.LOGGER.info("Registering ModBlocks for " + QuEnchantments.MOD_ID);
+    }
+
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
+        return false;
+    }
+    private static boolean always(BlockState state, BlockView world, BlockPos pos) {
+        return true;
     }
 }

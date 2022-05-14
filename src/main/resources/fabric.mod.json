@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "qu.quEnchantments.QuEnchantments"
+    ],
+    "client": [
+      "qu.quEnchantments.QuEnchantments"
     ]
   },
   "mixins": [
