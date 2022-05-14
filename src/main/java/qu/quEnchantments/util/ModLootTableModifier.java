@@ -30,11 +30,13 @@ public class ModLootTableModifier {
                     BASTION_OTHER_ID.equals(id) || BASTION_TREASURE_ID.equals(id)) {
                 supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.SHAPED_GLASS, 1));
                 supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.NIGHTBLOOD, 1));
+                supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.SKYWALKER, 1));
             }
 
             if (RUINED_PORTAL_ID.equals(id) || NETHER_BRIDGE_ID.equals(id)) {
                 supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.SHAPED_GLASS, 1));
                 supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.NIGHTBLOOD, 1));
+                supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.SKYWALKER, 1));
             }
 
         }));
