@@ -126,11 +126,9 @@ public abstract class CorruptedEnchantment extends Enchantment {
      * Contains a record of enchantment types currently in use by Corrupted Enchantments.
      */
     public enum EnchantmentType {
-        DAMAGE(ModTags.Enchantments.WEAPON_DAMAGE_ENCHANTMENTS),
-        ASPECT(ModTags.Enchantments.WEAPON_ASPECT_ENCHANTMENTS),
-
-
-        WALKER(ModTags.Enchantments.ARMOR_FEET_WALKER_ENCHANTMENTS); //Unused atm
+        DAMAGE(ModTags.WEAPON_DAMAGE_ENCHANTMENTS),
+        ASPECT(ModTags.WEAPON_ASPECT_ENCHANTMENTS),
+        WALKER(ModTags.ARMOR_FEET_WALKER_ENCHANTMENTS);
 
         private final TagKey<Enchantment> corruptible;
 

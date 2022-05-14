@@ -48,7 +48,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
      * @param target the {@link Entity} subject being attacked.
      */
     public static void onTargetHit(LivingEntity user, Entity target) {
-        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.EntityTypes.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
             if (!target.world.isClient()) {
                 if (user instanceof PlayerEntity) {
                     target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
