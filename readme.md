@@ -38,8 +38,8 @@ other enchantments of the same type. Might want to pick your battles wisely with
 If you want to use this mod for a modpack, I've put in some features to allow for more compatibility between the 
 functionality of my mod and others that add enchantments.
 
-Corrupted enchantments are sorted by categories based on their effect. Right now there are only two that do anything: 
-`Damage` and `Aspect`. `Walker` also exists, but currently has no corrupted enchantments for it. (Coming soon)
+Corrupted enchantments are sorted by categories based on their effect. Right now there are only three that do anything: 
+`Damage`, `Aspect`, and `Walker`.
 
 You can add or edit what enchantments fall under which category by changing the .json files in `data/qu-enchantments/tags/enchantment/`.
 
