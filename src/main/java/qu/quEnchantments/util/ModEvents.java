@@ -23,31 +23,29 @@ public class ModEvents {
 
     public static void RegisterModEvents() {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            if (!player.isSpectator() && entity instanceof LivingEntity) {
-                // Player logic for Freezing Aspect enchantment
-                int freeze = EnchantmentHelper.getLevel(ModEnchantments.FREEZING_ASPECT, player.getMainHandStack());
-                if (freeze > 0) FreezingAspectEnchantment.freeze((LivingEntity) entity, freeze);
-                // Player logic for Leeching Aspect enchantment
-                int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, player.getMainHandStack());
-                if (leech > 0) LeechingAspectEnchantment.leech(player, leech);
-                // Player logic for Nightblood enchantment
-                int nightblood = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, player.getMainHandStack());
-                if (nightblood > 0) NightbloodEnchantment.onTargetHit(player, entity);
+            if (!player.world.isClient) {
+                if (!player.isSpectator() && entity instanceof LivingEntity) {
+                    // Player logic for Freezing Aspect enchantment
+                    int freeze = EnchantmentHelper.getLevel(ModEnchantments.FREEZING_ASPECT, player.getMainHandStack());
+                    if (freeze > 0) FreezingAspectEnchantment.freeze((LivingEntity) entity, freeze);
+                    // Player logic for Leeching Aspect enchantment
+                    int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, player.getMainHandStack());
+                    if (leech > 0) LeechingAspectEnchantment.leech(player, leech);
+                }
             }
             return ActionResult.PASS;
         });
 
         MobAttackCallback.EVENT.register((user, target) -> {
-            if (target instanceof LivingEntity) {
-                // Mob logic for Freezing Aspect enchantment
-                int freeze = EnchantmentHelper.getLevel(ModEnchantments.FREEZING_ASPECT, user.getMainHandStack());
-                if (freeze > 0) FreezingAspectEnchantment.freeze((LivingEntity) target, freeze);
-                // Mob logic for Leeching Aspect enchantment
-                int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, user.getMainHandStack());
-                if (leech > 0) LeechingAspectEnchantment.leech(user, leech);
-                // Mob logic for Nightblood enchantment
-                int nightblood = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, user.getMainHandStack());
-                if (nightblood > 0) NightbloodEnchantment.onTargetHit(user, target);
+            if (!user.world.isClient) {
+                if (target instanceof LivingEntity) {
+                    // Mob logic for Freezing Aspect enchantment
+                    int freeze = EnchantmentHelper.getLevel(ModEnchantments.FREEZING_ASPECT, user.getMainHandStack());
+                    if (freeze > 0) FreezingAspectEnchantment.freeze((LivingEntity) target, freeze);
+                    // Mob logic for Leeching Aspect enchantment
+                    int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, user.getMainHandStack());
+                    if (leech > 0) LeechingAspectEnchantment.leech(user, leech);
+                }
             }
             return ActionResult.PASS;
         });
