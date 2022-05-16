@@ -31,9 +31,6 @@ public class ModEvents {
                     // Player logic for Leeching Aspect enchantment
                     int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, player.getMainHandStack());
                     if (leech > 0) LeechingAspectEnchantment.leech(player, leech);
-                    // Player logic for Nightblood enchantment
-                    //int nightblood = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, player.getMainHandStack());
-                    //if (nightblood > 0) NightbloodEnchantment.onTargetHit(player, entity);
                 }
             }
             return ActionResult.PASS;
@@ -48,9 +45,6 @@ public class ModEvents {
                     // Mob logic for Leeching Aspect enchantment
                     int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, user.getMainHandStack());
                     if (leech > 0) LeechingAspectEnchantment.leech(user, leech);
-                    // Mob logic for Nightblood enchantment
-                    //int nightblood = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, user.getMainHandStack());
-                    //if (nightblood > 0) NightbloodEnchantment.onTargetHit(user, target);
                 }
             }
             return ActionResult.PASS;

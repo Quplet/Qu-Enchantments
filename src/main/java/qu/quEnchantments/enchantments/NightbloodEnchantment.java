@@ -96,7 +96,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         if (user instanceof PlayerEntity player) {
             if (!player.getAbilities().creativeMode) {
                 if (player.experienceLevel > 0 || player.experienceProgress > 0) {
-                    player.addExperience(-2 / level);
+                    player.addExperience(-4 / level);
                 } else if (user.world.getDifficulty().getId() != 0 && player.getHungerManager().getFoodLevel() > 0) {
                     player.getHungerManager().addExhaustion(1.5f / level);
                 } else {
