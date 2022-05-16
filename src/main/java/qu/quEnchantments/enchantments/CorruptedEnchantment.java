@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.TagKey;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.util.ModTags;
@@ -41,11 +41,11 @@ public abstract class CorruptedEnchantment extends Enchantment {
     @Override
     public Text getName(int level) {
         Random random = new Random();
-        TranslatableText mutableText = new TranslatableText(this.getTranslationKey());
+        MutableText mutableText = Text.translatable(this.getTranslationKey());
         mutableText.formatted(Formatting.LIGHT_PURPLE);
         if (random.nextFloat() < 0.02f * level) mutableText.formatted(Formatting.OBFUSCATED);
         if (level != 1) {
-            mutableText.append(" ").append(new TranslatableText("enchantment.level." + level));
+            mutableText.append(" ").append(Text.translatable("enchantment.level." + level));
         }
         return mutableText;
     }

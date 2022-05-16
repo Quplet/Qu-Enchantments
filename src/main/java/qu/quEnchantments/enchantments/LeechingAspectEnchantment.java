@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.random.AbstractRandom;
 
 import java.util.Random;
 
@@ -48,7 +49,7 @@ public class LeechingAspectEnchantment extends Enchantment {
         if (!user.world.isClient()) {
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, level, 1, false, false, false));
         } else {
-            Random random = user.world.getRandom();
+            AbstractRandom random = user.world.getRandom();
             double d = random.nextGaussian() * 0.02;
             double e = random.nextGaussian() * 0.02;
             double f = random.nextGaussian() * 0.02;

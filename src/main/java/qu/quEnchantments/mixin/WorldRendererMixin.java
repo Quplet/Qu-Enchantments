@@ -7,6 +7,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.AbstractRandom;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,8 +23,8 @@ public class WorldRendererMixin {
     @Shadow private @Nullable ClientWorld world;
 
     @Inject(at = @At("TAIL"), method = "processWorldEvent")
-    private void processEvent(PlayerEntity source, int eventId, BlockPos pos, int data, CallbackInfo info) {
-        Random random = world.random;
+    private void processEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
+        AbstractRandom random = world.random;
         switch (eventId) {
             case 14001 -> {
                 for (int i = 0; i < 2; ++i) {

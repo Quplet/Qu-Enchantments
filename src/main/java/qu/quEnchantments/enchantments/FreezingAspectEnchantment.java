@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.random.AbstractRandom;
 
 import java.util.Random;
 
@@ -52,7 +53,7 @@ public class FreezingAspectEnchantment extends Enchantment {
                 target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 50 + 25 * (level - 1), 1, false, false, false));
             }
         } else {
-            Random random = target.world.getRandom();
+            AbstractRandom random = target.world.getRandom();
             for (int i = 0; i < 20; ++i) {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
