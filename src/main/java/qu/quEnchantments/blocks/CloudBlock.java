@@ -68,7 +68,6 @@ public class CloudBlock extends Block {
         } else {
             entity.fallDistance = 0;
         }
-        System.out.println(entity.fallDistance);
         entity.setVelocity(a, b, c);
     }
 

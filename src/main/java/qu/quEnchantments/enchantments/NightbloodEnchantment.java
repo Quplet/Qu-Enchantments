@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.util.ModTags;
@@ -36,7 +37,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         return 2;
     }
 
-    /**
+    /*
      * Custom implementation of {@link net.minecraft.enchantment.Enchantment#onTargetDamaged(LivingEntity, Entity, int)
      * onTargetDamaged} that allows for client side activity. Unlike
      * {@link net.minecraft.enchantment.Enchantment#onTargetDamaged(LivingEntity, Entity, int) onTargetDamaged},
@@ -47,22 +48,41 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
      * {@code data/qu-enchantments/tags/entity_types/nightblood_immune_entities.json}.
      * @param user The {@link LivingEntity} attacker.
      * @param target the {@link Entity} subject being attacked.
-     */
+
     public static void onTargetHit(LivingEntity user, Entity target) {
-        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
-            if (!target.world.isClient()) {
+        if (!target.world.isClient()) {
+            if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
                 if (user instanceof PlayerEntity) {
                     target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
                 } else {
                     target.damage(DamageSource.mob(user), Float.MAX_VALUE);
                 }
+                AbstractRandom random = target.world.getRandom();
+                for (int i = 0; i < 20; ++i) {
+                    double d = random.nextGaussian() * 0.02;
+                    double e = random.nextGaussian() * 0.02;
+                    double f = random.nextGaussian() * 0.02;
+                    ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0);
+                }
+            }
+        }
+    }
+     */
+
+    @Override
+    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
+        if (!target.world.isClient && !Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+            if (user instanceof PlayerEntity) {
+                target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
+            } else {
+                target.damage(DamageSource.mob(user), Float.MAX_VALUE);
             }
             AbstractRandom random = target.world.getRandom();
             for (int i = 0; i < 20; ++i) {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
                 double f = random.nextGaussian() * 0.02;
-                target.world.addParticle(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), d, e, f);
+                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0);
             }
         }
     }
