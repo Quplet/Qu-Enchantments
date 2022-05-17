@@ -37,38 +37,6 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         return 2;
     }
 
-    /*
-     * Custom implementation of {@link net.minecraft.enchantment.Enchantment#onTargetDamaged(LivingEntity, Entity, int)
-     * onTargetDamaged} that allows for client side activity. Unlike
-     * {@link net.minecraft.enchantment.Enchantment#onTargetDamaged(LivingEntity, Entity, int) onTargetDamaged},
-     * this will not automatically be called. Has to called manually from an on hit event.
-     * <p>If the user hit with a weapon that has the Nightblood Enchantment on it, will instakill all non-boss enemies
-     * (excluding Wither Skeleton). This does include players. Upon instakill, will create smoke particles around the
-     * target. Entities that you wish to exclude from the instakill should be specified in
-     * {@code data/qu-enchantments/tags/entity_types/nightblood_immune_entities.json}.
-     * @param user The {@link LivingEntity} attacker.
-     * @param target the {@link Entity} subject being attacked.
-
-    public static void onTargetHit(LivingEntity user, Entity target) {
-        if (!target.world.isClient()) {
-            if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
-                if (user instanceof PlayerEntity) {
-                    target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
-                } else {
-                    target.damage(DamageSource.mob(user), Float.MAX_VALUE);
-                }
-                AbstractRandom random = target.world.getRandom();
-                for (int i = 0; i < 20; ++i) {
-                    double d = random.nextGaussian() * 0.02;
-                    double e = random.nextGaussian() * 0.02;
-                    double f = random.nextGaussian() * 0.02;
-                    ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0);
-                }
-            }
-        }
-    }
-     */
-
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
         if (!target.world.isClient && !Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
@@ -82,7 +50,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
                 double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0);
+                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
             }
         }
     }

@@ -58,7 +58,7 @@ public class FreezingAspectEnchantment extends Enchantment {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
                 double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0);
+                ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
             }
         }
     }

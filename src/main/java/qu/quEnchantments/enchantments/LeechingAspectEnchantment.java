@@ -53,7 +53,7 @@ public class LeechingAspectEnchantment extends Enchantment {
             double d = random.nextGaussian() * 0.02;
             double e = random.nextGaussian() * 0.02;
             double f = random.nextGaussian() * 0.02;
-            ((ServerWorld) user.world).spawnParticles(ParticleTypes.SNOWFLAKE, user.getParticleX(1.0), user.getRandomBodyY(), user.getParticleZ(1.0), 1, d, e, f, 0);
+            ((ServerWorld) user.world).spawnParticles(ParticleTypes.SNOWFLAKE, user.getParticleX(1.0), user.getRandomBodyY(), user.getParticleZ(1.0), 1, d, e, f, 0.0);
         }
     }
 }
