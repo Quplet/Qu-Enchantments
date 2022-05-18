@@ -31,6 +31,10 @@ dependencies {
 	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/qu-enchantments.accesswidener")
+}
+
 processResources {
 	inputs.property "version", project.version
 

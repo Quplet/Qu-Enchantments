@@ -23,19 +23,6 @@ public class BashingEnchantment extends Enchantment {
         return super.getMinPower(level) + 50;
     }
 
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        if (stack.isOf(Items.SHIELD)) {
-            return true;
-        }
-        return false;
-    }
-
     public static void bash(LivingEntity entity, LivingEntity attacker) {
         double d = entity.getX() - attacker.getX();
         double e = entity.getZ() - attacker.getZ();
@@ -44,6 +31,6 @@ public class BashingEnchantment extends Enchantment {
             e = (Math.random() - Math.random()) * 0.01;
         }
         attacker.knockbackVelocity = (float)(MathHelper.atan2(e, d) * 57.2957763671875 - (double)attacker.getYaw());
-        attacker.takeKnockback(0.5f, d, e);
+        attacker.takeKnockback(0.6f, d, e);
     }
 }

@@ -7,7 +7,8 @@
     "MobAttackMixin",
     "AnvilMixin",
     "LivingEntityMixin",
-    "LivingEntityAccessor"
+    "LivingEntityAccessor",
+    "ItemMixin"
 
   ],
   "client": [

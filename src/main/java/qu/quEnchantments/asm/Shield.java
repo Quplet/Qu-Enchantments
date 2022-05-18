@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 public class Shield extends ShieldTargetEnchantmentMixin {
 
     @Override
-    boolean isAcceptableItem(Item other) {
+    public boolean isAcceptableItem(Item other) {
         return other instanceof ShieldItem;
     }
 }
