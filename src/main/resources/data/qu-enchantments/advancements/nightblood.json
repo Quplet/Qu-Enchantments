@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:netherite_sword"
+    },
+    "title": "A terrible feeling...",
+    "description": "Do you want to destroy some Evil today?",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "minecraft:story/enchant_item",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "enchantments": [
+              {
+                "enchantment": "qu-enchantments:nightblood"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
