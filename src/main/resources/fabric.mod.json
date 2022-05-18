@@ -21,6 +21,9 @@
     "main": [
       "qu.quEnchantments.QuEnchantments"
     ],
+    "mm:early_risers": [
+      "qu.quEnchantments.asm.EarlyRiser"
+    ],
     "client": [
       "qu.quEnchantments.QuEnchantments"
     ]

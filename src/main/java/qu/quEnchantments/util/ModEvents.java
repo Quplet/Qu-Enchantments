@@ -2,21 +2,19 @@ package qu.quEnchantments.util;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import qu.quEnchantments.callbacks.LivingEntityEvents;
 import qu.quEnchantments.enchantments.*;
+import qu.quEnchantments.mixin.LivingEntityAccessor;
 import qu.quEnchantments.world.ModWorldEvents;
 import qu.quEnchantments.callbacks.AnvilEvents;
-import qu.quEnchantments.callbacks.ApplyMovementEffectsCallback;
-import qu.quEnchantments.callbacks.LivingEntityTickCallback;
 import qu.quEnchantments.callbacks.MobAttackCallback;
 
 public class ModEvents {
@@ -31,6 +29,10 @@ public class ModEvents {
                     // Player logic for Leeching Aspect enchantment
                     int leech = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, player.getMainHandStack());
                     if (leech > 0) LeechingAspectEnchantment.leech(player, leech);
+
+                    if (((LivingEntity) entity).isBlocking()) {
+
+                    }
                 }
             }
             return ActionResult.PASS;
@@ -63,7 +65,7 @@ public class ModEvents {
 
         AnvilEvents.ANVIL_UPDATE.register(handler -> CorruptedEnchantment.corruptEnchantments(handler.getSlot(2).getStack()));
 
-        LivingEntityTickCallback.EVENT.register(livingEntity -> {
+        LivingEntityEvents.ON_TICK_EVENT.register(livingEntity -> {
             if (!livingEntity.world.isClient) {
                 if (livingEntity instanceof PlayerEntity player) {
                     for (ItemStack stack : player.getInventory().main) {
@@ -85,7 +87,18 @@ public class ModEvents {
             }
         });
 
-        ApplyMovementEffectsCallback.EVENT.register((entity, blockPos) -> {
+        LivingEntityEvents.ON_BLOCK_EVENT.register((source, entity) -> {
+            if (!entity.world.isClient) {
+                Entity attacker = source.getAttacker();
+                if (attacker instanceof LivingEntity) {
+                    if (EnchantmentHelper.getLevel(ModEnchantments.BASHING, ((LivingEntityAccessor) entity).getActiveItemStack()) > 0) {
+                        BashingEnchantment.bash(entity, (LivingEntity) attacker);
+                    }
+                }
+            }
+        });
+
+        LivingEntityEvents.ON_MOVEMENT_EFFECTS_EVENT.register((entity, blockPos) -> {
             int i;
             if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
                 MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
