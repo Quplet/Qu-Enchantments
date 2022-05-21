@@ -11,7 +11,7 @@ proud of my work, I will not claim it is professional-level. I do think what I'v
 ## Installation
 
 This mod requires Fabric. I have no plans at the moment for making a Forge equivalent. I have not extensively tested 
-what Fabric Loader versions work and don't work. This mod uses Minecraft 1.19 snapshots+, so I believe any Fabric Loader 
+what Fabric Loader versions work and don't work. This mod uses Minecraft 1.19 pre-release 1, so I believe any Fabric Loader 
 0.14.5 and beyond should work. This mod does utilize the [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) 
 so make sure you have that as well.
 
