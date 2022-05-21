@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "minecraft:block/obsidian"
+    "all": "qu-enchantments:block/hot_obsidian_0"
   }
 }
