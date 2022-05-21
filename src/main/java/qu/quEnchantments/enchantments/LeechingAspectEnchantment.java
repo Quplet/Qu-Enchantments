@@ -47,7 +47,8 @@ public class LeechingAspectEnchantment extends Enchantment {
      */
     public static void leech(LivingEntity user, int level) {
         if (!user.world.isClient()) {
-            user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, level, 1, false, false, false));
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, false, false, false));
+            user.heal(0.25f * level);
             Random random = user.world.getRandom();
             for (int i = 0; i < 20; ++i) {
                 double d = random.nextGaussian() * 0.02;
