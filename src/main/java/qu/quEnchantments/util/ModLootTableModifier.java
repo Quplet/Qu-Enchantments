@@ -23,6 +23,8 @@ public class ModLootTableModifier {
     private static final Identifier RUINED_PORTAL_ID = new Identifier("minecraft", "chests/ruined_portal");
     private static final Identifier NETHER_BRIDGE_ID = new Identifier("minecraft", "chests/nether_bridge");
 
+    private static final Identifier WITCH_ID = new Identifier("minecraft", "entities/witch");
+
     public static void ModifyLootTables() {
         LootTableLoadingCallback.EVENT.register(((resourceManager, manager, id, supplier, setter) -> {
 
@@ -39,6 +41,18 @@ public class ModLootTableModifier {
                 supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.SKYWALKER, 1));
             }
 
+            if (WITCH_ID.equals(id)) {
+                FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(0.005f))
+                        .withEntry(ItemEntry.builder(Items.BOOK)
+                                .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.SHAPED_GLASS, ConstantLootNumberProvider.create(1))).build())
+                        .withEntry(ItemEntry.builder(Items.BOOK)
+                                .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.NIGHTBLOOD, ConstantLootNumberProvider.create(1))).build())
+                        .withEntry(ItemEntry.builder(Items.BOOK)
+                                .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.SKYWALKER, ConstantLootNumberProvider.create(1))).build());
+                supplier.withPool(poolBuilder.build());
+            }
         }));
     }
 
@@ -52,7 +66,7 @@ public class ModLootTableModifier {
      * @return The created {@link LootPool}.
      */
     public static LootPool createLootPool(int rolls, float chance, Item item, Enchantment enchantment, int level) {
-        return createLootPool(rolls, chance, item).withFunction(new SetEnchantmentsLootFunction.Builder(true)
+        return createLootPool(rolls, chance, item).withFunction(new SetEnchantmentsLootFunction.Builder(false)
                 .enchantment(enchantment, ConstantLootNumberProvider.create(level)).build()).build();
     }
 
@@ -68,7 +82,7 @@ public class ModLootTableModifier {
      * @return The created {@link LootPool}.
      */
     public static LootPool createLootPool(int rolls, float chance, Item item, Enchantment enchantment, int minLevel, int maxLevel) {
-        return createLootPool(rolls, chance, item).withFunction(new SetEnchantmentsLootFunction.Builder(true)
+        return createLootPool(rolls, chance, item).withFunction(new SetEnchantmentsLootFunction.Builder(false)
                 .enchantment(enchantment, UniformLootNumberProvider.create(minLevel, maxLevel)).build()).build();
     }
 
