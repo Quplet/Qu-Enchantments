@@ -3,10 +3,9 @@ package qu.quEnchantments.enchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.FireAspectEnchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.AbstractRandom;
@@ -41,25 +40,18 @@ public class FreezingAspectEnchantment extends Enchantment {
         return super.getMinPower(level) + 50;
     }
 
-    /**
-     * Slows the {@code target} for a short duration.
-     * @param target The {@link LivingEntity} target.
-     * @param level The level of the enchantment.
-     */
-    public static void freeze(LivingEntity target, int level) {
-        if (!target.world.isClient()) {
-            target.extinguish();
-            if (target.canFreeze()) {
-                target.setFrozenTicks(target.getMinFreezeDamageTicks() + 1);
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 50 + 25 * (level - 1), 1, false, false, false));
-            }
-            AbstractRandom random = target.world.getRandom();
-            for (int i = 0; i < 20; ++i) {
-                double d = random.nextGaussian() * 0.02;
-                double e = random.nextGaussian() * 0.02;
-                double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
-            }
+    @Override
+    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
+        target.extinguish();
+        if (target.canFreeze()) {
+            target.setFrozenTicks(target.getMinFreezeDamageTicks() + 75 * level);
+        }
+        AbstractRandom random = target.world.getRandom();
+        for (int i = 0; i < 20; ++i) {
+            double d = random.nextGaussian() * 0.02;
+            double e = random.nextGaussian() * 0.02;
+            double f = random.nextGaussian() * 0.02;
+            ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
         }
     }
 }

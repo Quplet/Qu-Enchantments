@@ -50,17 +50,10 @@ public class HotObsidianBlock extends Block {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
-        if ((random.nextInt(3) == 0 || this.canMelt(world, pos, 4)) && this.increaseAge(state, world, pos)) {
-            BlockPos.Mutable mutable = new BlockPos.Mutable();
-            for (Direction direction : Direction.values()) {
-                mutable.set(pos, direction);
-                BlockState blockState = world.getBlockState(mutable);
-                if (!blockState.isOf(this) || this.increaseAge(blockState, world, mutable)) continue;
-                world.createAndScheduleBlockTick(mutable, this, MathHelper.nextInt(random, 20, 40));
-            }
-            return;
+        if (this.canAge(world, pos, 4)) {
+            if (this.increaseAge(state, world, pos)) return;
         }
-        world.createAndScheduleBlockTick(pos, this, MathHelper.nextInt(random, 20, 40));
+        world.createAndScheduleBlockTick(pos, this, MathHelper.nextInt(random, 20, 80));
     }
 
     @Override
@@ -88,14 +81,6 @@ public class HotObsidianBlock extends Block {
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-        if (block.getDefaultState().isOf(this) && this.canMelt(world, pos, 2)) {
-            this.melt(world, pos);
-        }
-        super.neighborUpdate(state, world, pos, block, fromPos, notify);
-    }
-
-    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction != Direction.DOWN && neighborState.getBlock() == Blocks.WATER) {
             world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState(), Block.NOTIFY_ALL);
@@ -104,12 +89,12 @@ public class HotObsidianBlock extends Block {
         return state;
     }
 
-    private boolean canMelt(BlockView world, BlockPos pos, int maxNeighbors) {
+    private boolean canAge(BlockView world, BlockPos pos, int maxNeighbors) {
         int i = 0;
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         for (Direction direction : Direction.values()) {
             mutable.set(pos, direction);
-            if (!world.getBlockState(mutable).isOf(this) || ++i < maxNeighbors) continue;
+            if (!(world.getBlockState(mutable).isOf(this) && world.getBlockState(mutable).get(AGE) < MAX_AGE - 3) || ++i < maxNeighbors) continue;
             return false;
         }
         return true;

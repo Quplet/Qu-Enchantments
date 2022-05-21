@@ -5,16 +5,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.AbstractRandom;
 import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.util.ModTags;
-
-import java.util.Random;
 
 public class NightbloodEnchantment extends CorruptedEnchantment {
 
@@ -39,24 +37,26 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if (!target.world.isClient && !Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).get()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).orElseThrow()).get().left().orElseThrow().isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
             if (user instanceof PlayerEntity) {
                 target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
             } else {
                 target.damage(DamageSource.mob(user), Float.MAX_VALUE);
             }
-            AbstractRandom random = target.world.getRandom();
-            for (int i = 0; i < 20; ++i) {
-                double d = random.nextGaussian() * 0.02;
-                double e = random.nextGaussian() * 0.02;
-                double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
-            }
+        } else if (target instanceof LivingEntity livingEntity) {
+            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, false), user);
+        }
+        AbstractRandom random = target.world.getRandom();
+        for (int i = 0; i < 20; ++i) {
+            double d = random.nextGaussian() * 0.02;
+            double e = random.nextGaussian() * 0.02;
+            double f = random.nextGaussian() * 0.02;
+            ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
         }
     }
 
     /**
-     * Will remove 2/level xp from the user until drained, then hunger, then health.
+     * Will remove 4/level xp from the user until drained, then hunger, then health.
      * @param user The {@link LivingEntity} to drain.
      * @param level The level of the enchantment.
      */
