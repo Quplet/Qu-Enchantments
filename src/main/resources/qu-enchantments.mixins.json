@@ -4,12 +4,9 @@
   "package": "qu.quEnchantments.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MobAttackMixin",
     "AnvilMixin",
     "LivingEntityMixin",
-    "LivingEntityAccessor",
     "ItemMixin"
-
   ],
   "client": [
     "WorldRendererMixin"
