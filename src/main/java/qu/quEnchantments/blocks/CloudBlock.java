@@ -3,6 +3,10 @@ package qu.quEnchantments.blocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.mob.CaveSpiderEntity;
+import net.minecraft.entity.mob.EndermiteEntity;
+import net.minecraft.entity.mob.SilverfishEntity;
+import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
@@ -46,8 +50,10 @@ public class CloudBlock extends Block {
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Entity entity;
         if (context instanceof EntityShapeContext && (entity = ((EntityShapeContext)context).getEntity()) != null) {
-            if (entity.getY() >= pos.getY() + 0.875 && entity.fallDistance <= 1.0f) {
-                return COLLISION_SHAPE;
+            if (entity.isSneaking() || entity instanceof SpiderEntity || entity instanceof SilverfishEntity || entity instanceof EndermiteEntity) {
+                if (entity.getY() >= pos.getY() + 0.875 && entity.fallDistance <= 1.0f) {
+                    return COLLISION_SHAPE;
+                }
             }
         }
         return VoxelShapes.empty();
