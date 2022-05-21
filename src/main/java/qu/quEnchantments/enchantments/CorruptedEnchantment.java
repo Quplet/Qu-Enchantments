@@ -81,15 +81,15 @@ public abstract class CorruptedEnchantment extends Enchantment {
      * Accepts an ItemStack and, if the stack contains a Corrupted Enchantment, will corrupt all other enchantments of
      * the same type. The Corrupted Enchantment's level will match the highest consumed enchantment's level.
      * @param stack The {@link ItemStack} to corrupt.
-     * @return True if successfully corrupted, false otherwise.
      */
-    public static boolean corruptEnchantments(ItemStack stack) {
-        if (stack == null) return false;
-        if (stack.isEmpty()) return false;
-        if (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) return false;
+    public static void corruptEnchantments(ItemStack stack) {
+        if (stack == null) return;
+        if (stack.isEmpty()) return;
+        if (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) return;
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
-        if (enchantments.size() < 2) return false;
-        if (stack.getOrCreateNbt().getShort("Corrupted") > 0 && stack.getOrCreateNbt().getShort("Corrupted") <= enchantments.size()) return false;
+        if (enchantments.size() < 2) return;
+        int bl = stack.getOrCreateNbt().getShort("Corrupted");
+        if (bl == enchantments.size()) return;
         CorruptedEnchantment corruptedEnchantment = null;
         int cLevel = 0;
         for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
@@ -99,27 +99,24 @@ public abstract class CorruptedEnchantment extends Enchantment {
                 break;
             }
         }
-        if (corruptedEnchantment == null) {
-            return false;
-        }
+        if (corruptedEnchantment == null) return;
         int levels = 0;
         Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
         for (Enchantment enchantment : newSet) {
-            if (Registry.ENCHANTMENT.getOrCreateEntry(Registry.ENCHANTMENT.getKey(enchantment).get()).isIn(corruptedEnchantment.enchantmentType.corruptible)) {
+            if (Registry.ENCHANTMENT.getOrCreateEntry(Registry.ENCHANTMENT.getKey(enchantment).orElseThrow()).get().left().orElseThrow().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
                 levels += enchantments.remove(enchantment);
             }
         }
-        if (levels == 0) return false;
-        if (levels == cLevel) levels++;
-
-        levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
-        enchantments.put(corruptedEnchantment, levels);
-        if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt("StoredEnchantments");
-        EnchantmentHelper.set(enchantments, stack);
+        if (levels > 0) {
+            if (levels == cLevel) levels++;
+            levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
+            enchantments.put(corruptedEnchantment, levels);
+            if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt("StoredEnchantments");
+            EnchantmentHelper.set(enchantments, stack);
+        }
         NbtCompound nbtCompound = new NbtCompound();
         nbtCompound.putShort("Corrupted", (short) enchantments.size());
         stack.getOrCreateNbt().put("Corrupted", nbtCompound);
-        return true;
     }
 
     /**
