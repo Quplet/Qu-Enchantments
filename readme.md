@@ -17,18 +17,19 @@ so make sure you have that as well.
 
 ## Content
 
-This mod currently has 6 new enchantments as of 0.6.0-1.18.2.
+This mod currently has 7 new enchantments as of 0.7.0-1.19-pre1.
 
 - Normal Enchantments
-  - Freezing Aspect Enchantment (I-II) - Slows enemy on hit.
-  - Leeching Aspect Enchantment (I-II) - Heals a small amount on hit.
-  - Molten Walker Enchantment (I-II) (Work in Progress) - Harden's lava for a short time as you walk.
+  - Freezing Aspect Enchantment (I-II) (Sword) - Slows enemy on hit.
+  - Leeching Aspect Enchantment (I-II) (Sword) - Heals a small amount on hit.
+  - Molten Walker Enchantment (I-II) (Boots) (Textures are a work in Progress) - Harden's lava for a short time as you walk.
+  - Bashing Enchantment (Shield) - When hit while guarding, knocks your attacker back a small amount.
 
 - Corrupted Enchantments 
-  - Shaped Glass Enchantment (I-V) - Increased damage, but increases damage to item. Corrupts all damage enchantments.
-  - Nightblood Enchantment (I-II) - Will oneshot any non-boss enemy (and Wither Skeletons), but will drain your xp, hunger,
+  - Shaped Glass Enchantment (I-V) (Sword/Axe) - Increased damage, but increases damage to item. Corrupts all damage enchantments.
+  - Nightblood Enchantment (I-II) (Sword) - Will oneshot any non-boss enemy (and Wither Skeletons), but will drain your xp, hunger,
 then health while held. Corrupts all aspect enchantments.
-  - Skywalker Enchantment (I-II) - While crouching, will condense cloud blocks underneath you for you to walk on.
+  - Skywalker Enchantment (I-II) (Boots) - While crouching, will condense cloud blocks underneath you for you to walk on.
 
 Corrupted Enchantments are a new type of enchantments that offer a powerful ability with a drawback. They will consume 
 other enchantments of the same type. Might want to pick your battles wisely with these...
@@ -45,6 +46,11 @@ You can add or edit what enchantments fall under which category by changing the 
 
 The Nightblood corrupted enchantment will one-hit kill every entity not listed in 
 `data/qu-enchantments/tags/entity_types/nightblood_immune_entities.json`.
+
+## Dependencies and Credits
+
+This mod relies on [Fabric-ASM](https://github.com/Chocohead/Fabric-ASM) by Chocohead. It is built into the mod, so there is no need to download anything.
+Thanks to E_Leven for all the textures I requested made (Hot Obsidian Block).
 
 ## License
 
