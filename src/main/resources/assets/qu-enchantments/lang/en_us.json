@@ -1,11 +1,18 @@
 {
   "enchantment.qu-enchantments.freezing_aspect": "Freezing Aspect",
+  "enchantment.qu-enchantments.freezing_aspect.desc": "Causes a mob to slow when hit with this item.",
   "enchantment.qu-enchantments.leeching_aspect": "Leeching Aspect",
+  "enchantment.qu-enchantments.leeching_aspect.desc": "Gain some heath when used to attack a mob.",
   "enchantment.qu-enchantments.shaped_glass": "Shaped Glass",
+  "enchantment.qu-enchantments.shaped_glass.desc": "Massive increase to damage dealt, but the item will take more damage in return.",
   "enchantment.qu-enchantments.nightblood": "Nightblood",
+  "enchantment.qu-enchantments.nightblood.desc": "Hello. Would you like to destroy some Evil today?",
   "enchantment.qu-enchantments.molten_walker": "Molten Walker",
+  "enchantment.qu-enchantments.molten_walker.desc": "Hardens lava under the player into hot obsidian.",
   "enchantment.qu-enchantments.skywalker": "Skywalker",
+  "enchantment.qu-enchantments.skywalker.desc": "Condenses a cloud under the player, but they must remain crouching.",
   "enchantment.qu-enchantments.bashing": "Bashing",
+  "enchantment.qu-enchantments.bashing.desc": "Causes knockback to enemies when they hit your shield.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
   "block.qu-enchantments.cloud": "Cloud"
