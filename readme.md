@@ -29,7 +29,8 @@ This mod currently has 7 new enchantments as of 0.7.0-1.19-pre1.
   - Shaped Glass Enchantment (I-V) (Sword/Axe) - Increased damage, but increases damage to item. Corrupts all damage enchantments.
   - Nightblood Enchantment (I-II) (Sword) - Will oneshot any non-boss enemy (and Wither Skeletons), but will drain your xp, hunger,
 then health while held. Corrupts all aspect enchantments.
-  - Skywalker Enchantment (I-II) (Boots) - While crouching, will condense cloud blocks underneath you for you to walk on.
+  - Skywalker Enchantment (I-II) (Boots) - While crouching, will condense cloud blocks underneath you for you to walk on. 
+  Corrupts all walker enchantments.
 
 Corrupted Enchantments are a new type of enchantments that offer a powerful ability with a drawback. They will consume 
 other enchantments of the same type. Might want to pick your battles wisely with these...
