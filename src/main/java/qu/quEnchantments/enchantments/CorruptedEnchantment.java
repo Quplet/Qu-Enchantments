@@ -103,7 +103,7 @@ public abstract class CorruptedEnchantment extends Enchantment {
         int levels = 0;
         Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
         for (Enchantment enchantment : newSet) {
-            if (Registry.ENCHANTMENT.getOrCreateEntry(Registry.ENCHANTMENT.getKey(enchantment).orElseThrow()).get().left().orElseThrow().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
+            if (Registry.ENCHANTMENT.getOrCreateEntry(Registry.ENCHANTMENT.getKey(enchantment).orElseThrow()).isIn(corruptedEnchantment.enchantmentType.corruptible)) {
                 levels += enchantments.remove(enchantment);
             }
         }

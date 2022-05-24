@@ -15,14 +15,11 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
-
-import java.util.Random;
-// TODO make texture for this block
 public class HotObsidianBlock extends Block {
 
     public static final int MAX_AGE = 5;
@@ -44,12 +41,12 @@ public class HotObsidianBlock extends Block {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         this.scheduledTick(state, world, pos, random);
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, AbstractRandom random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (this.canAge(world, pos, 4)) {
             if (this.increaseAge(state, world, pos)) return;
         }

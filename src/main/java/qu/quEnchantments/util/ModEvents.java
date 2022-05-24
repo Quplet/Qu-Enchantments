@@ -10,7 +10,7 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import qu.quEnchantments.callbacks.LivingEntityEvents;
 import qu.quEnchantments.enchantments.*;
@@ -67,7 +67,7 @@ public class ModEvents {
                     if (EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, livingAttacker.getMainHandStack()) > 0) {
                         entity.getActiveItem().damage(Integer.MAX_VALUE, entity, e -> e.sendToolBreakStatus(entity.getActiveHand()));
                         entity.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8f, 0.8f + entity.world.random.nextFloat() * 0.4f);
-                        AbstractRandom random = entity.world.getRandom();
+                        Random random = entity.world.getRandom();
                         for (int i = 0; i < 10; ++i) {
                             double d = random.nextGaussian() * 0.02;
                             double e = random.nextGaussian() * 0.02;

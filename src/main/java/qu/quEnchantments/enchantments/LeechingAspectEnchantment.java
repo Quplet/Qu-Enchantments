@@ -10,9 +10,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.random.AbstractRandom;
-
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 public class LeechingAspectEnchantment extends Enchantment {
     public LeechingAspectEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
@@ -31,7 +29,7 @@ public class LeechingAspectEnchantment extends Enchantment {
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, false, false, false));
         user.heal(0.25f * level);
-        AbstractRandom random = user.world.getRandom();
+        Random random = user.world.getRandom();
         double d = random.nextGaussian() * 0.02;
         double e = random.nextGaussian() * 0.02;
         double f = random.nextGaussian() * 0.02;

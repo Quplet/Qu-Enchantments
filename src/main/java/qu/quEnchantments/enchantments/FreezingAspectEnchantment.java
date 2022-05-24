@@ -8,9 +8,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.random.AbstractRandom;
-
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 public class FreezingAspectEnchantment extends Enchantment {
     public FreezingAspectEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
@@ -46,7 +44,7 @@ public class FreezingAspectEnchantment extends Enchantment {
         if (target.canFreeze()) {
             target.setFrozenTicks(target.getMinFreezeDamageTicks() + 75 * level);
         }
-        AbstractRandom random = target.world.getRandom();
+        Random random = target.world.getRandom();
         for (int i = 0; i < 20; ++i) {
             double d = random.nextGaussian() * 0.02;
             double e = random.nextGaussian() * 0.02;

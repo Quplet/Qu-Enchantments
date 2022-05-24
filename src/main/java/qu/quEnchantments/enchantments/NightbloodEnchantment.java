@@ -10,7 +10,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.random.AbstractRandom;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.util.ModTags;
 
@@ -37,7 +37,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).orElseThrow()).get().left().orElseThrow().isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).orElseThrow()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
             if (user instanceof PlayerEntity) {
                 target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
             } else {
@@ -46,7 +46,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         } else if (target instanceof LivingEntity livingEntity) {
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, false), user);
         }
-        AbstractRandom random = target.world.getRandom();
+        Random random = target.world.getRandom();
         for (int i = 0; i < 20; ++i) {
             double d = random.nextGaussian() * 0.02;
             double e = random.nextGaussian() * 0.02;
