@@ -33,12 +33,14 @@ public class ModLootTableModifier {
                 supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.SHAPED_GLASS, 1));
                 supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.NIGHTBLOOD, 1));
                 supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.SKYWALKER, 1));
+                supplier.withPool(createLootPool(1, 0.05f, Items.BOOK, ModEnchantments.ESSENCE_OF_ENDER, 1));
             }
 
             if (RUINED_PORTAL_ID.equals(id) || NETHER_BRIDGE_ID.equals(id)) {
                 supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.SHAPED_GLASS, 1));
                 supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.NIGHTBLOOD, 1));
                 supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.SKYWALKER, 1));
+                supplier.withPool(createLootPool(1, 0.005f, Items.BOOK, ModEnchantments.ESSENCE_OF_ENDER, 1));
             }
 
             if (WITCH_ID.equals(id)) {
@@ -50,7 +52,9 @@ public class ModLootTableModifier {
                         .withEntry(ItemEntry.builder(Items.BOOK)
                                 .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.NIGHTBLOOD, ConstantLootNumberProvider.create(1))).build())
                         .withEntry(ItemEntry.builder(Items.BOOK)
-                                .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.SKYWALKER, ConstantLootNumberProvider.create(1))).build());
+                                .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.SKYWALKER, ConstantLootNumberProvider.create(1))).build())
+                        .withEntry(ItemEntry.builder(Items.BOOK)
+                                .apply(new SetEnchantmentsLootFunction.Builder(false).enchantment(ModEnchantments.ESSENCE_OF_ENDER, ConstantLootNumberProvider.create(1))).build());
                 supplier.withPool(poolBuilder.build());
             }
         }));

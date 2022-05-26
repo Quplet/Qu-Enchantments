@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.items.ModItems;
 import qu.quEnchantments.util.ModEvents;
 import qu.quEnchantments.util.ModLootTableModifier;
 import org.slf4j.Logger;
@@ -27,6 +28,8 @@ public class QuEnchantments implements ModInitializer, ClientModInitializer {
 		ModEnchantments.registerModEnchantments();
 
 		ModBlocks.registerModBlocks();
+
+		ModItems.initializeModItems();
 
 		ModEvents.RegisterModEvents();
 

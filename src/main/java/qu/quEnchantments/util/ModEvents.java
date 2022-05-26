@@ -4,6 +4,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
@@ -50,8 +51,24 @@ public class ModEvents {
                     }
                 }
                 int i;
-                if ((i = EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, livingEntity.getMainHandStack())) > 0) {
+                if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.NIGHTBLOOD, livingEntity)) > 0) {
                     NightbloodEnchantment.drain(livingEntity, i);
+                }
+            }
+            if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.ESSENCE_OF_ENDER, livingEntity) > 0) {
+                if (!livingEntity.world.isClient) {
+                    if (livingEntity.isWet() && livingEntity.getRandom().nextFloat() < 0.05f) {
+                        double d = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
+                        double e = livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16);
+                        double f = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
+                        EssenceOfEnderEnchantment.teleportTo(livingEntity, d, e, f);
+                        livingEntity.damage(DamageSource.MAGIC, 1);
+                    }
+                } else {
+                    livingEntity.world.addParticle(ParticleTypes.PORTAL, livingEntity.getParticleX(0.5),
+                            livingEntity.getRandomBodyY() - 0.1, livingEntity.getParticleZ(0.5),
+                            (livingEntity.getRandom().nextDouble() - 0.5) * 2.0, -livingEntity.getRandom().nextDouble(),
+                            (livingEntity.getRandom().nextDouble() - 0.5) * 2.0);
                 }
             }
         });

@@ -6,7 +6,8 @@
   "mixins": [
     "AnvilMixin",
     "LivingEntityMixin",
-    "ItemMixin"
+    "ItemMixin",
+    "HungerManagerMixin"
   ],
   "client": [
     "WorldRendererMixin"
