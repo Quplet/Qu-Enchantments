@@ -13,7 +13,17 @@
   "enchantment.qu-enchantments.skywalker.desc": "Condenses a cloud under the player, but they must remain crouching.",
   "enchantment.qu-enchantments.bashing": "Bashing",
   "enchantment.qu-enchantments.bashing.desc": "Causes knockback to enemies when they hit your shield.",
+  "enchantment.qu-enchantments.speed_blessing": "Blessing of Speed",
+  "enchantment.qu-enchantments.speed_blessing.desc": "Gain a small passive speed boost.",
+  "enchantment.qu-enchantments.regeneration_blessing": "Blessing of Regeneration",
+  "enchantment.qu-enchantments.regeneration_blessing.desc": "Gain a small passive boost to natural regeneration.",
+  "enchantment.qu-enchantments.aggression_blessing": "Blessing of Aggression",
+  "enchantment.qu-enchantments.aggression_blessing.desc": "Gain a small passive boost to attack speed.",
+  "enchantment.qu-enchantments.essence_of_ender": "Essence of Ender",
+  "enchantment.qu-enchantments.essence_of_ender.desc": "Chance for an enemy to randomly teleport away when they attack you. While wearing, water has a chance to teleport and harm the wearer. Corrupts all thorns enchantments.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
-  "block.qu-enchantments.cloud": "Cloud"
+  "block.qu-enchantments.cloud": "Cloud",
+
+  "item.qu-enchantments.rune": "Rune"
 }

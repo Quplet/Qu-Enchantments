@@ -26,7 +26,7 @@ public abstract class CorruptedEnchantment extends Enchantment {
     private final CorruptedEnchantment.EnchantmentType enchantmentType;
 
     public CorruptedEnchantment(CorruptedEnchantment.EnchantmentType enchantmentType, Rarity weight,
-                                EnchantmentTarget type, EquipmentSlot... slotTypes) {
+                                EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
         this.enchantmentType = enchantmentType;
     }
@@ -125,7 +125,8 @@ public abstract class CorruptedEnchantment extends Enchantment {
     public enum EnchantmentType {
         DAMAGE(ModTags.WEAPON_DAMAGE_ENCHANTMENTS),
         ASPECT(ModTags.WEAPON_ASPECT_ENCHANTMENTS),
-        WALKER(ModTags.ARMOR_FEET_WALKER_ENCHANTMENTS);
+        WALKER(ModTags.ARMOR_FEET_WALKER_ENCHANTMENTS),
+        THORNS(ModTags.ARMOR_THORNS_ENCHANTMENTS);
 
         private final TagKey<Enchantment> corruptible;
 

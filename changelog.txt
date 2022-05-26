@@ -1,0 +1,9 @@
+1.0.0-1.19
+New:
+- Rune Item
+- Blessing of Speed
+- Blessing of Regeneration
+- Blessing of Aggression
+- Essence of Ender
+Fixes/Changes:
+- Nightblood will now drain from both hands.
