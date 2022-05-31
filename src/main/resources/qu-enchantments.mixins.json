@@ -7,7 +7,9 @@
     "AnvilMixin",
     "LivingEntityMixin",
     "ItemMixin",
-    "HungerManagerMixin"
+    "HungerManagerMixin",
+    "ProjectileEntityMixin",
+    "TridentEntityAccessor"
   ],
   "client": [
     "WorldRendererMixin"

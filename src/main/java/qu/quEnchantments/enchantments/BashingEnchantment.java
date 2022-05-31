@@ -23,6 +23,14 @@ public class BashingEnchantment extends Enchantment {
         return super.getMinPower(level) + 50;
     }
 
+    @Override
+    protected boolean canAccept(Enchantment other) {
+        if (other instanceof ReflectionEnchantment) {
+            return false;
+        }
+        return super.canAccept(other);
+    }
+
     public static void bash(LivingEntity entity, LivingEntity attacker) {
         double d = entity.getX() - attacker.getX();
         double e = entity.getZ() - attacker.getZ();

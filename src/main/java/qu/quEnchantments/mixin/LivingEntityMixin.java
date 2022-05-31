@@ -42,11 +42,9 @@ public abstract class LivingEntityMixin {
         LivingEntityEvents.ON_TICK_EVENT.invoker().onTick((LivingEntity) (Object) this);
     }
 
-    @Inject(at = @At("RETURN"), method = "blockedByShield")
-    private void isBlocked(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue()) {
-            LivingEntityEvents.ON_BLOCK_EVENT.invoker().onBlock(source, (LivingEntity) (Object) this);
-        }
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V"), method = "damage")
+    private void isBlocked(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntityEvents.ON_BLOCK_EVENT.invoker().onBlock(source, (LivingEntity) (Object) this);
     }
 
     @Inject(at = @At(value = "HEAD"), method = "tickMovement")

@@ -5,5 +5,7 @@ New:
 - Blessing of Regeneration
 - Blessing of Aggression
 - Essence of Ender
+- Reflection Enchantment
 Fixes/Changes:
 - Nightblood will now drain from both hands.
+- Bashing knockback arrow shooters

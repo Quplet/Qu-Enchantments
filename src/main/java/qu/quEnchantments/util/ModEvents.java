@@ -75,9 +75,9 @@ public class ModEvents {
 
         LivingEntityEvents.ON_BLOCK_EVENT.register((source, entity) -> {
             if (!entity.world.isClient) {
-                Entity attacker = source.getAttacker();
-                if (attacker instanceof LivingEntity livingAttacker) {
-                    ItemStack shield = entity.getActiveItem();
+                Entity source2 = source.getSource();
+                ItemStack shield = entity.getActiveItem();
+                if (source2 instanceof LivingEntity livingAttacker) {
                     if (EnchantmentHelper.getLevel(ModEnchantments.BASHING, shield) > 0) {
                         BashingEnchantment.bash(entity, livingAttacker);
                     }
@@ -102,7 +102,5 @@ public class ModEvents {
                 MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
             }
         });
-
-
     }
 }

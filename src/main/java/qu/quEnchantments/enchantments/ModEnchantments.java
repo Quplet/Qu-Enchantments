@@ -20,6 +20,7 @@ public class ModEnchantments {
     public static final Enchantment LEECHING_ASPECT = register("leeching_aspect", new LeechingAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
     public static final Enchantment MOLTEN_WALKER = register("molten_walker", new MoltenWalkerEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.FEET));
     public static final Enchantment BASHING = register("bashing", new BashingEnchantment(Enchantment.Rarity.UNCOMMON, SHIELD, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
+    public static final Enchantment REFLECTION = register("reflection", new ReflectionEnchantment(Enchantment.Rarity.UNCOMMON, SHIELD, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment SPEED_BLESSING = register("speed_blessing", new SpeedBlessingEnchantment(Enchantment.Rarity.COMMON, RUNE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment REGENERATION_BLESSING = register("regeneration_blessing", new RegenerationBlessingEnchantment(Enchantment.Rarity.COMMON, RUNE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment AGGRESSION_BLESSING = register("aggression_blessing", new AggressionBlessingEnchantment(Enchantment.Rarity.COMMON, RUNE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
