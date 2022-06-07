@@ -60,7 +60,7 @@ This mod currently has 16 new enchantments and one new item as of 1.0.0-1.19.
 If you want to use this mod for a modpack, I've put in some features to allow for more compatibility between the 
 functionality of my mod and others that add enchantments.
 
-Corrupted enchantments are sorted by categories based on their effect. Right now there are only four that do anything: 
+Corrupted enchantments are sorted by categories based on their effect. Right now there are only five that do anything: 
 `Damage`, `Aspect`, `Walker`, `Thorns`, `Mining Tool Drop` and `Rune`.
 
 You can add or edit what enchantments fall under which category by changing the .json files in `data/qu-enchantments/tags/enchantment/`.
