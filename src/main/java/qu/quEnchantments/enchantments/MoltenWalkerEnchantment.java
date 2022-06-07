@@ -46,21 +46,24 @@ public class MoltenWalkerEnchantment extends Enchantment {
     }
 
     public static void hardenLava(LivingEntity entity, World world, BlockPos blockPos, int level) {
-        if (!entity.isOnGround()) {
-            return;
-        }
-        BlockState blockState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
-        float f = Math.min(16, 1 + level);
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(blockPos.add(-f, -1.0, -f), blockPos.add(f, -1.0, f))) {
-            BlockState blockState3;
-            if (!blockPos2.isWithinDistance(entity.getPos(), f)) continue;
-            mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-            BlockState blockState2 = world.getBlockState(mutable);
-            if (!blockState2.isAir() || (blockState3 = world.getBlockState(blockPos2)).getMaterial() != Material.LAVA || blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
-            world.setBlockState(blockPos2, blockState);
-            world.createAndScheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
-            world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
+        if (!entity.world.isClient) {
+            if (!entity.isOnGround()) {
+                return;
+            }
+            BlockState blockState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
+            float f = Math.min(16, 1 + level);
+            BlockPos.Mutable mutable = new BlockPos.Mutable();
+            for (BlockPos blockPos2 : BlockPos.iterate(blockPos.add(-f, -1.0, -f), blockPos.add(f, -1.0, f))) {
+                BlockState blockState3;
+                if (!blockPos2.isWithinDistance(entity.getPos(), f)) continue;
+                mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
+                BlockState blockState2 = world.getBlockState(mutable);
+                if (!blockState2.isAir() || (blockState3 = world.getBlockState(blockPos2)).getMaterial() != Material.LAVA || blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent()))
+                    continue;
+                world.setBlockState(blockPos2, blockState);
+                world.createAndScheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
+                world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
+            }
         }
     }
 }

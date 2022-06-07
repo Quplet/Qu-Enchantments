@@ -11,6 +11,7 @@ import qu.quEnchantments.util.ModEvents;
 import qu.quEnchantments.util.ModLootTableModifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import qu.quEnchantments.util.ModTradeRegistry;
 
 /**
  *
@@ -34,6 +35,8 @@ public class QuEnchantments implements ModInitializer, ClientModInitializer {
 		ModEvents.RegisterModEvents();
 
 		ModLootTableModifier.ModifyLootTables();
+
+		ModTradeRegistry.initializeModTrades();
 
 		LOGGER.info("Hello Fabric world!");
 	}

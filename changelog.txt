@@ -1,11 +1,24 @@
 1.0.0-1.19
+
 New:
-- Rune Item
-- Blessing of Speed
-- Blessing of Regeneration
-- Blessing of Aggression
-- Essence of Ender
-- Reflection Enchantment
-Fixes/Changes:
-- Nightblood will now drain from both hands.
-- Bashing knockback arrow shooters
+- Added Rune Item
+    - 9 variants, each lasts progressively longer and is acquired differently
+- Added Blessing of Speed
+- Added Blessing of Regeneration
+- Added Blessing of Aggression
+- Added Accuracy Enchantment
+- Added Arrow's Flight Enchantment
+- Added Reflection Enchantment
+- Added Omen of Immunity
+- Added Essence of Ender
+- Added Strip Miner
+
+Changes:
+- Balanced loot pools
+- Entities slain with Nightblood will no longer drop XP
+- Nightblood will now drain from both hands
+
+Fixes:
+- Fixed crash whenever Nightblood would strike a shield with Unbreaking. Same bug also caused a crash when trying to repair an item with Shaped Glass and Unbreaking.
+- Fixed possible bug where the Bashing Enchantment would knock back an entity that threw a projectile
+

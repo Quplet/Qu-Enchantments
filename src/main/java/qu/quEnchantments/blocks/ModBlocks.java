@@ -10,7 +10,7 @@ import qu.quEnchantments.QuEnchantments;
 
 public class ModBlocks {
 
-    public static Block HOT_OBSIDIAN = register("hot_obsidian", new HotObsidianBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(50.0f, 1200.0f).luminance(state -> 7)));
+    public static Block HOT_OBSIDIAN = register("hot_obsidian", new HotObsidianBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(35.0f, 800.0f).luminance(state -> 7)));
     public static Block CLOUD = register("cloud", new CloudBlock(AbstractBlock.Settings.of(Material.POWDER_SNOW).sounds(BlockSoundGroup.SNOW).breakInstantly().nonOpaque().suffocates(ModBlocks::never)));
 
     private static Block register(String name, Block block) {

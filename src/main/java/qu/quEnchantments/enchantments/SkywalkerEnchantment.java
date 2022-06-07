@@ -37,20 +37,23 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
     }
 
     public static void condenseCloud(LivingEntity entity, World world, int level) {
-        if (!entity.isOnGround()) {
-            return;
+        if (!entity.world.isClient) {
+            if (!entity.isOnGround()) {
+                return;
+            }
+            BlockState blockState = ModBlocks.CLOUD.getDefaultState();
+            BlockPos.Mutable mutable = new BlockPos.Mutable();
+            BlockPos blockPos2 = new BlockPos(entity.getX(), entity.getY() - 0.875, entity.getZ());
+
+            if (!world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) || !blockPos2.isWithinDistance(entity.getPos(), 1))
+                return;
+            mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
+            BlockState blockState2 = world.getBlockState(mutable);
+            if (!blockState2.isAir() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent()))
+                return;
+            world.setBlockState(blockPos2, blockState);
+            world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(), 50 * level, 100 * level));
+            world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
         }
-        BlockState blockState = ModBlocks.CLOUD.getDefaultState();
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        BlockPos blockPos2 = new BlockPos(entity.getX(), entity.getY() - 0.875, entity.getZ());
-
-        if (!world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) || !blockPos2.isWithinDistance(entity.getPos(), 1)) return;
-        mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-        BlockState blockState2 = world.getBlockState(mutable);
-        if (!blockState2.isAir() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())) return;
-        world.setBlockState(blockPos2, blockState);
-        world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(), 50 * level, 100 * level));
-        world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
     }
-
 }

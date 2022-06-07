@@ -27,7 +27,8 @@ public class ModEvents {
             if (!player.getAbilities().creativeMode) {
                 if ((handler.getSlot(0).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(0).getStack()) > 0) ||
                         (handler.getSlot(1).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(1).getStack()) > 0)) {
-                    stack.damage(Integer.MAX_VALUE, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+                    stack.setDamage(stack.getMaxDamage() - 1);
+                    stack.damage(50, player, Entity::toString);
                     player.world.syncWorldEvent(ModWorldEvents.SHAPED_GLASS_BREAK, player.getBlockPos(), 0);
                 }
             }
@@ -54,14 +55,21 @@ public class ModEvents {
                 if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.NIGHTBLOOD, livingEntity)) > 0) {
                     NightbloodEnchantment.drain(livingEntity, i);
                 }
+                if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) {
+                    livingEntity.extinguish();
+                    livingEntity.setFrozenTicks(0);
+                    livingEntity.clearStatusEffects();
+                }
             }
             if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.ESSENCE_OF_ENDER, livingEntity) > 0) {
                 if (!livingEntity.world.isClient) {
                     if (livingEntity.isWet() && livingEntity.getRandom().nextFloat() < 0.05f) {
-                        double d = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
-                        double e = livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16);
-                        double f = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
-                        EssenceOfEnderEnchantment.teleportTo(livingEntity, d, e, f);
+                        for (int j = 0; j < 5; j++) {
+                            double d = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
+                            double e = livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16);
+                            double f = livingEntity.getZ() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
+                            if (EssenceOfEnderEnchantment.teleportTo(livingEntity, d, e, f)) break;
+                        }
                         livingEntity.damage(DamageSource.MAGIC, 1);
                     }
                 } else {
@@ -82,7 +90,8 @@ public class ModEvents {
                         BashingEnchantment.bash(entity, livingAttacker);
                     }
                     if (EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, livingAttacker.getMainHandStack()) > 0) {
-                        entity.getActiveItem().damage(Integer.MAX_VALUE, entity, e -> e.sendToolBreakStatus(entity.getActiveHand()));
+                        entity.getActiveItem().setDamage(entity.getActiveItem().getMaxDamage() - 1);
+                        entity.getActiveItem().damage(50, entity, e -> e.sendToolBreakStatus(entity.getActiveHand()));
                         entity.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8f, 0.8f + entity.world.random.nextFloat() * 0.4f);
                         Random random = entity.world.getRandom();
                         for (int i = 0; i < 10; ++i) {
@@ -97,9 +106,11 @@ public class ModEvents {
         });
 
         LivingEntityEvents.ON_MOVEMENT_EFFECTS_EVENT.register((entity, blockPos) -> {
-            int i;
-            if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
-                MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
+            if (!entity.world.isClient) {
+                int i;
+                if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
+                    MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
+                }
             }
         });
     }

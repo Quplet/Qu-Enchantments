@@ -17,11 +17,11 @@ public class AggressionBlessingEnchantment extends Enchantment {
 
     @Override
     public int getMinPower(int level) {
-        return level * 10;
+        return 15;
     }
 
     @Override
     public int getMaxPower(int level) {
-        return this.getMinPower(level) + 15;
+        return 50;
     }
 }

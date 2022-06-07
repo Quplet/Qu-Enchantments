@@ -40,16 +40,18 @@ public class FreezingAspectEnchantment extends Enchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        target.extinguish();
-        if (target.canFreeze()) {
-            target.setFrozenTicks(target.getMinFreezeDamageTicks() + 75 * level);
-        }
-        Random random = target.world.getRandom();
-        for (int i = 0; i < 20; ++i) {
-            double d = random.nextGaussian() * 0.02;
-            double e = random.nextGaussian() * 0.02;
-            double f = random.nextGaussian() * 0.02;
-            ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+        if (!user.world.isClient) {
+            target.extinguish();
+            if (target.canFreeze()) {
+                target.setFrozenTicks(target.getMinFreezeDamageTicks() + 75 * level);
+            }
+            Random random = target.world.getRandom();
+            for (int i = 0; i < 20; ++i) {
+                double d = random.nextGaussian() * 0.02;
+                double e = random.nextGaussian() * 0.02;
+                double f = random.nextGaussian() * 0.02;
+                ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+            }
         }
     }
 }

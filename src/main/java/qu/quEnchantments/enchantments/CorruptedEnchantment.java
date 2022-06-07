@@ -87,7 +87,6 @@ public abstract class CorruptedEnchantment extends Enchantment {
         if (stack.isEmpty()) return;
         if (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) return;
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
-        if (enchantments.size() < 2) return;
         int bl = stack.getOrCreateNbt().getShort("Corrupted");
         if (bl == enchantments.size()) return;
         CorruptedEnchantment corruptedEnchantment = null;
@@ -126,7 +125,9 @@ public abstract class CorruptedEnchantment extends Enchantment {
         DAMAGE(ModTags.WEAPON_DAMAGE_ENCHANTMENTS),
         ASPECT(ModTags.WEAPON_ASPECT_ENCHANTMENTS),
         WALKER(ModTags.ARMOR_FEET_WALKER_ENCHANTMENTS),
-        THORNS(ModTags.ARMOR_THORNS_ENCHANTMENTS);
+        THORNS(ModTags.ARMOR_THORNS_ENCHANTMENTS),
+        RUNE(ModTags.RUNE_ENCHANTMENTS),
+        PICKAXE_DROP(ModTags.MINING_TOOL_DROP_ENCHANTMENTS);
 
         private final TagKey<Enchantment> corruptible;
 

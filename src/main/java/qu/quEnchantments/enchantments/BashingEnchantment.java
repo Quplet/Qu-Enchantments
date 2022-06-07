@@ -15,30 +15,24 @@ public class BashingEnchantment extends Enchantment {
 
     @Override
     public int getMinPower(int level) {
-        return 5 + 20 * (level - 1);
+        return 15;
     }
 
     @Override
     public int getMaxPower(int level) {
-        return super.getMinPower(level) + 50;
-    }
-
-    @Override
-    protected boolean canAccept(Enchantment other) {
-        if (other instanceof ReflectionEnchantment) {
-            return false;
-        }
-        return super.canAccept(other);
+        return 50;
     }
 
     public static void bash(LivingEntity entity, LivingEntity attacker) {
-        double d = entity.getX() - attacker.getX();
-        double e = entity.getZ() - attacker.getZ();
-        while (d * d + e * e < 1.0E-4) {
-            d = (Math.random() - Math.random()) * 0.01;
-            e = (Math.random() - Math.random()) * 0.01;
+        if (!entity.world.isClient) {
+            double d = entity.getX() - attacker.getX();
+            double e = entity.getZ() - attacker.getZ();
+            while (d * d + e * e < 1.0E-4) {
+                d = (Math.random() - Math.random()) * 0.01;
+                e = (Math.random() - Math.random()) * 0.01;
+            }
+            attacker.knockbackVelocity = (float) (MathHelper.atan2(e, d) * 57.2957763671875 - (double) attacker.getYaw());
+            attacker.takeKnockback(0.6f, d, e);
         }
-        attacker.knockbackVelocity = (float)(MathHelper.atan2(e, d) * 57.2957763671875 - (double)attacker.getYaw());
-        attacker.takeKnockback(0.6f, d, e);
     }
 }

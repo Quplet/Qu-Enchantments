@@ -6,7 +6,8 @@
   "name": "Qu's Enchantments",
   "description": "Adds some of my custom enchantments into the game.",
   "authors": [
-    "Qu"
+    "Qu (Design and programming)",
+    "E_leven (Texture artist)"
   ],
   "contact": {
     "homepage": "https://github.com/Quplet/Qu-Enchantments",
@@ -35,7 +36,7 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": ">=0.54.0+1.19",
-    "minecraft": "~1.19-beta.4",
+    "minecraft": "~1.19",
     "java": ">=17"
   },
   "suggests": {

@@ -17,7 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
-    @Shadow private @Nullable ClientWorld world;
+    @Shadow
+    private @Nullable ClientWorld world;
 
     @Inject(at = @At("TAIL"), method = "processWorldEvent")
     private void processEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
@@ -31,6 +32,12 @@ public class WorldRendererMixin {
             }
             case 14002 -> this.world.playSound(pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 5.0f, 1.0f, true);
             case 14003 -> this.world.playSound(pos, SoundEvents.BLOCK_POWDER_SNOW_PLACE, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
+            case 14004 -> {
+                for (int i = 0; i < 3; ++i) {
+                    this.world.addParticle(ParticleTypes.LARGE_SMOKE, (double) pos.getX() + random.nextDouble(), (double) pos.getY() + random.nextDouble(), (double) pos.getZ() + random.nextDouble(), 0.0, 0.0, 0.0);
+                }
+                this.world.playSound(pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 0.5f, 1.0f, true);
+            }
         }
     }
 }

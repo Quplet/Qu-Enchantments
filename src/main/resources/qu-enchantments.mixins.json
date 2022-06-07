@@ -9,7 +9,11 @@
     "ItemMixin",
     "HungerManagerMixin",
     "ProjectileEntityMixin",
-    "TridentEntityAccessor"
+    "TridentEntityAccessor",
+    "CrossbowItemMixin",
+    "BowItemMixin",
+    "BlockMixin",
+    "ServerPlayerInteractionManagerMixin"
   ],
   "client": [
     "WorldRendererMixin"

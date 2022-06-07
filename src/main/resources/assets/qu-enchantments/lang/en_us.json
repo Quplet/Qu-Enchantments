@@ -21,9 +21,27 @@
   "enchantment.qu-enchantments.aggression_blessing.desc": "Gain a small passive boost to attack speed.",
   "enchantment.qu-enchantments.essence_of_ender": "Essence of Ender",
   "enchantment.qu-enchantments.essence_of_ender.desc": "Chance for an enemy to randomly teleport away when they attack you. While wearing, water has a chance to teleport and harm the wearer. Corrupts all thorns enchantments.",
+  "enchantment.qu-enchantments.reflection": "Reflection",
+  "enchantment.qu-enchantments.reflection.desc": "Reflects persistent projectiles that hit your shield.",
+  "enchantment.qu-enchantments.omen_of_immunity": "Omen of Immunity",
+  "enchantment.qu-enchantments.omen_of_immunity.desc": "Makes the holder immune to all effects, positive or negative.",
+  "enchantment.qu-enchantments.accuracy": "Accuracy",
+  "enchantment.qu-enchantments.accuracy.desc": "Increases the accuracy of your shot.",
+  "enchantment.qu-enchantments.arrows_flight": "Arrow's Flight",
+  "enchantment.qu-enchantments.arrows_flight.desc": "Increases the arrow speed of your shot.",
+  "enchantment.qu-enchantments.strip_miner": "Strip Miner",
+  "enchantment.qu-enchantments.strip_miner.desc": "After mining a block, the tool-compatible blocks around it will be destroyed for a clear path. These blocks, including the mined one, will not drop their spoils.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
   "block.qu-enchantments.cloud": "Cloud",
 
-  "item.qu-enchantments.rune": "Rune"
+  "item.qu-enchantments.rune_0": "Rune",
+  "item.qu-enchantments.rune_1": "Rune",
+  "item.qu-enchantments.rune_2": "Rune",
+  "item.qu-enchantments.rune_3": "Rune",
+  "item.qu-enchantments.rune_4": "Rune",
+  "item.qu-enchantments.rune_5": "Rune",
+  "item.qu-enchantments.rune_6": "Rune",
+  "item.qu-enchantments.rune_7": "Rune",
+  "item.qu-enchantments.rune_8": "Rune"
 }

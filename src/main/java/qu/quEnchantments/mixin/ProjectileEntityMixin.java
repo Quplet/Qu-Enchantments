@@ -26,22 +26,24 @@ public class ProjectileEntityMixin {
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/ProjectileEntity;onEntityHit(Lnet/minecraft/util/hit/EntityHitResult;)V", shift = At.Shift.AFTER), method = "onCollision")
     protected void onHitEntity(HitResult hitResult, CallbackInfo ci) {
         ProjectileEntity projectile = (ProjectileEntity) (Object) this;
-        if (projectile instanceof PersistentProjectileEntity persistentProjectile) {
-            EntityHitResult result = (EntityHitResult) hitResult;
-            Entity entity = result.getEntity();
-            if (entity != null && !entity.getWorld().isClient() && entity instanceof PlayerEntity player) {
-                DamageSource damageSource;
-                if (persistentProjectile instanceof TridentEntity) {
-                    damageSource = DamageSource.trident(projectile, owner == null ? projectile : owner);
-                } else {
-                    damageSource = DamageSource.arrow(persistentProjectile, owner == null ? projectile : owner);
-                }
-                int i;
-                if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getLevel(ModEnchantments.REFLECTION, player.getActiveItem())) > 0) {
-                    persistentProjectile.setVelocity(player, player.getPitch(), player.getYaw(), 0.0f, (float) persistentProjectile.getVelocity().normalize().length(), 25.0f / i);
-                    leftOwner = true;
+        if (!projectile.world.isClient) {
+            if (projectile instanceof PersistentProjectileEntity persistentProjectile) {
+                EntityHitResult result = (EntityHitResult) hitResult;
+                Entity entity = result.getEntity();
+                if (entity != null && !entity.getWorld().isClient() && entity instanceof PlayerEntity player) {
+                    DamageSource damageSource;
                     if (persistentProjectile instanceof TridentEntity) {
-                        ((TridentEntityAccessor) projectile).setDealtDamage(false);
+                        damageSource = DamageSource.trident(projectile, owner == null ? projectile : owner);
+                    } else {
+                        damageSource = DamageSource.arrow(persistentProjectile, owner == null ? projectile : owner);
+                    }
+                    int i;
+                    if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getLevel(ModEnchantments.REFLECTION, player.getActiveItem())) > 0) {
+                        persistentProjectile.setVelocity(player, player.getPitch(), player.getYaw(), 0.0f, (float) persistentProjectile.getVelocity().normalize().length(), 25.0f / i);
+                        leftOwner = true;
+                        if (persistentProjectile instanceof TridentEntity) {
+                            ((TridentEntityAccessor) projectile).setDealtDamage(false);
+                        }
                     }
                 }
             }

@@ -45,16 +45,25 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onUserDamaged(LivingEntity user, Entity attacker, int level) {
-        if (attacker != null) {
-            if (attacker instanceof LivingEntity livingEntity && user.getRandom().nextFloat() < 0.25f + 0.05f * level) {
-                for (int i = 0; i < 4; i++) {
-                    double d = attacker.getX() + (user.getRandom().nextDouble() - 0.5) * 16.0;
-                    double e = attacker.getY() + (double) (user.getRandom().nextInt(32) - 16);
-                    double f = attacker.getZ() + (user.getRandom().nextDouble() - 0.5) * 16.0;
-                    if (teleportTo(livingEntity, d, e, f)) break;
+        if (!user.world.isClient) {
+            if (attacker != null) {
+                if (attacker instanceof LivingEntity livingEntity) {
+                    for (int i = 0; i < 7; i++) {
+                        double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * (5.0 * level);
+                        double e = attacker.getY() + (double) (user.getRandom().nextInt(8 * level) - (5 * level));
+                        double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * (5.0 * level);
+                        if (teleportTo(livingEntity, d, e, f)) break;
+                    }
                 }
             }
         }
+    }
+
+    private static double clampEither(double min, double max, double value) {
+        if (value < min) return min;
+        if (value > max) return max;
+        if (Math.abs(value - min) > Math.abs(value - max)) return max;
+        else return min;
     }
 
     // Functionally equivalent to the Enderman's teleport

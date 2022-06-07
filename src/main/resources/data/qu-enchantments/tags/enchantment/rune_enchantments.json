@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "qu-enchantments:speed_blessing",
+    "qu-enchantments:regeneration_blessing",
+    "qu-enchantments:aggression_blessing"
+  ]
+}

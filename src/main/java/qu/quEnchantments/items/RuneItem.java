@@ -1,18 +1,18 @@
 package qu.quEnchantments.items;
 
-import net.minecraft.enchantment.Enchantment;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.IntProperty;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.world.World;
-
-import java.util.Map;
-import java.util.Random;
+import qu.quEnchantments.enchantments.ModEnchantments;
 
 public class RuneItem extends Item {
 
@@ -42,9 +42,18 @@ public class RuneItem extends Item {
                 if ((selected || livingEntity.getOffHandStack() == stack)
                         && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
                     if (stack.getDamage() < stack.getMaxDamage()) {
-                        stack.setDamage(Math.min(stack.getDamage() + stack.getEnchantments().size(), stack.getMaxDamage()));
+                        if (stack.getOrCreateNbt().contains("Corrupted")) {
+                            int i = EnchantmentHelper.getLevel(ModEnchantments.OMEN_OF_IMMUNITY, stack);
+                            if (stack.getDamage() + 6 - i < stack.getMaxDamage()) {
+                                stack.setDamage(Math.min(stack.getDamage() + 6 - i, stack.getMaxDamage()));
+                            } else {
+                                stack.damage(6 - i, livingEntity, e -> e.sendEquipmentBreakStatus(selected ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+                            }
+                        } else {
+                            stack.setDamage(Math.min(stack.getDamage() + stack.getEnchantments().size(), stack.getMaxDamage()));
+                        }
                     }
-                } else if (stack.getDamage() > 0) {
+                } else if (stack.getDamage() > 0 && !stack.getOrCreateNbt().contains("Corrupted")) {
                     stack.setDamage(Math.max(0, stack.getDamage() - 1));
                 }
             }

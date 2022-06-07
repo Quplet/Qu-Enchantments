@@ -1,5 +1,6 @@
 package qu.quEnchantments.enchantments;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -37,21 +38,27 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).orElseThrow()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
-            if (user instanceof PlayerEntity) {
-                target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
-            } else {
-                target.damage(DamageSource.mob(user), Float.MAX_VALUE);
+        if (!target.world.isClient) {
+            if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).orElseThrow()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+                if (target instanceof LivingEntity livingEntity) {
+                    if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return;
+                    livingEntity.disableExperienceDropping();
+                }
+                if (user instanceof PlayerEntity) {
+                    target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
+                } else {
+                    target.damage(DamageSource.mob(user), Float.MAX_VALUE);
+                }
+            } else if (target instanceof LivingEntity livingEntity) {
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, false), user);
             }
-        } else if (target instanceof LivingEntity livingEntity) {
-            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, false), user);
-        }
-        Random random = target.world.getRandom();
-        for (int i = 0; i < 20; ++i) {
-            double d = random.nextGaussian() * 0.02;
-            double e = random.nextGaussian() * 0.02;
-            double f = random.nextGaussian() * 0.02;
-            ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+            Random random = target.world.getRandom();
+            for (int i = 0; i < 25; ++i) {
+                double d = random.nextGaussian() * 0.02;
+                double e = random.nextGaussian() * 0.02;
+                double f = random.nextGaussian() * 0.02;
+                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+            }
         }
     }
 
