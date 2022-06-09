@@ -98,7 +98,7 @@ public class ModLootTableModifier {
                         .build();
                 builder.pool(pool);
 
-                chance = 0.04f;
+                chance = 0.05f;
                 pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
                         .with(ItemEntry.builder(ModItems.RUNE_6)
@@ -138,7 +138,7 @@ public class ModLootTableModifier {
                         .build();
                 builder.pool(pool);
 
-                chance = 0.075f;
+                chance = 0.05f;
                 pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
                         .with(ItemEntry.builder(ModItems.RUNE_3)
@@ -176,11 +176,11 @@ public class ModLootTableModifier {
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.OMEN_OF_IMMUNITY, ConstantLootNumberProvider.create(1))))
                         .with(ItemEntry.builder(ModItems.RUNE_0)
-                                .conditionally(RandomChanceLootCondition.builder(0.5f)))
+                                .conditionally(RandomChanceLootCondition.builder(0.05f)))
                         .with(ItemEntry.builder(ModItems.RUNE_1)
-                                .conditionally(RandomChanceLootCondition.builder(0.5f)))
+                                .conditionally(RandomChanceLootCondition.builder(0.05f)))
                         .with(ItemEntry.builder(ModItems.RUNE_2)
-                                .conditionally(RandomChanceLootCondition.builder(0.5f)))
+                                .conditionally(RandomChanceLootCondition.builder(0.05f)))
                         .build();
                 builder.pool(pool);
             }
@@ -188,7 +188,7 @@ public class ModLootTableModifier {
             if(BURIED_TREASURE.equals(id)) {
                 float chance = 0.1f;
                 LootPool pool = LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(2))
+                        .rolls(ConstantLootNumberProvider.create(1))
                         .with(ItemEntry.builder(ModItems.RUNE_0)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .with(ItemEntry.builder(ModItems.RUNE_1)
@@ -200,7 +200,7 @@ public class ModLootTableModifier {
             }
 
             if (PILLAGER_OUTPOST.equals(id) || WOODLAND_MANSION.equals(id)) {
-                float chance = 0.075f;
+                float chance = 0.05f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
                         .with(ItemEntry.builder(ModItems.RUNE_3)
