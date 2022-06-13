@@ -38,7 +38,7 @@ public class QuEnchantments implements ModInitializer, ClientModInitializer {
 
 		ModTradeRegistry.initializeModTrades();
 
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("Finished Initializing " + MOD_ID);
 	}
 
 	@Override
