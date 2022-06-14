@@ -27,14 +27,6 @@ import java.util.Map;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    @Shadow public abstract ItemStack getMainHandStack();
-
-    @Shadow public abstract void endCombat();
-
-    @Shadow protected abstract void initDataTracker();
-
-    @Shadow public abstract void enterCombat();
-
     @Inject(at = @At("TAIL"), method = "applyMovementEffects")
     private void onApplyMovementEffects(BlockPos pos, CallbackInfo info) {
         LivingEntityEvents.ON_MOVEMENT_EFFECTS_EVENT.invoker().onAffect((LivingEntity) (Object) this, pos);
@@ -89,6 +81,13 @@ public abstract class LivingEntityMixin {
             if (aggression) {
                 instance.addTemporaryModifier(AggressionBlessingEnchantment.ATTACK_BOOST);
             }
+        }
+    }
+
+    @Inject(method = "getPreferredEquipmentSlot", at = @At("TAIL"), cancellable = true)
+    private static void runePreferredSlot(ItemStack stack, CallbackInfoReturnable<EquipmentSlot> cir) {
+        if (stack.getItem() instanceof RuneItem) {
+            cir.setReturnValue(EquipmentSlot.OFFHAND);
         }
     }
 }
