@@ -4,5 +4,6 @@ Changes:
 - Runes now prefer the offhand equipment slot
 - Made the LOGGER say more useful things
 - Increased the chance for Runes to spawn in Pillager Outpost and Woodland Mansion lootpools
+- Fixed the sources link and added the issues link
 
 
