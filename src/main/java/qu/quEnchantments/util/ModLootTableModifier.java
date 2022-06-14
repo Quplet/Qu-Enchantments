@@ -200,7 +200,7 @@ public class ModLootTableModifier {
             }
 
             if (PILLAGER_OUTPOST.equals(id) || WOODLAND_MANSION.equals(id)) {
-                float chance = 0.05f;
+                float chance = 0.1f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
                         .with(ItemEntry.builder(ModItems.RUNE_3)
@@ -214,7 +214,7 @@ public class ModLootTableModifier {
             }
 
             if (STRONGHOLD_LIBRARY.equals(id)) {
-                float chance = 0.1f;
+                float chance = 0.15f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
                         .with(ItemEntry.builder(ModItems.RUNE_6)
