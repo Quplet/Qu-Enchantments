@@ -11,7 +11,8 @@
   ],
   "contact": {
     "homepage": "https://github.com/Quplet/Qu-Enchantments",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/Quplet/Qu-Enchantments",
+    "issues": "https://github.com/Quplet/Qu-Enchantments/issues"
   },
 
   "license": "Apache-2.0",
