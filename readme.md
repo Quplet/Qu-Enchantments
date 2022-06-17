@@ -1,6 +1,6 @@
 <img src="src/main/resources/assets/qu-enchantments/banner.png" width="2048">
 
-# Qu Enchantments Mod (For Fabric)
+# Qu Enchantments Mod (For Fabric/Quilt)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
 in the game while maintaining a Vanilla feel.
