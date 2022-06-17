@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.items.RuneItem;
 
@@ -21,14 +22,16 @@ public class HungerManagerMixin {
 
     @Inject(at = @At(value = "TAIL"), method = "update")
     private void onUpdate(PlayerEntity player, CallbackInfo ci) {
+        HungerManager manager = (HungerManager) (Object) this;
         if (player.world.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION) && player.canFoodHeal()) {
-            ItemStack stack;
-            if (((stack = player.getMainHandStack()).getDamage() < stack.getMaxDamage() && stack.getItem() instanceof RuneItem && EnchantmentHelper.getLevel(ModEnchantments.REGENERATION_BLESSING, stack) > 0)
-                    || ((stack = player.getOffHandStack()).getDamage() < stack.getMaxDamage() && stack.getItem() instanceof RuneItem && EnchantmentHelper.getLevel(ModEnchantments.REGENERATION_BLESSING, stack) > 0)) {
-                if (foodTickTimer == 5 && ((HungerManager) (Object) this).getSaturationLevel() > 0.0f && ((HungerManager) (Object) this).getFoodLevel() >= 20) {
-                    float f = Math.min(((HungerManager) (Object) this).getSaturationLevel(), 6.0f);
+            if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.REGENERATION_BLESSING, player) > 0) {
+                if (foodTickTimer == 5 && manager.getSaturationLevel() > 0.0f && manager.getFoodLevel() >= 20) {
+                    float f = Math.min(manager.getSaturationLevel(), 6.0f);
+                    if (player.getHealth() >= 19.0f) {
+                        player.addExhaustion(f);
+                    }
                     player.heal(f / 6.0f);
-                } else if (foodTickTimer == 40 && ((HungerManager) (Object) this).getFoodLevel() >= 18) {
+                } else if (foodTickTimer == 40 && manager.getFoodLevel() >= 18) {
                     player.heal(1.0f);
                 }
             }

@@ -27,6 +27,8 @@ import java.util.Map;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
+    @Shadow public abstract void endCombat();
+
     @Inject(at = @At("TAIL"), method = "applyMovementEffects")
     private void onApplyMovementEffects(BlockPos pos, CallbackInfo info) {
         LivingEntityEvents.ON_MOVEMENT_EFFECTS_EVENT.invoker().onAffect((LivingEntity) (Object) this, pos);
@@ -46,14 +48,9 @@ public abstract class LivingEntityMixin {
     private void onTickMovement(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity)(Object)this;
         if (!entity.world.isClient) {
-            boolean boost = false;
             EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
             if (instance == null) return;
-            ItemStack stack;
-            if (((stack = entity.getMainHandStack()).getDamage() < stack.getMaxDamage() && stack.getItem() instanceof RuneItem && EnchantmentHelper.getLevel(ModEnchantments.SPEED_BLESSING, stack) > 0)
-                    || ((stack = entity.getOffHandStack()).getDamage() < stack.getMaxDamage() && stack.getItem() instanceof RuneItem && EnchantmentHelper.getLevel(ModEnchantments.SPEED_BLESSING, stack) > 0)) {
-                boost = true;
-            }
+            boolean boost = EnchantmentHelper.getEquipmentLevel(ModEnchantments.SPEED_BLESSING, entity) > 0;
             if (instance.getModifier(SpeedBlessingEnchantment.BLESSING_BOOST.getId()) != null) {
                 instance.removeModifier(SpeedBlessingEnchantment.BLESSING_BOOST);
             }
@@ -67,14 +64,9 @@ public abstract class LivingEntityMixin {
     private void onEquipmentChanges(CallbackInfoReturnable<@Nullable Map<EquipmentSlot, ItemStack>> cir) {
         LivingEntity entity = (LivingEntity)(Object)this;
         if (!entity.world.isClient) {
-            boolean aggression = false;
             EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
             if (instance == null) return;
-            ItemStack stack;
-            if (((stack = entity.getMainHandStack()).getDamage() < stack.getMaxDamage() && stack.getItem() instanceof RuneItem && EnchantmentHelper.getLevel(ModEnchantments.AGGRESSION_BLESSING, stack) > 0)
-                    || ((stack = entity.getOffHandStack()).getDamage() < stack.getMaxDamage() && stack.getItem() instanceof RuneItem && EnchantmentHelper.getLevel(ModEnchantments.AGGRESSION_BLESSING, stack) > 0)) {
-                aggression = true;
-            }
+            boolean aggression = EnchantmentHelper.getEquipmentLevel(ModEnchantments.AGGRESSION_BLESSING, entity) > 0;
             if (instance.getModifier(AggressionBlessingEnchantment.ATTACK_BOOST.getId()) != null) {
                 instance.removeModifier(AggressionBlessingEnchantment.ATTACK_BOOST);
             }
