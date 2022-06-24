@@ -3,10 +3,7 @@
 # Qu Enchantments Mod (For Fabric/Quilt)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
-in the game while maintaining a Vanilla feel.
-
-This project is my first Fabric mod and is mostly me just learning my way around the modding environment. So while I'm 
-proud of my work, I will not claim it is professional-level. I do think what I've done is cool, however.
+in the game while not straying too far from vanilla.
 
 ## Installation
 
@@ -17,7 +14,7 @@ so make sure you have that as well.
 
 ## Content
 
-This mod currently has 16 new enchantments and one new item as of 1.0.0-1.19.
+This mod currently has 17 new enchantments and one new item as of 1.1.0-1.19.
 
 - Normal Enchantments
   - Freezing Aspect Enchantment (I-II) (Sword) - Slows enemy on hit.
@@ -31,6 +28,8 @@ This mod currently has 16 new enchantments and one new item as of 1.0.0-1.19.
   - Blessing of Speed (Rune) - Gives a small passive speed boost.
   - Blessing of Regeneration (Rune) - Gives a passive increase to natural regeneration.
   - Blessing of Aggression (Rune) - Gives a small passive increase to attack speed.
+  - Fidelity (Horse Armor) - Horses with this enchantment on their armor will follow and teleport to its bonded player. 
+  Any player that tries to ride the horse while it's trying to reach you will be dismounted.
 
 - Corrupted Enchantments - A new type of enchantments that offer a powerful ability with a drawback. They will consume
   other enchantments of the same type. Multiple corrupted enchantments cannot be placed on the same item. They can be found 
@@ -54,6 +53,10 @@ This mod currently has 16 new enchantments and one new item as of 1.0.0-1.19.
     depending on the amount of enchantments present and the rune variant. A rune with a corrupted enchantment will not 
     regenerate and will break upon reaching max damage. Use sparingly. There are nine rune variants, each acquired differently.
     Higher level runes will have more charge. Librarian villagers and Wandering Traders can have a rune trade.
+
+- Vanilla Changes
+  - Shields can be enchanted at an enchanting table.
+  - Horse Armor can be enchanted at an enchanting table with Protection and Thorns enchantments.
 
 ## Modpacks
 
