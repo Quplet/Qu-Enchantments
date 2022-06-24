@@ -69,6 +69,9 @@ public class ModEvents {
             if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.ESSENCE_OF_ENDER, livingEntity) > 0) {
                 if (!livingEntity.world.isClient) {
                     if (livingEntity.isWet() && livingEntity.getRandom().nextFloat() < 0.05f) {
+                        if (livingEntity instanceof HorseEntity horse) {
+                            horse.removeAllPassengers();
+                        }
                         for (int j = 0; j < 5; j++) {
                             double d = livingEntity.getX() + (livingEntity.getRandom().nextDouble() - 0.5) * 16.0;
                             double e = livingEntity.getY() + (double) (livingEntity.getRandom().nextInt(32) - 16);
