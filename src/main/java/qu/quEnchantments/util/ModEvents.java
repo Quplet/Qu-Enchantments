@@ -122,7 +122,7 @@ public class ModEvents {
         EntityEvents.ENTITY_JOIN_WORLD_EVENT.register((entity, world) -> {
             if (!world.isClient) {
                 if (entity instanceof HorseEntity horse) {
-                    ((MobEntityAccessor) horse).getGoalSelector().add(4, new FidelityFollowOwnerGoal(horse, 1.3, 5.0f, 10.0f, false));
+                    ((MobEntityAccessor) horse).getGoalSelector().add(2, new FidelityFollowOwnerGoal(horse, 1.3, 5.0f, 10.0f, false));
                 }
             }
         });
