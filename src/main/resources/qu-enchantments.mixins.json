@@ -8,15 +8,20 @@
     "LivingEntityMixin",
     "ItemMixin",
     "HungerManagerMixin",
-    "ProjectileEntityMixin",
-    "TridentEntityAccessor",
+    "PersistentProjectileEntityMixin",
+    "TridentEntityMixin",
     "CrossbowItemMixin",
     "BowItemMixin",
     "BlockMixin",
-    "ServerPlayerInteractionManagerMixin"
+    "ServerPlayerInteractionManagerMixin",
+    "EnchantmentTargetMixin",
+    "MobEntityMixin",
+    "MobEntityAccessor",
+    "ServerEntityManagerMixin"
   ],
   "client": [
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "HorseArmorFeatureRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

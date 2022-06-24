@@ -4,7 +4,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
@@ -13,8 +15,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import qu.quEnchantments.callbacks.EntityEvents;
 import qu.quEnchantments.callbacks.LivingEntityEvents;
 import qu.quEnchantments.enchantments.*;
+import qu.quEnchantments.entity.ai.goals.FidelityFollowOwnerGoal;
+import qu.quEnchantments.mixin.MobEntityAccessor;
 import qu.quEnchantments.world.ModWorldEvents;
 import qu.quEnchantments.callbacks.AnvilEvents;
 
@@ -110,6 +115,14 @@ public class ModEvents {
                 int i;
                 if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
                     MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
+                }
+            }
+        });
+
+        EntityEvents.ENTITY_JOIN_WORLD_EVENT.register((entity, world) -> {
+            if (!world.isClient) {
+                if (entity instanceof HorseEntity horse) {
+                    ((MobEntityAccessor) horse).getGoalSelector().add(4, new FidelityFollowOwnerGoal(horse, 1.3, 5.0f, 10.0f, false));
                 }
             }
         });

@@ -31,6 +31,8 @@
   "enchantment.qu-enchantments.arrows_flight.desc": "Increases the arrow speed of your shot.",
   "enchantment.qu-enchantments.strip_miner": "Strip Miner",
   "enchantment.qu-enchantments.strip_miner.desc": "After mining a block, the tool-compatible blocks around it will be destroyed for a clear path. These blocks, including the mined one, will not drop their spoils.",
+  "enchantment.qu-enchantments.fidelity": "Fidelity",
+  "enchantment.qu-enchantments.fidelity.desc": "Horses with this enchantment on their armor will follow and teleport to you.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
   "block.qu-enchantments.cloud": "Cloud",
