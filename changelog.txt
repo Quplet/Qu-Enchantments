@@ -1,11 +1,6 @@
-1.1.0-1.19
-New:
-- Horse Armor can now be enchanted with Protection enchantments
-- Fidelity Enchantment
+1.1.1-1.19
 
-Changes:
-- Optimizations
-- Fixed possible exploit with Blessing of Regeneration
-- Reflection Enchantment is now more consistent in how it reflects
+Fixes:
+- Strip Miner is now in the lootpools
 
 

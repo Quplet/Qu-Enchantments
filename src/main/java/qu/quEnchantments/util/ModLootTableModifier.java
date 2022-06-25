@@ -55,6 +55,10 @@ public class ModLootTableModifier {
                                 .conditionally(RandomChanceLootCondition.builder(chance))
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.OMEN_OF_IMMUNITY, ConstantLootNumberProvider.create(1))))
+                        .with(ItemEntry.builder(Items.BOOK)
+                                .conditionally(RandomChanceLootCondition.builder(chance))
+                                .apply(new SetEnchantmentsLootFunction.Builder(false)
+                                        .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .build();
                 builder.pool(pool);
 
@@ -95,6 +99,10 @@ public class ModLootTableModifier {
                                 .conditionally(RandomChanceLootCondition.builder(chance))
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.OMEN_OF_IMMUNITY, ConstantLootNumberProvider.create(1))))
+                        .with(ItemEntry.builder(Items.BOOK)
+                                .conditionally(RandomChanceLootCondition.builder(chance))
+                                .apply(new SetEnchantmentsLootFunction.Builder(false)
+                                        .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .build();
                 builder.pool(pool);
 
@@ -135,6 +143,10 @@ public class ModLootTableModifier {
                                 .conditionally(RandomChanceLootCondition.builder(chance))
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.OMEN_OF_IMMUNITY, ConstantLootNumberProvider.create(1))))
+                        .with(ItemEntry.builder(Items.BOOK)
+                                .conditionally(RandomChanceLootCondition.builder(chance))
+                                .apply(new SetEnchantmentsLootFunction.Builder(false)
+                                        .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .build();
                 builder.pool(pool);
 
@@ -175,6 +187,10 @@ public class ModLootTableModifier {
                                 .conditionally(RandomChanceLootCondition.builder(chance))
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.OMEN_OF_IMMUNITY, ConstantLootNumberProvider.create(1))))
+                        .with(ItemEntry.builder(Items.BOOK)
+                                .conditionally(RandomChanceLootCondition.builder(chance))
+                                .apply(new SetEnchantmentsLootFunction.Builder(false)
+                                        .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .with(ItemEntry.builder(ModItems.RUNE_0)
                                 .conditionally(RandomChanceLootCondition.builder(0.05f)))
                         .with(ItemEntry.builder(ModItems.RUNE_1)

@@ -36,7 +36,7 @@ public class ModEnchantments {
     public static final Enchantment SKYWALKER = register("skywalker", new SkywalkerEnchantment(CorruptedEnchantment.EnchantmentType.WALKER, Enchantment.Rarity.VERY_RARE, EquipmentSlot.FEET));
     public static final Enchantment ESSENCE_OF_ENDER = register("essence_of_ender", new EssenceOfEnderEnchantment(CorruptedEnchantment.EnchantmentType.THORNS, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.ARMOR_CHEST, ALL_ARMOR));
     public static final Enchantment OMEN_OF_IMMUNITY = register("omen_of_immunity", new OmenOfImmunityEnchantment(CorruptedEnchantment.EnchantmentType.RUNE, Enchantment.Rarity.VERY_RARE, RUNE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
-    public static final Enchantment STRIP_MINER_ENCHANTMENT = register("strip_miner", new StripMinerEnchantment(CorruptedEnchantment.EnchantmentType.PICKAXE_DROP, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
+    public static final Enchantment STRIP_MINER = register("strip_miner", new StripMinerEnchantment(CorruptedEnchantment.EnchantmentType.PICKAXE_DROP, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
 
     private static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(Registry.ENCHANTMENT, new Identifier(QuEnchantments.MOD_ID, name), enchantment);

@@ -21,7 +21,7 @@ public class BlockMixin {
                 target = "Lnet/minecraft/block/Block;dropStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V"),
             method = "afterBreak", cancellable = true)
     private void stopDrop(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci) {
-        if (EnchantmentHelper.getLevel(ModEnchantments.STRIP_MINER_ENCHANTMENT, stack) > 0) {
+        if (EnchantmentHelper.getLevel(ModEnchantments.STRIP_MINER, stack) > 0) {
             ci.cancel();
         }
     }

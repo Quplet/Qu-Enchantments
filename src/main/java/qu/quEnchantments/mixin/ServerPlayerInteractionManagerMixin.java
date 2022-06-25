@@ -35,7 +35,7 @@ public class ServerPlayerInteractionManagerMixin {
     private void mineRing(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         ItemStack itemStack = this.player.getMainHandStack();
         int lvl;
-        if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.STRIP_MINER_ENCHANTMENT, itemStack)) > 0) {
+        if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.STRIP_MINER, itemStack)) > 0) {
             Iterable<BlockPos> iterable;
             if (lvl == 1) {
                 List<BlockPos> temp = new ArrayList<>(2);
