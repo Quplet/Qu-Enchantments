@@ -1,6 +1,6 @@
-1.1.1-1.19
+1.1.2-1.19
 
 Fixes:
-- Strip Miner is now in the lootpools
+- Fixed crash when a sword enchanted with Nightblood would strike something wearing armor enchanted with Unbreaking
 
 
