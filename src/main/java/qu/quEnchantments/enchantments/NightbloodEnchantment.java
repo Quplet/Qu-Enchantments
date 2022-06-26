@@ -43,11 +43,12 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
                 if (target instanceof LivingEntity livingEntity) {
                     if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return;
                     livingEntity.disableExperienceDropping();
+                    livingEntity.setHealth(livingEntity.getMaxHealth() - 1);
                 }
                 if (user instanceof PlayerEntity) {
-                    target.damage(DamageSource.player((PlayerEntity) user), Float.MAX_VALUE);
+                    target.damage(DamageSource.player((PlayerEntity) user).setUsesMagic(), 10000);
                 } else {
-                    target.damage(DamageSource.mob(user), Float.MAX_VALUE);
+                    target.damage(DamageSource.mob(user).setUsesMagic(), 10000);
                 }
             } else if (target instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, false), user);
