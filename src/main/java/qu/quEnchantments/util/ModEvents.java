@@ -48,7 +48,7 @@ public class ModEvents {
                         CorruptedEnchantment.corruptEnchantments(stack);
                     }
                     int i;
-                    if (player.world.getRegistryKey() != World.NETHER && player.isSneaking() && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.SKYWALKER, player)) > 0) {
+                    if (player.isSneaking() && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.SKYWALKER, player)) > 0) {
                         SkywalkerEnchantment.condenseCloud(player, player.world, i);
                     }
                 } else {

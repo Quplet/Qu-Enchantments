@@ -52,7 +52,8 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
             if (!blockState2.isAir() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent()))
                 return;
             world.setBlockState(blockPos2, blockState);
-            world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(), 50 * level, 100 * level));
+            int bl = world.getDimension().ultrawarm() ? 1 : 2;
+            world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(), 25 * bl * level, 50 * bl * level));
             world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
         }
     }

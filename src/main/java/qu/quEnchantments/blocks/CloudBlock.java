@@ -11,6 +11,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -30,7 +32,11 @@ public class CloudBlock extends Block {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (random.nextInt(3) == 0 || world.hasRain(pos.up())) {
+        boolean bl;
+        if ((bl = world.getDimension().ultrawarm()) || random.nextInt(3) == 0 || world.hasRain(pos.up())) {
+            if (bl) {
+                world.syncWorldEvent(14005, pos, 0);
+            }
             world.removeBlock(pos, false);
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             world.updateNeighbor(pos, Blocks.AIR, pos);
