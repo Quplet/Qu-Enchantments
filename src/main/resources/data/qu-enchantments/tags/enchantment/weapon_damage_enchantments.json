@@ -3,6 +3,8 @@
   "values": [
     "minecraft:sharpness",
     "minecraft:bane_of_arthropods",
-    "minecraft:smite"
+    "minecraft:smite",
+    "enchancement:bersek",
+    "minecraft:unbreaking"
   ]
 }
