@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class AggressionBlessingEnchantment extends Enchantment {
 
-    public static EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 1.0, EntityAttributeModifier.Operation.ADDITION);
+    public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 1.0, EntityAttributeModifier.Operation.ADDITION);
 
     public AggressionBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
