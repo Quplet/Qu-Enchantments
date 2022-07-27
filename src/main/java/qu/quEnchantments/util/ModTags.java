@@ -5,9 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import qu.quEnchantments.QuEnchantments;
 
 public class ModTags {

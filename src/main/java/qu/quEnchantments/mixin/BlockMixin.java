@@ -20,8 +20,9 @@ public class BlockMixin {
     @Inject(at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/block/Block;dropStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V"),
             method = "afterBreak", cancellable = true)
-    private void stopDrop(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci) {
-        if (EnchantmentHelper.getLevel(ModEnchantments.STRIP_MINER, stack) > 0) {
+    private void quEnchantments$stopDrop(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci) {
+        if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.STRIP_MINER, player) > 0) {
+            // cancels to stop the block from dropping items
             ci.cancel();
         }
     }

@@ -11,10 +11,11 @@ import qu.quEnchantments.enchantments.ReflectionEnchantment;
 @Mixin(PersistentProjectileEntity.class)
 public class PersistentProjectileEntityMixin {
 
-    @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFireTicks(I)V", shift = At.Shift.BEFORE), cancellable = true)
-    private void reflect(EntityHitResult entityHitResult, CallbackInfo ci) {
+    @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFireTicks(I)V"), cancellable = true)
+    private void quEnchantments$reflect(EntityHitResult entityHitResult, CallbackInfo ci) {
         PersistentProjectileEntity projectile = (PersistentProjectileEntity)(Object)this;
         if (ReflectionEnchantment.reflect(projectile, entityHitResult)) {
+            // cancels to prevent the default velocity modifications
             ci.cancel();
         }
     }

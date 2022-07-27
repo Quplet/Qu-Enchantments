@@ -17,9 +17,10 @@ public class BowItemMixin {
     @ModifyArgs(method = "onStoppedUsing",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;setVelocity(Lnet/minecraft/entity/Entity;FFFFF)V"))
-    private void speed(Args args, ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    private void quEnchantments$setSpeed(Args args, ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         int lvl;
         if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.ARROWS_FLIGHT, stack)) > 0) {
+            // the 4th arg is the speed variable
             args.set(4, (float)args.get(4) + lvl * 0.5f);
         }
     }

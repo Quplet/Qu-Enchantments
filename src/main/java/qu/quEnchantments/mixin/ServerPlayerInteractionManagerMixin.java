@@ -31,8 +31,8 @@ public class ServerPlayerInteractionManagerMixin {
     protected ServerWorld world;
 
     @Inject(method = "tryBreakBlock", at = @At(value = "INVOKE",
-                target = "Lnet/minecraft/server/network/ServerPlayerInteractionManager;isCreative()Z", shift = At.Shift.BEFORE))
-    private void mineRing(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+                target = "Lnet/minecraft/server/network/ServerPlayerInteractionManager;isCreative()Z"))
+    private void quEnchantments$mineRing(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         ItemStack itemStack = this.player.getMainHandStack();
         int lvl;
         if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.STRIP_MINER, itemStack)) > 0) {
