@@ -1,6 +1,17 @@
-1.1.2-1.19
+1.2.0-1.19
 
-Fixes:
-- Fixed crash when a sword enchanted with Nightblood would strike something wearing armor enchanted with Unbreaking
+New:
+- Inane Aspect Enchantment
+- Curse of Agitation
+
+Fixes/Changes:
+- Optimizations
+- Skywalker can now be used in Ultrawarm dimensions (like the Nether), just with a shortened cloud duration
+- The `nightblood_immune_entities.json` now uses `#c:bosses` for the bosses it won't one-shot
+- Skywalker is now mutually exclusive to Depth Strider
+- Corrupted Enchantments will now consume Curses
+- Possible fix for Runes still working even when the duration is out
+- Fixed axes not breaking on an anvil with Shaped Glass
+- Tweaked Fidelity so that it is less likely for the horse to teleport into blocks and suffocate
 
 

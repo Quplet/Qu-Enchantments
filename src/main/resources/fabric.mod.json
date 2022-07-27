@@ -3,7 +3,7 @@
   "id": "qu-enchantments",
   "version": "${version}",
 
-  "name": "Qu's Enchantments",
+  "name": "Qu Enchantments",
   "description": "Adds some of my custom enchantments into the game.",
   "authors": [
     "Qu (Design and programming)",
@@ -20,6 +20,9 @@
 
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "qu.quEnchantments.QuEnchantments"
+    ],
     "main": [
       "qu.quEnchantments.QuEnchantments"
     ],

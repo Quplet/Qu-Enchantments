@@ -33,6 +33,10 @@
   "enchantment.qu-enchantments.strip_miner.desc": "After mining a block, the tool-compatible blocks around it will be destroyed for a clear path. These blocks, including the mined one, will not drop their spoils.",
   "enchantment.qu-enchantments.fidelity": "Fidelity",
   "enchantment.qu-enchantments.fidelity.desc": "Horses with this enchantment on their armor will follow and teleport to you.",
+  "enchantment.qu-enchantments.inane_aspect": "Inane Aspect",
+  "enchantment.qu-enchantments.inane_aspect.desc": "Causes hit entities to not benefit from any enchantments for a short duration.",
+  "enchantment.qu-enchantments.agitation_curse": "Curse of Agitation",
+  "enchantment.qu-enchantments.agitation_curse.desc": "Mobs will become hostile to anything wearing this curse.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
   "block.qu-enchantments.cloud": "Cloud",

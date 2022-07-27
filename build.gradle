@@ -27,13 +27,15 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	// Fabric ASM
 	modImplementation "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 
 	//MixinExtras
-	//implementation("com.github.LlamaLad7:MixinExtras:0.0.11")
-	//annotationProcessor("com.github.LlamaLad7:MixinExtras:0.0.11")
-	//include("com.github.LlamaLad7:MixinExtras:0.0.11")
+	modImplementation "com.github.LlamaLad7:MixinExtras:0.0.11"
+	annotationProcessor "com.github.LlamaLad7:MixinExtras:0.0.11"
+	include "com.github.LlamaLad7:MixinExtras:0.0.11"
 }
 
 loom {
