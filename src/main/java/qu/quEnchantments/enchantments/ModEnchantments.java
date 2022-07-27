@@ -1,6 +1,7 @@
 package qu.quEnchantments.enchantments;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import net.minecraft.enchantment.BindingCurseEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -17,8 +18,9 @@ public class ModEnchantments {
     private static final EnchantmentTarget RUNE = ClassTinkerers.getEnum(EnchantmentTarget.class, "RUNE");
     private static final EnchantmentTarget HORSE_ARMOR = ClassTinkerers.getEnum(EnchantmentTarget.class, "HORSE_ARMOR");
 
-    public static final Enchantment FREEZING_ASPECT = register("freezing_aspect", new FreezingAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
-    public static final Enchantment LEECHING_ASPECT = register("leeching_aspect", new LeechingAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final Enchantment FREEZING_ASPECT = register("freezing_aspect", new FreezingAspectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND));
+    public static final Enchantment LEECHING_ASPECT = register("leeching_aspect", new LeechingAspectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND));
+    public static final Enchantment INANE_ASPECT = register("inane_aspect", new InaneAspectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND));
     public static final Enchantment MOLTEN_WALKER = register("molten_walker", new MoltenWalkerEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.FEET));
     public static final Enchantment BASHING = register("bashing", new BashingEnchantment(Enchantment.Rarity.COMMON, SHIELD, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment REFLECTION = register("reflection", new ReflectionEnchantment(Enchantment.Rarity.COMMON, SHIELD, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
@@ -37,6 +39,8 @@ public class ModEnchantments {
     public static final Enchantment ESSENCE_OF_ENDER = register("essence_of_ender", new EssenceOfEnderEnchantment(CorruptedEnchantment.EnchantmentType.THORNS, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.ARMOR_CHEST, ALL_ARMOR));
     public static final Enchantment OMEN_OF_IMMUNITY = register("omen_of_immunity", new OmenOfImmunityEnchantment(CorruptedEnchantment.EnchantmentType.RUNE, Enchantment.Rarity.VERY_RARE, RUNE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment STRIP_MINER = register("strip_miner", new StripMinerEnchantment(CorruptedEnchantment.EnchantmentType.PICKAXE_DROP, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
+
+    public static final Enchantment AGITATION_CURSE = register("agitation_curse", new BindingCurseEnchantment(Enchantment.Rarity.VERY_RARE, ALL_ARMOR));
 
     private static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(Registry.ENCHANTMENT, new Identifier(QuEnchantments.MOD_ID, name), enchantment);
