@@ -22,7 +22,7 @@ import java.util.EnumSet;
  */
 public class FidelityFollowOwnerGoal extends Goal {
 
-    private HorseEntity horse;
+    private final HorseEntity horse;
     private LivingEntity owner;
     private final WorldView world;
     private final double speed;
@@ -65,7 +65,8 @@ public class FidelityFollowOwnerGoal extends Goal {
         if (this.horse.squaredDistanceTo(livingEntity) < (this.maxDistance * this.maxDistance)) {
             return false;
         }
-        if (EnchantmentHelper.getLevel(ModEnchantments.FIDELITY, this.horse.getArmorType()) == 0) {
+        //TODO: Make sure this doesn't break with getEquipmentLevel
+        if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.FIDELITY, horse) == 0) {
             return false;
         }
         this.owner = livingEntity;
@@ -77,10 +78,7 @@ public class FidelityFollowOwnerGoal extends Goal {
         if (this.navigation.isIdle()) {
             return false;
         }
-        if (this.horse.squaredDistanceTo(this.owner) <= (this.minDistance * this.minDistance)) {
-            return false;
-        }
-        return true;
+        return !(this.horse.squaredDistanceTo(this.owner) <= (this.minDistance * this.minDistance));
     }
 
     @Override
@@ -154,7 +152,7 @@ public class FidelityFollowOwnerGoal extends Goal {
             return false;
         }
         BlockPos blockPos = pos.subtract(this.horse.getBlockPos());
-        return this.world.isSpaceEmpty(this.horse, this.horse.getBoundingBox().offset(blockPos));
+        return this.world.isSpaceEmpty(this.horse, this.horse.getBoundingBox().offset(blockPos).expand(0.25));
     }
 
     private int getRandomInt(int min, int max) {
