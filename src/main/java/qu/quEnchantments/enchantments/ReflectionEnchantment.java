@@ -42,7 +42,7 @@ public class ReflectionEnchantment extends Enchantment {
                     damageSource = DamageSource.arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
                 }
                 int i;
-                if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getLevel(ModEnchantments.REFLECTION, player.getActiveItem())) > 0) {
+                if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) > 0) {
                     projectile.setVelocity(player, player.getPitch() - 1.0f, player.getYaw(), 0.0f, (float) projectile.getVelocity().length(), 25.0f / i);
                     return true;
                 }

@@ -1,4 +1,4 @@
-package qu.quEnchantments.mixin;
+package qu.quEnchantments.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,12 +20,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
-    @Shadow
-    private @Nullable ClientWorld world;
+    @Shadow private @Nullable ClientWorld world;
 
     @Inject(at = @At("TAIL"), method = "processWorldEvent")
     private void processEvent(int eventId, BlockPos pos, int data, CallbackInfo ci) {
-        Random random = world.random;
+        if (this.world == null) return;
+        Random random = this.world.random;
         switch (eventId) {
             case 14001 -> {
                 for (int i = 0; i < 2; ++i) {

@@ -38,7 +38,7 @@ public class HotObsidianBlock extends Block {
     @Override
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, state, blockEntity, stack);
-        if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0) {
+        if (EnchantmentHelper.getEquipmentLevel(Enchantments.SILK_TOUCH, player) == 0) {
             Material material = world.getBlockState(pos.down()).getMaterial();
             if (material.blocksMovement() || material.isLiquid()) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState());
