@@ -6,15 +6,17 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import qu.quEnchantments.util.IItemStack;
 import qu.quEnchantments.util.ModTags;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
@@ -84,11 +86,9 @@ public abstract class CorruptedEnchantment extends Enchantment {
      */
     public static void corruptEnchantments(ItemStack stack) {
         if (stack == null) return;
-        if (stack.isEmpty()) return;
         if (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) return;
+        if (!((IItemStack)(Object)stack).isEnchantmentsDirty()) return;
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
-        int bl = stack.getOrCreateNbt().getShort("Corrupted");
-        if (bl == enchantments.size()) return;
         CorruptedEnchantment corruptedEnchantment = null;
         int cLevel = 0;
         for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
@@ -98,11 +98,13 @@ public abstract class CorruptedEnchantment extends Enchantment {
                 break;
             }
         }
+        ((IItemStack)(Object)stack).setEnchantmentsDirty(false);
         if (corruptedEnchantment == null) return;
         int levels = 0;
         Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
         for (Enchantment enchantment : newSet) {
-            if (Registry.ENCHANTMENT.getOrCreateEntry(Registry.ENCHANTMENT.getKey(enchantment).orElseThrow()).isIn(corruptedEnchantment.enchantmentType.corruptible)) {
+            Optional<RegistryKey<Enchantment>> key;
+            if (enchantment.isCursed() || (key = Registry.ENCHANTMENT.getKey(enchantment)).isPresent() && Registry.ENCHANTMENT.getOrCreateEntry(key.orElseThrow()).isIn(corruptedEnchantment.enchantmentType.corruptible)) {
                 levels += enchantments.remove(enchantment);
             }
         }
@@ -113,9 +115,6 @@ public abstract class CorruptedEnchantment extends Enchantment {
             if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt("StoredEnchantments");
             EnchantmentHelper.set(enchantments, stack);
         }
-        NbtCompound nbtCompound = new NbtCompound();
-        nbtCompound.putShort("Corrupted", (short) enchantments.size());
-        stack.getOrCreateNbt().put("Corrupted", nbtCompound);
     }
 
     /**
