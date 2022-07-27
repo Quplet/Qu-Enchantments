@@ -1,8 +1,9 @@
 package qu.quEnchantments.enchantments;
 
 import net.minecraft.block.*;
+import net.minecraft.enchantment.DepthStriderEnchantment;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
@@ -34,6 +35,14 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
     @Override
     public int getMaxLevel() {
         return 2;
+    }
+
+    @Override
+    public boolean canAccept(Enchantment other) {
+        if (other instanceof DepthStriderEnchantment) {
+            return false;
+        }
+        return super.canAccept(other);
     }
 
     public static void condenseCloud(LivingEntity entity, World world, int level) {

@@ -20,11 +20,6 @@ public class ShapedGlassEnchantment extends CorruptedEnchantment {
     }
 
     @Override
-    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        user.getMainHandStack().damage(20 + level * 2, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
-    }
-
-    @Override
     public int getMaxLevel() {
         return 5;
     }

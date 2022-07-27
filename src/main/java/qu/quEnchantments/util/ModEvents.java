@@ -1,48 +1,39 @@
 package qu.quEnchantments.util;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import qu.quEnchantments.callbacks.EntityEvents;
 import qu.quEnchantments.callbacks.LivingEntityEvents;
 import qu.quEnchantments.enchantments.*;
 import qu.quEnchantments.entity.ai.goals.FidelityFollowOwnerGoal;
 import qu.quEnchantments.mixin.MobEntityAccessor;
-import qu.quEnchantments.world.ModWorldEvents;
-import qu.quEnchantments.callbacks.AnvilEvents;
+import qu.quEnchantments.particle.ModParticles;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ModEvents {
 
     public static void RegisterModEvents() {
 
-        AnvilEvents.ANVIL_USED.register((player, stack, handler) -> {
-            // Logic for Shaped Glass enchantment. Causes item to break upon anvil use.
-            if (!player.getAbilities().creativeMode) {
-                if ((handler.getSlot(0).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(0).getStack()) > 0) ||
-                        (handler.getSlot(1).getStack().getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, handler.getSlot(1).getStack()) > 0)) {
-                    stack.setDamage(stack.getMaxDamage() - 1);
-                    stack.damage(50, player, Entity::toString);
-                    player.world.syncWorldEvent(ModWorldEvents.SHAPED_GLASS_BREAK, player.getBlockPos(), 0);
-                }
-            }
-        });
-
-        AnvilEvents.ANVIL_UPDATE.register(handler -> CorruptedEnchantment.corruptEnchantments(handler.getSlot(2).getStack()));
-
         LivingEntityEvents.ON_TICK_EVENT.register(livingEntity -> {
             if (!livingEntity.world.isClient) {
+                // Enchantment corruption + Skywalker logic
                 if (livingEntity instanceof PlayerEntity player) {
                     for (ItemStack stack : player.getInventory().main) {
                         CorruptedEnchantment.corruptEnchantments(stack);
@@ -60,12 +51,41 @@ public class ModEvents {
                 if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.NIGHTBLOOD, livingEntity)) > 0) {
                     NightbloodEnchantment.drain(livingEntity, i);
                 }
-                if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) {
-                    livingEntity.extinguish();
-                    livingEntity.setFrozenTicks(0);
-                    livingEntity.clearStatusEffects();
+
+                // Omen of Immunity logic. Have to do it the manual way to bypass my Inane effect.
+                for (Hand hand : Hand.values()) {
+                    NbtList nbtElements = livingEntity.getStackInHand(hand).getEnchantments();
+                    for (int x = 0; x < nbtElements.size(); x++) {
+                        if (Objects.equals(EnchantmentHelper.getIdFromNbt(nbtElements.getCompound(x)), EnchantmentHelper.getEnchantmentId(ModEnchantments.OMEN_OF_IMMUNITY))) {
+                            System.out.println(true);
+                            livingEntity.extinguish();
+                            livingEntity.setFrozenTicks(0);
+                            livingEntity.clearStatusEffects();
+                            ((IEntity)livingEntity).setInaneTicks(0);
+                            break;
+                        }
+                    }
+                }
+
+                // Curse of Agitation logic
+                if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.AGITATION_CURSE, livingEntity) > 0 && !(livingEntity instanceof PlayerEntity player && player.getAbilities().creativeMode) && livingEntity.age % 20 == 10) {
+                    List<Entity> mobs = livingEntity.world.getOtherEntities(livingEntity, livingEntity.getBoundingBox().expand(16), entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity mob && mob.getTarget() == null);
+                    for (Entity mob : mobs) {
+                        ((MobEntity)mob).setTarget(livingEntity);
+                    }
+                }
+            } else {
+                // Inane effect client particle logic
+                // TODO: Test in server environment
+                if (((IEntity)livingEntity).getInaneTicks() > 0 && livingEntity != MinecraftClient.getInstance().player) {
+                    double px = livingEntity.getParticleX(1.0);
+                    double py = livingEntity.getRandomBodyY();
+                    double pz = livingEntity.getParticleZ(1.0);
+                    livingEntity.world.addParticle(ModParticles.INANE_PARTICLE, px, py, pz, (livingEntity.getX() - px) * 0.05, (py - livingEntity.getY()) * 0.05, (livingEntity.getZ() - pz) * 0.05);
                 }
             }
+
+            // Essence of Ender logic
             if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.ESSENCE_OF_ENDER, livingEntity) > 0) {
                 if (!livingEntity.world.isClient) {
                     if (livingEntity.isWet() && livingEntity.getRandom().nextFloat() < 0.05f) {
@@ -118,6 +138,38 @@ public class ModEvents {
                 int i;
                 if ((i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.MOLTEN_WALKER, entity)) > 0) {
                     MoltenWalkerEnchantment.hardenLava(entity, entity.world, blockPos, i);
+                }
+            }
+        });
+
+        // Is triggered before the damage is actually applied
+        LivingEntityEvents.ON_ATTACK_EVENT.register((target, attacker) -> {
+            if (!target.world.isClient) {
+                int i;
+                if ((i = EnchantmentHelper.getLevel(ModEnchantments.INANE_ASPECT, attacker.getMainHandStack())) > 0) {
+                    ((IEntity) target).setInaneTicks(InaneAspectEnchantment.getMinInaneTicks(i));
+                }
+                if ((i = EnchantmentHelper.getLevel(ModEnchantments.FREEZING_ASPECT, attacker.getMainHandStack())) > 0) {
+                    target.extinguish();
+                    if (target.canFreeze()) {
+                        target.setFrozenTicks(target.getMinFreezeDamageTicks() + 75 * i);
+                    }
+                    Random random = target.world.getRandom();
+                    for (int x = 0; x < 20; ++x) {
+                        double d = random.nextGaussian() * 0.02;
+                        double e = random.nextGaussian() * 0.02;
+                        double f = random.nextGaussian() * 0.02;
+                        ((ServerWorld) target.world).spawnParticles(ParticleTypes.SNOWFLAKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+                    }
+                }
+                if ((i = EnchantmentHelper.getLevel(ModEnchantments.LEECHING_ASPECT, attacker.getMainHandStack())) > 0) {
+                    attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, false, false, false));
+                    attacker.heal(0.25f * i);
+                    Random random = attacker.world.getRandom();
+                    double d = random.nextGaussian() * 0.02;
+                    double e = random.nextGaussian() * 0.02;
+                    double f = random.nextGaussian() * 0.02;
+                    ((ServerWorld) attacker.world).spawnParticles(ParticleTypes.HEART, attacker.getParticleX(1.0), attacker.getRandomBodyY(), attacker.getParticleZ(1.0), 1, d, e, f, 0.0);
                 }
             }
         });

@@ -3,6 +3,7 @@ package qu.quEnchantments.enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,7 +14,10 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import qu.quEnchantments.util.ModTags;
+
+import java.util.Optional;
 
 public class NightbloodEnchantment extends CorruptedEnchantment {
 
@@ -36,32 +40,6 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         return 2;
     }
 
-    @Override
-    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if (!target.world.isClient) {
-            if (!Registry.ENTITY_TYPE.getOrCreateEntry(Registry.ENTITY_TYPE.getKey(target.getType()).orElseThrow()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
-                if (target instanceof LivingEntity livingEntity) {
-                    if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return;
-                    livingEntity.disableExperienceDropping();
-                }
-                if (user instanceof PlayerEntity) {
-                    target.damage(DamageSource.player((PlayerEntity) user).setUsesMagic(), 1000000.0f);
-                } else {
-                    target.damage(DamageSource.mob(user).setUsesMagic(), 1000000.0f);
-                }
-            } else if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, false), user);
-            }
-            Random random = target.world.getRandom();
-            for (int i = 0; i < 25; ++i) {
-                double d = random.nextGaussian() * 0.02;
-                double e = random.nextGaussian() * 0.02;
-                double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
-            }
-        }
-    }
-
     /**
      * Will remove 4/level xp from the user until drained, then hunger, then health.
      * @param user The {@link LivingEntity} to drain.
@@ -81,5 +59,28 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         } else {
             user.damage(DamageSource.MAGIC, 2.0f / level);
         }
+    }
+
+    public static float calculateDamage(Entity target, LivingEntity attacker) {
+        if (!target.world.isClient) {
+            Random random = target.world.getRandom();
+            for (int x = 0; x < 25; ++x) {
+                double d = random.nextGaussian() * 0.02;
+                double e = random.nextGaussian() * 0.02;
+                double f = random.nextGaussian() * 0.02;
+                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+            }
+            Optional<RegistryKey<EntityType<?>>> key;
+            if ((key = Registry.ENTITY_TYPE.getKey(target.getType())).isPresent() && !Registry.ENTITY_TYPE.getOrCreateEntry(key.orElseThrow()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+                if (target instanceof LivingEntity livingEntity) {
+                    if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return 0.0f;
+                    livingEntity.disableExperienceDropping();
+                }
+                return 1000000.0f;
+            } else if (target instanceof LivingEntity livingEntity) {
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1, false, true), attacker);
+            }
+        }
+        return 0.0f;
     }
 }
