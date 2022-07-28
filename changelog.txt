@@ -13,5 +13,7 @@ Fixes/Changes:
 - Possible fix for Runes still working even when the duration is out
 - Fixed axes not breaking on an anvil with Shaped Glass
 - Tweaked Fidelity so that it is less likely for the horse to teleport into blocks and suffocate
+- Freezing and Leeching enchantment no longer apply their effect to creative mode players
+- Small nerf to Blessing of Aggression
 
 
