@@ -28,10 +28,9 @@ public class EntityMixin implements IEntity {
     private static final TrackedData<Integer> INANE_TICKS = DataTracker.registerData(Entity.class, TrackedDataHandlerRegistry.INTEGER);
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void quEnchantments$trackInaneTicks(EntityType type, World world, CallbackInfo ci) {
+    private void quEnchantments$trackInaneTicks(EntityType<?> type, World world, CallbackInfo ci) {
         dataTracker.startTracking(INANE_TICKS, 0);
     }
-
 
     @Override
     @Unique

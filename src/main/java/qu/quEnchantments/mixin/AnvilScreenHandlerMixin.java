@@ -20,11 +20,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.IItemStack;
+import qu.quEnchantments.world.ModWorldEvents;
 
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
-
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Inject(at = @At("HEAD"), method = "onTakeOutput")
     private void quEnchantments$breakShapedGlassOnAnvilTakeOutput(PlayerEntity player, ItemStack stack, CallbackInfo info) {
         if (player.getAbilities().creativeMode) return;
@@ -42,8 +43,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         if (player.world.isClient) {
             player.playSound(SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 5.0f, 1.0f);
         }
-        // 14002 plays a glass breaking noise
-        player.world.syncWorldEvent(player, 14002, player.getBlockPos(), 0);
+        player.world.syncWorldEvent(player, ModWorldEvents.SHAPED_GLASS_BREAK, player.getBlockPos(), 0);
     }
 
     @Inject(at = @At("TAIL"), method = "updateResult")
