@@ -34,7 +34,7 @@
   "enchantment.qu-enchantments.fidelity": "Fidelity",
   "enchantment.qu-enchantments.fidelity.desc": "Horses with this enchantment on their armor will follow and teleport to you.",
   "enchantment.qu-enchantments.inane_aspect": "Inane Aspect",
-  "enchantment.qu-enchantments.inane_aspect.desc": "Causes hit entities to not benefit from any enchantments for a short duration.",
+  "enchantment.qu-enchantments.inane_aspect.desc": "Nullifies all Protection enchantments, blessings, and Totems of Undying for a short duration.",
   "enchantment.qu-enchantments.agitation_curse": "Curse of Agitation",
   "enchantment.qu-enchantments.agitation_curse.desc": "Mobs will become hostile to anything wearing this curse.",
 
