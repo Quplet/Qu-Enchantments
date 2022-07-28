@@ -65,7 +65,6 @@ public class FidelityFollowOwnerGoal extends Goal {
         if (this.horse.squaredDistanceTo(livingEntity) < (this.maxDistance * this.maxDistance)) {
             return false;
         }
-        //TODO: Make sure this doesn't break with getEquipmentLevel
         if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.FIDELITY, horse) == 0) {
             return false;
         }
@@ -152,7 +151,7 @@ public class FidelityFollowOwnerGoal extends Goal {
             return false;
         }
         BlockPos blockPos = pos.subtract(this.horse.getBlockPos());
-        return this.world.isSpaceEmpty(this.horse, this.horse.getBoundingBox().offset(blockPos).expand(0.25));
+        return this.world.isSpaceEmpty(this.horse, this.horse.getBoundingBox().expand(0.1, 0.0, 0.1).offset(blockPos));
     }
 
     private int getRandomInt(int min, int max) {
