@@ -1,5 +1,6 @@
 package qu.quEnchantments.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -100,5 +101,11 @@ public abstract class LivingEntityMixin extends EntityMixin {
         if (stack.getItem() instanceof RuneItem) {
             cir.setReturnValue(EquipmentSlot.OFFHAND);
         }
+    }
+
+    @SuppressWarnings("unused")
+    @ModifyExpressionValue(method = {"modifyAppliedDamage", "tryUseTotem"}, at = {@At(value = "INVOKE", target = "net/minecraft/entity/damage/DamageSource.bypassesProtection()Z"), @At(value = "INVOKE", target = "net/minecraft/entity/damage/DamageSource.isOutOfWorld()Z")})
+    private boolean quEnchantments$setBypassIfInane(boolean original) {
+        return original || (this.getInaneTicks() > 0 && EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, (LivingEntity)(Object)this) <= 0);
     }
 }

@@ -23,8 +23,7 @@
     "EntityMixin",
     "SwordItemMixin",
     "MiningToolItemMixin",
-    "PlayerEntityMixin",
-    "EnchantmentHelperMixin"
+    "PlayerEntityMixin"
   ],
   "client": [
     "client.WorldRendererMixin",

@@ -3,7 +3,7 @@
 # Qu Enchantments Mod (For Fabric/Quilt)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
-in the game while not straying too far from vanilla. It's not just your ordinary Mo'Enchants mod however, I have my own little twist inside...
+in the game while not straying too far from vanilla. It's not just your ordinary More Enchants mod however, I have my own little twist inside...
 
 ## 🧰 Installation
 
@@ -22,7 +22,7 @@ This mod currently has 18 new enchantments and one new item as of 1.2.0-1.19.
 - 📘 Normal Enchantments
   - Freezing Aspect Enchantment (I-II) (Sword) - Slows enemy on hit.
   - Leeching Aspect Enchantment (I-II) (Sword) - Heals a small amount on hit.
-  - Inane Aspect Enchantment (I-II) (Sword) - Nullifies all Protection enchantments for a short duration.
+  - Inane Aspect Enchantment (I-II) (Sword) - Nullifies all Protection enchantments, blessings, and Totems of Undying for a short duration.
   - Molten Walker Enchantment (I-II) (Boots) - Hardens lava for a short time as you walk.
   - Bashing Enchantment (Shield) - When hit while guarding, knocks your attacker back a small amount.
   - Reflection Enchantment (I-III) (Shield) - Blocked persistent projectiles (arrows and tridents) will be reflected back 
@@ -34,6 +34,9 @@ This mod currently has 18 new enchantments and one new item as of 1.2.0-1.19.
   - Blessing of Aggression (Rune) - Gives a small passive increase to attack speed.
   - Fidelity (Horse Armor) - Horses with this enchantment on their armor will follow and teleport to its bonded player. 
   Any player that tries to ride the horse while it's trying to reach you will be dismounted.
+
+- 📕 Curses
+  - Curse of Agitation - Mobs will become hostile to anything wearing this curse.
 
 - 🎱 Corrupted Enchantments - A new type of enchantments that offer a powerful ability with a drawback. They will consume
   other enchantments of the same type to increase their level. Multiple corrupted enchantments cannot be placed on the same item. They can be found
@@ -85,6 +88,7 @@ The Nightblood corrupted enchantment will one-hit kill every entity not listed i
 
 This mod relies on [Fabric-ASM](https://github.com/Chocohead/Fabric-ASM) by Chocohead. It is built into the mod, so there 
 is no need to download anything.
+
 Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I requested made (Hot Obsidian Block and the Rune textures).
 
 ## 📜 License

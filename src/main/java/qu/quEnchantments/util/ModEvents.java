@@ -11,11 +11,9 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.random.Random;
 import qu.quEnchantments.callbacks.EntityEvents;
 import qu.quEnchantments.callbacks.LivingEntityEvents;
@@ -25,7 +23,6 @@ import qu.quEnchantments.mixin.MobEntityAccessor;
 import qu.quEnchantments.particle.ModParticles;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ModEvents {
 
@@ -52,19 +49,12 @@ public class ModEvents {
                     NightbloodEnchantment.drain(livingEntity, i);
                 }
 
-                // Omen of Immunity logic. Have to do it the manual way to bypass my Inane effect.
-                for (Hand hand : Hand.values()) {
-                    NbtList nbtElements = livingEntity.getStackInHand(hand).getEnchantments();
-                    for (int x = 0; x < nbtElements.size(); x++) {
-                        if (Objects.equals(EnchantmentHelper.getIdFromNbt(nbtElements.getCompound(x)), EnchantmentHelper.getEnchantmentId(ModEnchantments.OMEN_OF_IMMUNITY))) {
-                            System.out.println(true);
-                            livingEntity.extinguish();
-                            livingEntity.setFrozenTicks(0);
-                            livingEntity.clearStatusEffects();
-                            ((IEntity)livingEntity).setInaneTicks(0);
-                            break;
-                        }
-                    }
+                // Omen of Immunity logic.
+                if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) {
+                    livingEntity.extinguish();
+                    livingEntity.setFrozenTicks(0);
+                    livingEntity.clearStatusEffects();
+                    ((IEntity)livingEntity).setInaneTicks(0);
                 }
 
                 // Curse of Agitation logic
@@ -76,7 +66,6 @@ public class ModEvents {
                 }
             } else {
                 // Inane effect client particle logic
-                // TODO: Test in server environment
                 if (((IEntity)livingEntity).getInaneTicks() > 0 && livingEntity != MinecraftClient.getInstance().player) {
                     double px = livingEntity.getParticleX(1.0);
                     double py = livingEntity.getRandomBodyY();
@@ -144,7 +133,7 @@ public class ModEvents {
 
         // Is triggered before the damage is actually applied
         LivingEntityEvents.ON_ATTACK_EVENT.register((target, attacker) -> {
-            if (!target.world.isClient) {
+            if (!target.world.isClient && !(target instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
                 int i;
                 if ((i = EnchantmentHelper.getLevel(ModEnchantments.INANE_ASPECT, attacker.getMainHandStack())) > 0) {
                     ((IEntity) target).setInaneTicks(InaneAspectEnchantment.getMinInaneTicks(i));

@@ -1,7 +1,6 @@
 package qu.quEnchantments.items;
 
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -10,7 +9,6 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.IItemStack;
 
 public class RuneItem extends Item {
@@ -34,7 +32,7 @@ public class RuneItem extends Item {
     public boolean isDamageable() {
         return false;
     }
-    
+
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!stack.hasEnchantments() || entity.age % 20 != 0) return;

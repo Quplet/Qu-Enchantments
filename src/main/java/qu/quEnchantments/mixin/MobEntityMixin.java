@@ -23,10 +23,6 @@ import java.util.Collections;
 @Mixin(MobEntity.class)
 public abstract class MobEntityMixin extends LivingEntity {
 
-    protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
-        super(entityType, world);
-    }
-
     @Inject(method = "getArmorItems", at = @At("TAIL"), cancellable = true)
     private void quEnchantments$horseCondition(CallbackInfoReturnable<Iterable<ItemStack>> cir) {
         MobEntity entity = (MobEntity)(Object)this;
@@ -44,5 +40,10 @@ public abstract class MobEntityMixin extends LivingEntity {
             value += NightbloodEnchantment.calculateDamage(target, this);
         }
         return value;
+    }
+
+    // Ignore
+    protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
     }
 }

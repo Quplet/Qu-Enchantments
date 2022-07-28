@@ -3,7 +3,6 @@ package qu.quEnchantments.blocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.entity.mob.CaveSpiderEntity;
 import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.entity.mob.SpiderEntity;
@@ -11,8 +10,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -30,6 +27,7 @@ public class CloudBlock extends Block {
         super(settings);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         boolean bl;
@@ -49,6 +47,7 @@ public class CloudBlock extends Block {
         world.createAndScheduleBlockTick(pos, this, MathHelper.nextInt(random, 50, 100));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Entity entity;
@@ -62,6 +61,7 @@ public class CloudBlock extends Block {
         return VoxelShapes.empty();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         double a = entity.getVelocity().getX();
@@ -85,26 +85,31 @@ public class CloudBlock extends Block {
         return ItemStack.EMPTY;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.empty();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.empty();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
         return VoxelShapes.empty();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isSideInvisible(BlockState state, BlockState stateFrom, Direction direction) {
         if (stateFrom.isOf(this)) {
@@ -113,6 +118,7 @@ public class CloudBlock extends Block {
         return super.isSideInvisible(state, stateFrom, direction);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
         return 1.0f;
@@ -123,6 +129,7 @@ public class CloudBlock extends Block {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return true;
