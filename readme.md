@@ -14,7 +14,7 @@ so make sure you have that as well.
 
 ## 📖 Content
 
-This mod currently has 18 new enchantments and one new item as of 1.2.0-1.19.
+This mod currently has 18 new enchantments, one new curse, and one new item as of 1.2.0-1.19.
 
 <details>
   <summary>Click to expand</summary>
