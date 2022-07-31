@@ -32,10 +32,10 @@ dependencies {
 	modImplementation "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
 
-	//MixinExtras
-	modImplementation "com.github.LlamaLad7:MixinExtras:0.0.11"
-	annotationProcessor "com.github.LlamaLad7:MixinExtras:0.0.11"
-	include "com.github.LlamaLad7:MixinExtras:0.0.11"
+	// MixinExtras
+	modImplementation "com.github.LlamaLad7:MixinExtras:0.0.12"
+	annotationProcessor "com.github.LlamaLad7:MixinExtras:0.0.12"
+	include "com.github.LlamaLad7:MixinExtras:0.0.12"
 }
 
 loom {
