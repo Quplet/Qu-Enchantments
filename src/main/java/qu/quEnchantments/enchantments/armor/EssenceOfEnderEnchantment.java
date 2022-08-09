@@ -1,4 +1,4 @@
-package qu.quEnchantments.enchantments;
+package qu.quEnchantments.enchantments.armor;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.event.GameEvent;
+import qu.quEnchantments.enchantments.CorruptedEnchantment;
 
 public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
     public EssenceOfEnderEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {

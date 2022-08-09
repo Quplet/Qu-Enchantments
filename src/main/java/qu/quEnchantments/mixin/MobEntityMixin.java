@@ -1,6 +1,5 @@
 package qu.quEnchantments.mixin;
 
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -13,10 +12,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import qu.quEnchantments.callbacks.LivingEntityEvents;
-import qu.quEnchantments.enchantments.ModEnchantments;
-import qu.quEnchantments.enchantments.NightbloodEnchantment;
+import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 
 import java.util.Collections;
 
@@ -29,17 +28,18 @@ public abstract class MobEntityMixin extends LivingEntity {
         if (entity instanceof HorseEntity) cir.setReturnValue(Collections.singleton(entity.getEquippedStack(EquipmentSlot.CHEST)));
     }
 
-    @Inject(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I"))
-    private void quEnchantments$triggerOnAttack(Entity target, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntityEvents.ON_ATTACK_EVENT.invoker().onAttack(target, this);
+    @ModifyVariable(method = "tryAttack",
+            slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F")),
+            at = @At(value = "STORE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F"),
+            ordinal = 0)
+    private float quEnchantments$injectGetAttackDamage(float original, Entity target) {
+        return original + QuEnchantmentHelper.getAttackDamage(this.getMainHandStack(), target);
     }
 
-    @ModifyVariable(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I"), ordinal = 0)
-    private float quEnchantments$modifyDamageVariableForNightblood(float value, Entity target) {
-        if (EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, this.getMainHandStack()) > 0) {
-            value += NightbloodEnchantment.calculateDamage(target, this);
-        }
-        return value;
+    @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V"))
+    private void quEnchantments$injectTickEnchantments(CallbackInfo ci) {
+        QuEnchantmentHelper.tick((MobEntity)(Object)this, this.getItemsEquipped());
+        QuEnchantmentHelper.tickWhileEquipped((MobEntity)(Object)this);
     }
 
     // Ignore

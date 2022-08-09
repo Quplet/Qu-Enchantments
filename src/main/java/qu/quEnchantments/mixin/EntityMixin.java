@@ -2,6 +2,7 @@ package qu.quEnchantments.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.util.IEntity;
 
 @Mixin(Entity.class)
@@ -24,6 +26,7 @@ public class EntityMixin implements IEntity {
     @Final
     protected DataTracker dataTracker;
 
+    @Shadow public World world;
     @Unique
     private static final TrackedData<Integer> INANE_TICKS = DataTracker.registerData(Entity.class, TrackedDataHandlerRegistry.INTEGER);
 
@@ -55,5 +58,10 @@ public class EntityMixin implements IEntity {
     @Inject(method = "readNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFrozenTicks(I)V"))
     private void quEnchantments$readInaneTicksFromNbt(NbtCompound nbt, CallbackInfo ci) {
         this.setInaneTicks(nbt.getInt("TicksInane"));
+    }
+
+    @Inject(method = "applyDamageEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/Entity;)V"))
+    private void quEnchantments$injectOnTargetDamage(LivingEntity attacker, Entity target, CallbackInfo ci) {
+        QuEnchantmentHelper.onTargetDamaged(attacker, attacker.getMainHandStack(), target);
     }
 }

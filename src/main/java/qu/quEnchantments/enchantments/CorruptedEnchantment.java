@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.TagKey;
@@ -23,7 +24,7 @@ import java.util.Set;
 /**
  * A Corrupted Enchantment abstraction with a custom getName(int level) method implementation.
  */
-public abstract class CorruptedEnchantment extends Enchantment {
+public abstract class CorruptedEnchantment extends QuEnchantment {
 
     private final CorruptedEnchantment.EnchantmentType enchantmentType;
 
@@ -75,8 +76,10 @@ public abstract class CorruptedEnchantment extends Enchantment {
         return false;
     }
 
-    public EnchantmentType getEnchantmentType() {
-        return enchantmentType;
+    // If you override this, make sure you call super.tickAlways(...)
+    @Override
+    public void tickAlways(LivingEntity wearer, ItemStack stack, int level) {
+        corruptEnchantments(stack);
     }
 
     /**
@@ -133,16 +136,5 @@ public abstract class CorruptedEnchantment extends Enchantment {
         EnchantmentType(TagKey<Enchantment> tag) {
             corruptible = tag;
         }
-
-        /**
-         * Returns a {@link TagKey} of enchantments given to the type. There is no automatic system that categorizes
-         * enchantments. All elements must be added manually through the tag system:
-         * {@code src/main/resources/data/qu-enchantments/tags/enchantment/<table to alter>.json}.
-         * @return The {@link TagKey} of enchantments given to the type.
-         */
-        public TagKey<Enchantment> getCorruptibleEnchantments() {
-            return corruptible;
-        }
-
     }
 }

@@ -2,7 +2,6 @@ package qu.quEnchantments.items;
 
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
@@ -35,21 +34,8 @@ public class RuneItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (!stack.hasEnchantments() || entity.age % 20 != 0) return;
-        int bl = ((IItemStack)(Object)stack).corruptedLevel();
-        if (!selected && !(entity instanceof LivingEntity livingEntity && livingEntity.getOffHandStack() == stack) || (entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
-            if (bl == 0) {
-                stack.setDamage(Math.max(0, stack.getDamage() - 1));
-            }
-            return;
-        }
-        if (bl == 0) {
-            stack.setDamage(Math.min(stack.getMaxDamage(), stack.getDamage() + stack.getEnchantments().size()));
-        } else {
-            stack.setDamage(Math.min(stack.getMaxDamage() - 1, stack.getDamage() + 6 - bl));
-            if (stack.getDamage() == stack.getMaxDamage() - 1) {
-                stack.damage(500, (LivingEntity) entity, e -> e.sendEquipmentBreakStatus(selected ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
-            }
-        }
+        if (!stack.hasEnchantments() || entity.age % 20 != 0 || ((IItemStack)(Object)stack).corruptedLevel() > 0) return;
+        if ((selected || (entity instanceof LivingEntity livingEntity && livingEntity.getOffHandStack() == stack)) && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) return;
+        stack.setDamage(Math.max(0, stack.getDamage() - 1));
     }
 }

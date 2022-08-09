@@ -7,7 +7,7 @@
     "AnvilScreenHandlerMixin",
     "LivingEntityMixin",
     "ItemMixin",
-    "HungerManagerMixin",
+    "HungerManagerAccessor",
     "PersistentProjectileEntityMixin",
     "TridentEntityMixin",
     "CrossbowItemMixin",
@@ -23,12 +23,15 @@
     "EntityMixin",
     "SwordItemMixin",
     "MiningToolItemMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "PlayerInventoryMixin",
+    "ProjectileEntityMixin"
   ],
   "client": [
     "client.WorldRendererMixin",
     "client.HorseArmorFeatureRendererMixin",
-    "client.InGameHudMixin"
+    "client.InGameHudMixin",
+    "client.ClientPlayerInteractionManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

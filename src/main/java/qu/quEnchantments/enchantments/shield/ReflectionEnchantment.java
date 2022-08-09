@@ -1,4 +1,4 @@
-package qu.quEnchantments.enchantments;
+package qu.quEnchantments.enchantments.shield;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -10,9 +10,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.hit.EntityHitResult;
+import qu.quEnchantments.enchantments.ModEnchantments;
 
 public class ReflectionEnchantment extends Enchantment {
-    protected ReflectionEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
+    public ReflectionEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
     }
 

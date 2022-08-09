@@ -1,7 +1,6 @@
 package qu.quEnchantments.enchantments;
 
 import com.chocohead.mm.api.ClassTinkerers;
-import net.minecraft.enchantment.BindingCurseEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -9,6 +8,15 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.enchantments.armor.*;
+import qu.quEnchantments.enchantments.rune.AggressionBlessingEnchantment;
+import qu.quEnchantments.enchantments.rune.OmenOfImmunityEnchantment;
+import qu.quEnchantments.enchantments.rune.RegenerationBlessingEnchantment;
+import qu.quEnchantments.enchantments.rune.SpeedBlessingEnchantment;
+import qu.quEnchantments.enchantments.shield.BashingEnchantment;
+import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
+import qu.quEnchantments.enchantments.tool.StripMinerEnchantment;
+import qu.quEnchantments.enchantments.weapon.*;
 
 public class ModEnchantments {
 
@@ -34,13 +42,13 @@ public class ModEnchantments {
 
     // Corrupted Enchantments
     public static final Enchantment SHAPED_GLASS = register("shaped_glass", new ShapedGlassEnchantment(CorruptedEnchantment.EnchantmentType.DAMAGE, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
-    public static final Enchantment NIGHTBLOOD = register("nightblood", new NightbloodEnchantment(CorruptedEnchantment.EnchantmentType.ASPECT, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
+    public static final Enchantment NIGHTBLOOD = register("nightblood", new NightbloodEnchantment(CorruptedEnchantment.EnchantmentType.ASPECT, Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment SKYWALKER = register("skywalker", new SkywalkerEnchantment(CorruptedEnchantment.EnchantmentType.WALKER, Enchantment.Rarity.VERY_RARE, EquipmentSlot.FEET));
     public static final Enchantment ESSENCE_OF_ENDER = register("essence_of_ender", new EssenceOfEnderEnchantment(CorruptedEnchantment.EnchantmentType.THORNS, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.ARMOR_CHEST, ALL_ARMOR));
     public static final Enchantment OMEN_OF_IMMUNITY = register("omen_of_immunity", new OmenOfImmunityEnchantment(CorruptedEnchantment.EnchantmentType.RUNE, Enchantment.Rarity.VERY_RARE, RUNE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
     public static final Enchantment STRIP_MINER = register("strip_miner", new StripMinerEnchantment(CorruptedEnchantment.EnchantmentType.PICKAXE_DROP, Enchantment.Rarity.VERY_RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
 
-    public static final Enchantment AGITATION_CURSE = register("agitation_curse", new BindingCurseEnchantment(Enchantment.Rarity.VERY_RARE, ALL_ARMOR));
+    public static final Enchantment AGITATION_CURSE = register("agitation_curse", new AgitationCurseEnchantment(Enchantment.Rarity.VERY_RARE, ALL_ARMOR));
 
     private static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(Registry.ENCHANTMENT, new Identifier(QuEnchantments.MOD_ID, name), enchantment);

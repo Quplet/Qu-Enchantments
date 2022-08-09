@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.client.render.RenderLayer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.items.ModItems;
@@ -14,8 +16,6 @@ import qu.quEnchantments.particle.InaneParticle;
 import qu.quEnchantments.particle.ModParticles;
 import qu.quEnchantments.util.ModEvents;
 import qu.quEnchantments.util.ModLootTableModifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import qu.quEnchantments.util.ModTradeRegistry;
 
 /**

@@ -57,11 +57,13 @@ public class HotObsidianBlock extends Block {
         super.onSteppedOn(world, pos, state, entity);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         this.scheduledTick(state, world, pos, random);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (this.canAge(world, pos, 4)) {
@@ -94,6 +96,7 @@ public class HotObsidianBlock extends Block {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction != Direction.DOWN && neighborState.getBlock() == Blocks.WATER) {
