@@ -1,19 +1,11 @@
-1.2.0-1.19
-
+1.2.1-1.19
 New:
-- Inane Aspect Enchantment
-- Curse of Agitation
+- Added Korean translation thanks to gyular (#7)
 
 Fixes/Changes:
 - Optimizations
-- Skywalker can now be used in Ultrawarm dimensions (like the Nether), just with a shortened cloud duration
-- The `nightblood_immune_entities.json` now uses `#c:bosses` for the bosses it won't one-shot
-- Skywalker is now mutually exclusive to Depth Strider
-- Corrupted Enchantments will now consume Curses
-- Possible fix for Runes still working even when the duration is out
-- Fixed axes not breaking on an anvil with Shaped Glass
-- Tweaked Fidelity so that it is less likely for the horse to teleport into blocks and suffocate
-- Freezing and Leeching enchantment no longer apply their effect to creative mode players
-- Small nerf to Blessing of Aggression
+- New enchantment logic handling system (should not cause any noticeable changes in behavior)
+- Runes now will only take damage when that particular stack applies the effect
+- Slight change to Reflection, may now possibly reflect more projectiles than just Persistent Projectiles
 
 
