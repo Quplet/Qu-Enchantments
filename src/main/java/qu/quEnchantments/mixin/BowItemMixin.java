@@ -8,7 +8,6 @@ import net.minecraft.item.ArrowItem;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.IPersistentProjectileEntity;
 
-@Debug(export = true)
 @Mixin(BowItem.class)
 public class BowItemMixin {
 

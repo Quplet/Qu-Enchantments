@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,7 +12,6 @@ import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
 import qu.quEnchantments.util.IPersistentProjectileEntity;
 
-@Debug(export = true)
 @Mixin(PersistentProjectileEntity.class)
 public abstract class PersistentProjectileEntityMixin implements IPersistentProjectileEntity {
 
