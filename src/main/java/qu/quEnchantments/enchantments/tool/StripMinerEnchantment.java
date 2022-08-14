@@ -11,6 +11,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.event.GameEvent;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
+import qu.quEnchantments.world.ModWorldEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
             BlockState blockState = entity.world.getBlockState(blockPos);
             if (!blockState.isSolidBlock(entity.world, blockPos)) continue;
             if (!stack.isSuitableFor(blockState)) continue;
-            entity.world.syncWorldEvent(14004, blockPos, 0);
+            entity.world.syncWorldEvent(ModWorldEvents.STRIP_MINER_DESTROY_BLOCK, blockPos, 0);
             if (pos.equals(blockPos)) continue;
             if (blockState.isIn(BlockTags.GUARDED_BY_PIGLINS)) {
                 PiglinBrain.onGuardedBlockInteracted((PlayerEntity) entity, false);

@@ -8,4 +8,6 @@ public class ModWorldEvents extends WorldEvents {
     public static final int SHAPED_GLASS_BREAK = 14002;
 
     public static final int CLOUD_BLOCK_CREATION = 14003;
+
+    public static final int STRIP_MINER_DESTROY_BLOCK = 14004;
 }
