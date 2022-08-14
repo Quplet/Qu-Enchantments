@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.passive.HorseEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 import qu.quEnchantments.enchantments.ModEnchantments;
@@ -22,7 +22,7 @@ import java.util.EnumSet;
  */
 public class FidelityFollowOwnerGoal extends Goal {
 
-    private final HorseEntity horse;
+    private final AbstractHorseEntity horse;
     private LivingEntity owner;
     private final WorldView world;
     private final double speed;
@@ -33,7 +33,7 @@ public class FidelityFollowOwnerGoal extends Goal {
     private float oldWaterPathfindingPenalty;
     private final boolean leavesAllowed;
 
-    public FidelityFollowOwnerGoal(HorseEntity horse, double speed, float minDistance, float maxDistance, boolean leavesAllowed) {
+    public FidelityFollowOwnerGoal(AbstractHorseEntity horse, double speed, float minDistance, float maxDistance, boolean leavesAllowed) {
         this.horse = horse;
         this.world = horse.world;
         this.speed = speed;
