@@ -1,11 +1,6 @@
-1.2.1-1.19
-New:
-- Added Korean translation thanks to gyular (#7)
+1.2.2-1.19
 
 Fixes/Changes:
-- Optimizations
-- New enchantment logic handling system (should not cause any noticeable changes in behavior)
-- Runes now will only take damage when that particular stack applies the effect
-- Slight change to Reflection, may now possibly reflect more projectiles than just Persistent Projectiles
+- Essence of Ender will no longer attempt a teleport of a creative mode player
 
 
