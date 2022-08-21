@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class AggressionBlessingEnchantment extends QuEnchantment {
 
-    private static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 0.8, EntityAttributeModifier.Operation.ADDITION);
+    public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 0.8, EntityAttributeModifier.Operation.ADDITION);
 
     public AggressionBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
@@ -29,16 +29,6 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
     @Override
     public int getMaxPower(int level) {
         return 50;
-    }
-
-    @Override
-    public void tickOnce(LivingEntity wearer, ItemStack stack1, int level) {
-        if (wearer.world.isClient) return;
-        EntityAttributeInstance instance = wearer.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
-        if (instance == null) return;
-        if (instance.getModifier(ATTACK_BOOST.getId()) != null) {
-            instance.removeModifier(ATTACK_BOOST);
-        }
     }
 
     @Override

@@ -15,7 +15,8 @@ import java.util.UUID;
 
 public class SpeedBlessingEnchantment extends QuEnchantment {
 
-    private static final EntityAttributeModifier BLESSING_BOOST = new EntityAttributeModifier(UUID.fromString("8d32ac69-5bac-4e72-856f-998074238b0d"), "enchantment speed boost", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+    public static final EntityAttributeModifier BLESSING_BOOST = new EntityAttributeModifier(UUID.fromString("8d32ac69-5bac-4e72-856f-998074238b0d"), "enchantment speed boost", 0.2, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+
     public SpeedBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
@@ -28,16 +29,6 @@ public class SpeedBlessingEnchantment extends QuEnchantment {
     @Override
     public int getMaxPower(int level) {
         return 50;
-    }
-
-    @Override
-    public void tickOnce(LivingEntity wearer, ItemStack stack1, int level) {
-        if (wearer.world.isClient) return;
-        EntityAttributeInstance instance = wearer.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        if (instance == null) return;
-        if (instance.getModifier(BLESSING_BOOST.getId()) != null) {
-            instance.removeModifier(BLESSING_BOOST);
-        }
     }
 
     @Override
