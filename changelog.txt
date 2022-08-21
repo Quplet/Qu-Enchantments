@@ -2,5 +2,7 @@
 
 Fixes/Changes:
 - Essence of Ender will no longer attempt a teleport of a creative mode player
+- Fixed bug where dropping a rune will leave behind its effect with Speed and Aggression Blessing
+- Removed leftover mixin debug exports
 
 
