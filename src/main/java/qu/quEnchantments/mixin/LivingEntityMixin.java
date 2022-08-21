@@ -25,7 +25,7 @@ public abstract class LivingEntityMixin extends EntityMixin {
         QuEnchantmentHelper.tickEquippedWhileMoving((LivingEntity)(Object)this, pos);
     }
 
-    @Inject(at = @At("TAIL"), method = "tick")
+    @Inject(at = @At("HEAD"), method = "tick")
     private void quEnchantments$onTick(CallbackInfo info) {
         LivingEntityEvents.ON_TICK_EVENT.invoker().onTick((LivingEntity) (Object) this);
     }
