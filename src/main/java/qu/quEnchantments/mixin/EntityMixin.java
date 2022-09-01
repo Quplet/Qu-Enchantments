@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import qu.quEnchantments.enchantments.QuEnchantmentHelper;
-import qu.quEnchantments.util.IEntity;
+import qu.quEnchantments.util.interfaces.IEntity;
 
 @Mixin(Entity.class)
 public class EntityMixin implements IEntity {

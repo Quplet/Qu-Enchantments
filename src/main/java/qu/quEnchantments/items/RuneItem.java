@@ -8,7 +8,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import qu.quEnchantments.util.IItemStack;
+import qu.quEnchantments.util.interfaces.IItemStack;
 
 public class RuneItem extends Item {
 

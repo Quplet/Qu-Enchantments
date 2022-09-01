@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.GameRules;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.mixin.HungerManagerAccessor;
-import qu.quEnchantments.util.IEntity;
+import qu.quEnchantments.util.interfaces.IEntity;
 
 public class RegenerationBlessingEnchantment extends QuEnchantment {
     public RegenerationBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {

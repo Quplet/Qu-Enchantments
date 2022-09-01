@@ -9,7 +9,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import qu.quEnchantments.enchantments.QuEnchantment;
-import qu.quEnchantments.util.IEntity;
+import qu.quEnchantments.util.interfaces.IEntity;
 
 import java.util.UUID;
 

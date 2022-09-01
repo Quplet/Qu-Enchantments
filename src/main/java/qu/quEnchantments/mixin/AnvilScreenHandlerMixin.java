@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.enchantments.ModEnchantments;
-import qu.quEnchantments.util.IItemStack;
+import qu.quEnchantments.util.interfaces.IItemStack;
 import qu.quEnchantments.world.ModWorldEvents;
 
 @Mixin(AnvilScreenHandler.class)

@@ -8,7 +8,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import qu.quEnchantments.enchantments.QuEnchantment;
-import qu.quEnchantments.util.IEntity;
+import qu.quEnchantments.util.interfaces.IEntity;
 
 public class InaneAspectEnchantment extends QuEnchantment {
     public InaneAspectEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {

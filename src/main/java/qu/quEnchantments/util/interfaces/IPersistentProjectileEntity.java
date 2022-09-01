@@ -1,4 +1,4 @@
-package qu.quEnchantments.util;
+package qu.quEnchantments.util.interfaces;
 
 import net.minecraft.item.ItemStack;
 

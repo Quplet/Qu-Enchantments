@@ -12,6 +12,7 @@ import qu.quEnchantments.enchantments.armor.EssenceOfEnderEnchantment;
 import qu.quEnchantments.entity.ai.goals.FidelityFollowOwnerGoal;
 import qu.quEnchantments.mixin.MobEntityAccessor;
 import qu.quEnchantments.particle.ModParticles;
+import qu.quEnchantments.util.interfaces.IEntity;
 
 public class ModEvents {
 

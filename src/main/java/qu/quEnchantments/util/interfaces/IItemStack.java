@@ -1,4 +1,4 @@
-package qu.quEnchantments.util;
+package qu.quEnchantments.util.interfaces;
 
 public interface IItemStack {
 

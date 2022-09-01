@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.QuEnchantments;
-import qu.quEnchantments.util.IEntity;
+import qu.quEnchantments.util.interfaces.IEntity;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)

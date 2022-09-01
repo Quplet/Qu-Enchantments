@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import qu.quEnchantments.enchantments.ModEnchantments;
-import qu.quEnchantments.util.IPersistentProjectileEntity;
+import qu.quEnchantments.util.interfaces.IPersistentProjectileEntity;
 
 @Mixin(CrossbowItem.class)
 public class CrossbowItemMixin {

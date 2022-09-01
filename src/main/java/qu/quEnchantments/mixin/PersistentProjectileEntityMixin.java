@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
-import qu.quEnchantments.util.IPersistentProjectileEntity;
+import qu.quEnchantments.util.interfaces.IPersistentProjectileEntity;
 
 @Debug(export = true)
 @Mixin(PersistentProjectileEntity.class)

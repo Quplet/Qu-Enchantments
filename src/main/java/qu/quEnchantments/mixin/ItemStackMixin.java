@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
-import qu.quEnchantments.util.IItemStack;
+import qu.quEnchantments.util.interfaces.IItemStack;
 
 import java.util.Map;
 

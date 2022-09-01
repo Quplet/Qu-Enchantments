@@ -13,7 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import qu.quEnchantments.util.IItemStack;
+import qu.quEnchantments.util.interfaces.IItemStack;
 import qu.quEnchantments.util.ModTags;
 
 import java.util.Map;
