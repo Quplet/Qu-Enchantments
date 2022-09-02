@@ -1,6 +1,8 @@
 package qu.quEnchantments;
 
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -17,6 +19,7 @@ import qu.quEnchantments.particle.ModParticles;
 import qu.quEnchantments.util.ModEvents;
 import qu.quEnchantments.util.ModLootTableModifier;
 import qu.quEnchantments.util.ModTradeRegistry;
+import qu.quEnchantments.util.config.ModConfig;
 
 /**
  *
@@ -25,12 +28,13 @@ import qu.quEnchantments.util.ModTradeRegistry;
 public class QuEnchantments implements ModInitializer, ClientModInitializer, PreLaunchEntrypoint {
 	public static final String MOD_ID = "qu-enchantments";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	private static ModConfig config;
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+		AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
+		config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+
 		ModEnchantments.registerModEnchantments();
 		ModBlocks.registerModBlocks();
 		ModItems.initializeModItems();
@@ -52,5 +56,9 @@ public class QuEnchantments implements ModInitializer, ClientModInitializer, Pre
 	@Override
 	public void onPreLaunch() {
 		MixinExtrasBootstrap.init();
+	}
+
+	public static ModConfig getConfig() {
+		return config;
 	}
 }
