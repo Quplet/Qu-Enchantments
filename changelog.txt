@@ -1,6 +1,6 @@
-1.2.3-1.19
+1.2.4-1.19
 
 Fixes/Changes:
-- Added the Chinese translation thanks to Marsaarz (#8)
+- Fixed possible crash when an entity takes damage from a projectile (#9)
 
 
