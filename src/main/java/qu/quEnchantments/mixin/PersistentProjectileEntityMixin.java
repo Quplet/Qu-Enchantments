@@ -1,9 +1,13 @@
 package qu.quEnchantments.mixin;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,7 +17,7 @@ import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
 import qu.quEnchantments.util.interfaces.IPersistentProjectileEntity;
 
 @Mixin(PersistentProjectileEntity.class)
-public abstract class PersistentProjectileEntityMixin implements IPersistentProjectileEntity {
+public abstract class PersistentProjectileEntityMixin extends ProjectileEntity implements IPersistentProjectileEntity {
 
     private ItemStack shotFromStack = null;
 
@@ -26,15 +30,19 @@ public abstract class PersistentProjectileEntityMixin implements IPersistentProj
         }
     }
 
-    // Suppressing attacker possibly being null. Where this is injected it never will be.
-    @SuppressWarnings("ConstantConditions")
     @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/Entity;)V"))
     private void quEnchantments$injectOnTargetDamage(EntityHitResult entityHitResult, CallbackInfo ci) {
-        LivingEntity attacker = (LivingEntity)((PersistentProjectileEntity)(Object)(this)).getOwner();
-        QuEnchantmentHelper.onTargetDamaged(attacker, shotFromStack == null ? attacker.getMainHandStack() : shotFromStack, entityHitResult.getEntity());
+        Entity entity = this.getOwner();
+        if (entity instanceof LivingEntity attacker) {
+            QuEnchantmentHelper.onTargetDamaged(attacker, shotFromStack == null ? attacker.getMainHandStack() : shotFromStack, entityHitResult.getEntity());
+        }
     }
 
     public void setShotFromStack(ItemStack stack) {
         this.shotFromStack = stack;
+    }
+
+    public PersistentProjectileEntityMixin(EntityType<? extends ProjectileEntity> entityType, World world) {
+        super(entityType, world);
     }
 }

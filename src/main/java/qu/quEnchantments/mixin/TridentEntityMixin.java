@@ -1,5 +1,6 @@
 package qu.quEnchantments.mixin;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -46,7 +47,10 @@ public abstract class TridentEntityMixin extends PersistentProjectileEntity {
 
     @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/Entity;)V"))
     private void quEnchantments$injectOnTargetDamaged(EntityHitResult entityHitResult, CallbackInfo ci) {
-        QuEnchantmentHelper.onTargetDamaged((LivingEntity)this.getOwner(), this.tridentStack, entityHitResult.getEntity());
+        Entity attacker = this.getOwner();
+        if (attacker instanceof LivingEntity) {
+            QuEnchantmentHelper.onTargetDamaged((LivingEntity) attacker, this.tridentStack, entityHitResult.getEntity());
+        }
     }
 
     // Ignore
