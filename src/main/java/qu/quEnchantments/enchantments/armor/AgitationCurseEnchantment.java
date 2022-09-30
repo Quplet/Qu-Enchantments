@@ -23,17 +23,17 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
     @Override
     public int getMinPower(int level) {
-        return CONFIGS.minPower;
+        return 25;
     }
 
     @Override
     public int getMaxPower(int level) {
-        return CONFIGS.maxPower;
+        return 50;
     }
 
     @Override
     public int getMaxLevel() {
-        return 1;
+        return CONFIGS.isEnabled ? 1 : 0;
     }
 
     @Override
@@ -43,17 +43,17 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
     @Override
     public boolean isCursed() {
-        return CONFIGS.isEnabled;
+        return true;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIGS.isAvailableForBookOffer;
+        return CONFIGS.bookOffer;
     }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIGS.isAvailableForRandomSelection;
+        return CONFIGS.randomSelection;
     }
 
     @Override

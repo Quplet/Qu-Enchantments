@@ -7,10 +7,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 public class InaneAspectEnchantment extends QuEnchantment {
+
+    private static final ModConfig.InaneAspectOptions CONFIG = QuEnchantments.getConfig().inaneAspectOptions;
+
     public InaneAspectEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {
         super(weight, EnchantmentTarget.WEAPON, slotTypes);
     }
@@ -32,12 +37,27 @@ public class InaneAspectEnchantment extends QuEnchantment {
 
     @Override
     public int getMaxLevel() {
-        return 2;
+        return CONFIG.isEnabled ? 2 : 0;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
     }
 
     @Override
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {
         if (user.world.isClient) return;
-        ((IEntity)target).setInaneTicks(80 + 40 * (level - 1));
+        ((IEntity)target).setInaneTicks(40 + CONFIG.duration * level);
     }
 }

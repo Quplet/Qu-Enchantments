@@ -16,9 +16,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.event.GameEvent;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 
 public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
+
+    private static final ModConfig.EssenceOfEnderOptions CONFIG = QuEnchantments.getConfig().essenceOfEnderOptions;
+
     public EssenceOfEnderEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(enchantmentType, weight, type, slotTypes);
     }
@@ -34,8 +39,23 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
     }
 
     @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
+    }
+
+    @Override
     public int getMaxLevel() {
-        return 3;
+        return CONFIG.isEnabled ? 3 : 0;
     }
 
     @Override
@@ -52,9 +72,9 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
         if (attacker instanceof PlayerEntity player && player.getAbilities().creativeMode) return;
         if (attacker instanceof LivingEntity livingEntity) {
             for (int i = 0; i < 7; i++) {
-                double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * (5.0 * level);
-                double e = attacker.getY() + (double) (user.getRandom().nextInt(8 * level) - (5 * level));
-                double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * (5.0 * level);
+                double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.mobTeleportDistance * level;
+                double e = attacker.getY() + (double) (user.getRandom().nextInt(CONFIG.mobTeleportDistance * 2 * level) - (CONFIG.mobTeleportDistance * level));
+                double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.mobTeleportDistance * level;
                 if (teleportTo(livingEntity, d, e, f)) break;
             }
         }

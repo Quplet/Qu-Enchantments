@@ -6,10 +6,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 public class OmenOfImmunityEnchantment extends CorruptedEnchantment {
+
+    private static final ModConfig.OmenOfImmunityOptions CONFIG = QuEnchantments.getConfig().omenOfImmunityOptions;
+
     public OmenOfImmunityEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(enchantmentType, weight, type, slotTypes);
     }
@@ -26,7 +31,22 @@ public class OmenOfImmunityEnchantment extends CorruptedEnchantment {
 
     @Override
     public int getMaxLevel() {
-        return 5;
+        return CONFIG.isEnabled ? 5 : 0;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
     }
 
     @Override

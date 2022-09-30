@@ -10,10 +10,15 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 
 public class BashingEnchantment extends QuEnchantment {
+
+    private static final ModConfig.BashingOptions CONFIG = QuEnchantments.getConfig().bashingOptions;
+
     public BashingEnchantment(Rarity weight, EnchantmentTarget type,EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
@@ -29,6 +34,21 @@ public class BashingEnchantment extends QuEnchantment {
     }
 
     @Override
+    public int getMaxLevel() {
+        return CONFIG.isEnabled ? 1 : 0;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
+    }
+
+    @Override
     public void onBlock(LivingEntity defender, LivingEntity attacker, ItemStack stack, int level) {
         if (defender.world.isClient) return;
         double dx = defender.getX() - attacker.getX();
@@ -38,7 +58,7 @@ public class BashingEnchantment extends QuEnchantment {
             dz = (Math.random() - Math.random()) * 0.01;
         }
         attacker.knockbackVelocity = (float) (MathHelper.atan2(dz, dx) * 57.2957763671875 - (double) attacker.getYaw());
-        attacker.takeKnockback(0.6f, dx, dz);
+        attacker.takeKnockback(CONFIG.knockbackStrength * 0.1, dx, dz);
         if (EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, stack) > 0) {
             ItemStack shield = defender.getActiveItem();
             shield.setDamage(shield.getMaxDamage() - 1);

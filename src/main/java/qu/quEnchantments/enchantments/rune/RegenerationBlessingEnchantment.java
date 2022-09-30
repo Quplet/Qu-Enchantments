@@ -6,11 +6,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.GameRules;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.mixin.HungerManagerAccessor;
+import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 public class RegenerationBlessingEnchantment extends QuEnchantment {
+
+    private static final ModConfig.RegenerationBlessingOptions CONFIG = QuEnchantments.getConfig().regenerationBlessingOptions;
     public RegenerationBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
@@ -23,6 +27,26 @@ public class RegenerationBlessingEnchantment extends QuEnchantment {
     @Override
     public int getMaxPower(int level) {
         return 50;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
+    }
+
+    @Override
+    public int getMaxLevel() {
+        return CONFIG.isEnabled ? 1 : 0;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
     }
 
     @Override

@@ -11,11 +11,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.world.ModWorldEvents;
 
 public class SkywalkerEnchantment extends CorruptedEnchantment {
+
+    private static final ModConfig.SkywalkerOptions CONFIG = QuEnchantments.getConfig().skywalkerOptions;
+
     public SkywalkerEnchantment(EnchantmentType enchantmentType, Rarity weight, EquipmentSlot... slotTypes) {
         super(enchantmentType, weight, EnchantmentTarget.ARMOR_FEET, slotTypes);
     }
@@ -32,12 +37,22 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
     @Override
     public boolean isTreasure() {
-        return true;
+        return CONFIG.isTreasure;
     }
 
     @Override
     public int getMaxLevel() {
-        return 2;
+        return CONFIG.isEnabled ? 2 : 0;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
     }
 
     @Override
@@ -47,19 +62,26 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
     @Override
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
-        if (entity.world.isClient || !entity.isOnGround()) return;
+        if (entity.world.isClient || !entity.isOnGround() || !entity.isSneaking()) return;
         BlockState blockState = ModBlocks.CLOUD.getDefaultState();
+        float f = Math.min(16, CONFIG.radius);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        BlockPos blockPos2 = new BlockPos(entity.getX(), entity.getY() - 0.875, entity.getZ());
-        if (!entity.world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) || !blockPos2.isWithinDistance(entity.getPos(), 1))
-            return;
-        mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-        BlockState blockState2 = entity.world.getBlockState(mutable);
-        if (!blockState2.isAir() || !blockState.canPlaceAt(entity.world, blockPos2) || !entity.world.canPlace(blockState, blockPos2, ShapeContext.absent()))
-            return;
-        entity.world.setBlockState(blockPos2, blockState);
-        int bl = entity.world.getDimension().ultrawarm() ? 1 : 2;
-        entity.world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(), 25 * bl * level, 50 * bl * level));
-        entity.world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
+        for (BlockPos blockPos2 : BlockPos.iterate(new BlockPos(entity.getX() - f, entity.getY() - 0.875, entity.getZ() - f),
+                new BlockPos(entity.getX() + f, entity.getY() - 0.875, entity.getZ() + f))) {
+            // The reason for -0.875 is that 0.125 is how much something will sink into a cloud block before the collision box
+            if (!entity.world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) ||
+                    !blockPos2.isWithinDistance(entity.getPos(), Math.max(f, 1))) continue;
+
+            mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
+            BlockState blockState2 = entity.world.getBlockState(mutable);
+            if (!blockState2.isAir() || !blockState.canPlaceAt(entity.world, blockPos2) ||
+                    !entity.world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
+
+            entity.world.setBlockState(blockPos2, blockState);
+            int bl = entity.world.getDimension().ultrawarm() ? 1 : 2;
+            entity.world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(),
+                    CONFIG.cloudDuration * bl * level, CONFIG.cloudDuration * 2 * bl * level));
+            entity.world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
+        }
     }
 }

@@ -29,11 +29,7 @@ public class CrossbowItemMixin {
         int lvl;
         if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.ACCURACY, stack)) > 0) {
             // 5th arg is the divergence variable
-            if (lvl == 1) {
-                args.set(5, 0.5f);
-            } else if (lvl == 2) {
-                args.set(5, 0.0f);
-            }
+            args.set(5, Math.max(0.0f, (1.0f - (0.5f * lvl))));
         }
     }
 

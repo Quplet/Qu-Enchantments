@@ -1,27 +1,37 @@
-package qu.quEnchantments.enchantments.armor;
+package qu.quEnchantments.enchantments.weapon;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
-public class FidelityEnchantment extends Enchantment {
+public class AccuracyEnchantment extends QuEnchantment {
 
-    private static final ModConfig.FidelityOptions CONFIG = QuEnchantments.getConfig().fidelityOptions;
+    private static final ModConfig.AccuracyOptions CONFIG = QuEnchantments.getConfig().accuracyOptions;
 
-    public FidelityEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
+    public AccuracyEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
 
     @Override
+    public int getMaxLevel() {
+        return CONFIG.isEnabled ? 2 : 0;
+    }
+
+    @Override
     public int getMinPower(int level) {
-        return 20;
+        return 10 + 20 * (level - 1);
     }
 
     @Override
     public int getMaxPower(int level) {
         return getMinPower(level) + 50;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
     }
 
     @Override
@@ -32,15 +42,5 @@ public class FidelityEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
         return CONFIG.bookOffer;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 1 : 0;
-    }
-
-    @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
     }
 }

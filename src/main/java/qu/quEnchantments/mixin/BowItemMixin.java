@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.interfaces.IPersistentProjectileEntity;
 
@@ -28,7 +29,7 @@ public class BowItemMixin {
         int lvl;
         if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.ARROWS_FLIGHT, stack)) > 0) {
             // the 4th arg is the speed variable
-            args.set(4, (float)args.get(4) + lvl * 0.5f);
+            args.set(4, (float)args.get(4) + lvl * 0.5f * (QuEnchantments.getConfig().arrowsFlightOptions.arrowSpeed * 0.1f));
         }
     }
 

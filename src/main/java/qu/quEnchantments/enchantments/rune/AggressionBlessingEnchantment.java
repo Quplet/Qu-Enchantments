@@ -8,14 +8,17 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 import java.util.UUID;
 
 public class AggressionBlessingEnchantment extends QuEnchantment {
 
-    public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 0.8, EntityAttributeModifier.Operation.ADDITION);
+    private static final ModConfig.AggressionBlessingOptions CONFIG = QuEnchantments.getConfig().aggressionBlessingOptions;
+    public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 0.1 * CONFIG.attackSpeed, EntityAttributeModifier.Operation.ADDITION);
 
     public AggressionBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
@@ -29,6 +32,26 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
     @Override
     public int getMaxPower(int level) {
         return 50;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
+    }
+
+    @Override
+    public int getMaxLevel() {
+        return CONFIG.isEnabled ? 1 : 0;
     }
 
     @Override

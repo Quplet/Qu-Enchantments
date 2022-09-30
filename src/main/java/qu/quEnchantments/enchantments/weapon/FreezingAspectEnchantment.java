@@ -10,9 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
+import qu.quEnchantments.util.config.ModConfig;
 
 public class FreezingAspectEnchantment extends QuEnchantment {
+
+    private static final ModConfig.FreezingAspectOptions CONFIG = QuEnchantments.getConfig().freezingAspectOptions;
+
     public FreezingAspectEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {
         super(weight, EnchantmentTarget.WEAPON, slotTypes);
     }
@@ -34,7 +39,22 @@ public class FreezingAspectEnchantment extends QuEnchantment {
 
     @Override
     public int getMaxLevel() {
-        return 2;
+        return CONFIG.isEnabled ? 2 : 0;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
     }
 
     @Override
@@ -42,8 +62,9 @@ public class FreezingAspectEnchantment extends QuEnchantment {
         if (user.world.isClient) return;
         target.extinguish();
         if (target.canFreeze()) {
-            target.setFrozenTicks(target.getMinFreezeDamageTicks() + 75 * level);
+            target.setFrozenTicks(target.getMinFreezeDamageTicks() + CONFIG.duration * level);
         }
+
         Random random = target.world.getRandom();
         for (int x = 0; x < 20; ++x) {
             double d = random.nextGaussian() * 0.02;

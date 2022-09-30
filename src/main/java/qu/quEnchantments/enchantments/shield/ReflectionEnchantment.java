@@ -10,9 +10,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.hit.EntityHitResult;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.util.config.ModConfig;
 
 public class ReflectionEnchantment extends Enchantment {
+
+    private static final ModConfig.ReflectionOptions CONFIG = QuEnchantments.getConfig().reflectionOptions;
+
     public ReflectionEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
     }
@@ -29,7 +34,22 @@ public class ReflectionEnchantment extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 3;
+        return CONFIG.isEnabled ? 3 : 0;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return CONFIG.isTreasure;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return CONFIG.bookOffer;
     }
 
     public static boolean reflect(PersistentProjectileEntity projectile, EntityHitResult result) {
@@ -44,7 +64,7 @@ public class ReflectionEnchantment extends Enchantment {
                 }
                 int i;
                 if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) > 0) {
-                    projectile.setVelocity(player, player.getPitch() - 1.0f, player.getYaw(), 0.0f, (float) projectile.getVelocity().length(), 25.0f / i);
+                    projectile.setVelocity(player, player.getPitch() - 1.0f, player.getYaw(), 0.0f, (float) projectile.getVelocity().length(), 25.0f * (CONFIG.divergence * 0.1f) / i);
                     return true;
                 }
             }
