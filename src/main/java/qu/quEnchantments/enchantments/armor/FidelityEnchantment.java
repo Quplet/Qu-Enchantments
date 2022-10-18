@@ -1,12 +1,12 @@
 package qu.quEnchantments.enchantments.armor;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
-public class FidelityEnchantment extends Enchantment {
+public class FidelityEnchantment extends QuEnchantment {
 
     private static final ModConfig.FidelityOptions CONFIG = QuEnchantments.getConfig().fidelityOptions;
 
@@ -41,6 +41,11 @@ public class FidelityEnchantment extends Enchantment {
 
     @Override
     public boolean isTreasure() {
-        return CONFIG.isTreasure;
+        return true;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AgitationCurseEnchantment extends QuEnchantment {
 
-    private static final ModConfig.AgitationCurseOptions CONFIGS = QuEnchantments.getConfig().agitationCurseOptions;
+    private static final ModConfig.AgitationCurseOptions CONFIG = QuEnchantments.getConfig().agitationCurseOptions;
 
     public AgitationCurseEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {
         super(weight, EnchantmentTarget.WEARABLE, slotTypes);
@@ -33,12 +33,12 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
     @Override
     public int getMaxLevel() {
-        return CONFIGS.isEnabled ? 1 : 0;
+        return CONFIG.isEnabled ? 1 : 0;
     }
 
     @Override
     public boolean isTreasure() {
-        return CONFIGS.isTreasure;
+        return true;
     }
 
     @Override
@@ -48,18 +48,23 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIGS.bookOffer;
+        return CONFIG.bookOffer;
     }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIGS.randomSelection;
+        return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return false;
     }
 
     @Override
     public void tickWhileEquipped(LivingEntity livingEntity, ItemStack stack, int level) {
         if (livingEntity.world.isClient || (livingEntity instanceof PlayerEntity player && player.getAbilities().creativeMode) || livingEntity.age % 20 != 10) return;
-        List<Entity> mobs = livingEntity.world.getOtherEntities(livingEntity, livingEntity.getBoundingBox().expand(CONFIGS.radius), entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity mob && mob.getTarget() == null);
+        List<Entity> mobs = livingEntity.world.getOtherEntities(livingEntity, livingEntity.getBoundingBox().expand(CONFIG.radius), entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity mob && mob.getTarget() == null);
         for (Entity mob : mobs) {
             ((MobEntity)mob).setTarget(livingEntity);
         }

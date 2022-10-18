@@ -49,6 +49,11 @@ public class BashingEnchantment extends QuEnchantment {
     }
 
     @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
+    }
+
+    @Override
     public void onBlock(LivingEntity defender, LivingEntity attacker, ItemStack stack, int level) {
         if (defender.world.isClient) return;
         double dx = defender.getX() - attacker.getX();
@@ -58,7 +63,7 @@ public class BashingEnchantment extends QuEnchantment {
             dz = (Math.random() - Math.random()) * 0.01;
         }
         attacker.knockbackVelocity = (float) (MathHelper.atan2(dz, dx) * 57.2957763671875 - (double) attacker.getYaw());
-        attacker.takeKnockback(CONFIG.knockbackStrength * 0.1, dx, dz);
+        attacker.takeKnockback(CONFIG.knockbackStrength, dx, dz);
         if (EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, stack) > 0) {
             ItemStack shield = defender.getActiveItem();
             shield.setDamage(shield.getMaxDamage() - 1);

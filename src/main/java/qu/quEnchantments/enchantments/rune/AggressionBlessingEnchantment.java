@@ -18,7 +18,7 @@ import java.util.UUID;
 public class AggressionBlessingEnchantment extends QuEnchantment {
 
     private static final ModConfig.AggressionBlessingOptions CONFIG = QuEnchantments.getConfig().aggressionBlessingOptions;
-    public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", 0.1 * CONFIG.attackSpeed, EntityAttributeModifier.Operation.ADDITION);
+    public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"), "enchantment attack boost", CONFIG.attackSpeed, EntityAttributeModifier.Operation.ADDITION);
 
     public AggressionBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
@@ -35,11 +35,6 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
-    }
-
-    @Override
     public boolean isAvailableForRandomSelection() {
         return CONFIG.randomSelection;
     }
@@ -52,6 +47,11 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
     @Override
     public int getMaxLevel() {
         return CONFIG.isEnabled ? 1 : 0;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     @Override

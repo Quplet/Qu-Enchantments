@@ -29,7 +29,7 @@ public class BowItemMixin {
         int lvl;
         if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.ARROWS_FLIGHT, stack)) > 0) {
             // the 4th arg is the speed variable
-            args.set(4, (float)args.get(4) + lvl * 0.5f * (QuEnchantments.getConfig().arrowsFlightOptions.arrowSpeed * 0.1f));
+            args.set(4, (float)args.get(4) + lvl * 0.5f * QuEnchantments.getConfig().arrowsFlightOptions.arrowSpeed);
         }
     }
 

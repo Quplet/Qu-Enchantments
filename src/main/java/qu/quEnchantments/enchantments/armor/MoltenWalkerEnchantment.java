@@ -54,7 +54,12 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
 
     @Override
     public boolean isTreasure() {
-        return CONFIG.isTreasure;
+        return true;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     @Override

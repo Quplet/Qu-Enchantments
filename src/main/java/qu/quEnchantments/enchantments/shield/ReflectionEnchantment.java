@@ -1,6 +1,5 @@
 package qu.quEnchantments.enchantments.shield;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -12,9 +11,10 @@ import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.hit.EntityHitResult;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
-public class ReflectionEnchantment extends Enchantment {
+public class ReflectionEnchantment extends QuEnchantment {
 
     private static final ModConfig.ReflectionOptions CONFIG = QuEnchantments.getConfig().reflectionOptions;
 
@@ -38,11 +38,6 @@ public class ReflectionEnchantment extends Enchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
-    }
-
-    @Override
     public boolean isAvailableForRandomSelection() {
         return CONFIG.randomSelection;
     }
@@ -50,6 +45,11 @@ public class ReflectionEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
         return CONFIG.bookOffer;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     public static boolean reflect(PersistentProjectileEntity projectile, EntityHitResult result) {

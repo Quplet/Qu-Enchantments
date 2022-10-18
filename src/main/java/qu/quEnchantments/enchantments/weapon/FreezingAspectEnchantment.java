@@ -43,11 +43,6 @@ public class FreezingAspectEnchantment extends QuEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
-    }
-
-    @Override
     public boolean isAvailableForRandomSelection() {
         return CONFIG.randomSelection;
     }
@@ -55,6 +50,11 @@ public class FreezingAspectEnchantment extends QuEnchantment {
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
         return CONFIG.bookOffer;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     @Override

@@ -61,21 +61,6 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
         return super.canAccept(other);
     }
 
-    @Override
-    public boolean isTreasure() {
-        return true;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
     // If you override this, make sure you call super.tickAlways(...)
     @Override
     public void tickAlways(LivingEntity wearer, ItemStack stack, int level) {

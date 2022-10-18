@@ -58,8 +58,8 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     @Override
@@ -91,14 +91,14 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         if (wearer.world.isClient) return;
         if (wearer instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
             if (player.experienceLevel > 0 || player.experienceProgress > 0) {
-                player.addExperience((int) (-4 * (CONFIG.drainRate * 0.1f) / level));
+                player.addExperience((int) (-4 * CONFIG.drainRate / level));
                 return;
             }
             if (wearer.world.getDifficulty().getId() != 0 && player.getHungerManager().getFoodLevel() > 0) {
-                player.getHungerManager().addExhaustion(1.5f * (CONFIG.drainRate * 0.1f) / level);
+                player.getHungerManager().addExhaustion(1.5f * CONFIG.drainRate / level);
                 return;
             }
         }
-        wearer.damage(DamageSource.MAGIC, 2.0f * (CONFIG.drainRate * 0.1f) / level);
+        wearer.damage(DamageSource.MAGIC, 2.0f * CONFIG.drainRate / level);
     }
 }

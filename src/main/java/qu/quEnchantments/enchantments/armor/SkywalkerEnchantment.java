@@ -36,11 +36,6 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
-    }
-
-    @Override
     public int getMaxLevel() {
         return CONFIG.isEnabled ? 2 : 0;
     }
@@ -53,6 +48,11 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return CONFIG.randomSelection;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     @Override
@@ -79,8 +79,9 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
             entity.world.setBlockState(blockPos2, blockState);
             int bl = entity.world.getDimension().ultrawarm() ? 1 : 2;
+            int duration = Math.max(1, CONFIG.cloudDuration) * bl * level;
             entity.world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(),
-                    CONFIG.cloudDuration * bl * level, CONFIG.cloudDuration * 2 * bl * level));
+                    duration, duration * 2));
             entity.world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
         }
     }

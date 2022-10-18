@@ -13,6 +13,8 @@ public abstract class QuEnchantment extends Enchantment {
         super(weight, type, slotTypes);
     }
 
+    public abstract boolean isAvailableForEnchantingTable();
+
     public float getAttackDamage(Entity target, ItemStack stack, int level) {
         return 0.0f;
     }

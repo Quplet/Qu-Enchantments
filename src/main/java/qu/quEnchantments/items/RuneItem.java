@@ -7,10 +7,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import qu.quEnchantments.QuEnchantments;
+import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IItemStack;
 
 public class RuneItem extends Item {
+
+    private static final ModConfig.RuneOptions CONFIG = QuEnchantments.getConfig().runeOptions;
 
     public RuneItem(Settings settings) {
         super(settings);
@@ -37,5 +42,8 @@ public class RuneItem extends Item {
         if (!stack.hasEnchantments() || entity.age % 20 != 0 || ((IItemStack)(Object)stack).corruptedLevel() > 0) return;
         if ((selected || (entity instanceof LivingEntity livingEntity && livingEntity.getOffHandStack() == stack)) && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) return;
         stack.setDamage(Math.max(0, stack.getDamage() - 1));
+        if (CONFIG.breakOnNoDurability && entity instanceof LivingEntity livingEntity && stack.getDamage() >= stack.getMaxDamage()) {
+            stack.damage(1, livingEntity, e -> e.sendToolBreakStatus(selected ? Hand.MAIN_HAND : Hand.OFF_HAND));
+        }
     }
 }

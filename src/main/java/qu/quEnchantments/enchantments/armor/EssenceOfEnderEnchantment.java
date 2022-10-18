@@ -49,13 +49,13 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
     }
 
     @Override
-    public boolean isTreasure() {
-        return CONFIG.isTreasure;
+    public int getMaxLevel() {
+        return CONFIG.isEnabled ? 3 : 0;
     }
 
     @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 3 : 0;
+    public boolean isAvailableForEnchantingTable() {
+        return CONFIG.EnchantingTable;
     }
 
     @Override
@@ -72,9 +72,9 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
         if (attacker instanceof PlayerEntity player && player.getAbilities().creativeMode) return;
         if (attacker instanceof LivingEntity livingEntity) {
             for (int i = 0; i < 7; i++) {
-                double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.mobTeleportDistance * level;
-                double e = attacker.getY() + (double) (user.getRandom().nextInt(CONFIG.mobTeleportDistance * 2 * level) - (CONFIG.mobTeleportDistance * level));
-                double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.mobTeleportDistance * level;
+                double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.entityTeleportDistance * level;
+                double e = attacker.getY() + (double) (user.getRandom().nextInt(CONFIG.entityTeleportDistance * 2 * level) - (CONFIG.entityTeleportDistance * level));
+                double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.entityTeleportDistance * level;
                 if (teleportTo(livingEntity, d, e, f)) break;
             }
         }
