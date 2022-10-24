@@ -52,7 +52,7 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.EnchantingTable;
+        return CONFIG.enchantingTable;
     }
 
     @Override

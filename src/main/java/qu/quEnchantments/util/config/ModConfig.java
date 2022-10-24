@@ -59,14 +59,14 @@ public class ModConfig implements ConfigData {
     public static class AccuracyOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
     }
 
     public static class AggressionBlessingOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         @ConfigEntry.Gui.Tooltip
         public float attackSpeed = 0.8f; // REQUIRES RESTART
@@ -83,7 +83,7 @@ public class ModConfig implements ConfigData {
     public static class ArrowsFlightOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         public float arrowSpeed = 1.0f;
     }
@@ -91,7 +91,7 @@ public class ModConfig implements ConfigData {
     public static class BashingOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         public float knockbackStrength = 0.6f;
 
@@ -100,7 +100,7 @@ public class ModConfig implements ConfigData {
     public static class EssenceOfEnderOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
         @ConfigEntry.BoundedDiscrete(min = 2, max = 8)
         public int entityTeleportDistance = 5;
@@ -109,14 +109,14 @@ public class ModConfig implements ConfigData {
     public static class FidelityOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
     }
 
     public static class FreezingAspectOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         public int duration = 75;
     }
@@ -124,7 +124,7 @@ public class ModConfig implements ConfigData {
     public static class InaneAspectOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         public int duration = 40;
     }
@@ -132,7 +132,7 @@ public class ModConfig implements ConfigData {
     public static class LeechingAspectOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         public float healing = 0.25f;
     }
@@ -140,7 +140,7 @@ public class ModConfig implements ConfigData {
     public static class MoltenWalkerOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
         @ConfigEntry.BoundedDiscrete(max = 16)
         public int radius = 2;
@@ -149,12 +149,11 @@ public class ModConfig implements ConfigData {
     public static class NightbloodOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
         public boolean disablesExperience = true;
         @ConfigEntry.Gui.Tooltip
         public int witherDuration = 200;
-        @ConfigEntry.Gui.Tooltip
         @ConfigEntry.BoundedDiscrete(max = 255)
         public int witherAmplifier = 1;
         @ConfigEntry.Gui.Tooltip
@@ -164,7 +163,7 @@ public class ModConfig implements ConfigData {
     public static class OmenOfImmunityOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
         public boolean breakOnNoDurability = true;
     }
@@ -172,34 +171,31 @@ public class ModConfig implements ConfigData {
     public static class ReflectionOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
-        @ConfigEntry.Gui.Tooltip
         public float divergence = 1.0f;
     }
 
     public static class RegenerationBlessingOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
     }
 
     public static class ShapedGlassOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
-        @ConfigEntry.Gui.Tooltip
-        public int damageMultiplier = 2;
-        @ConfigEntry.Gui.Tooltip
+        public float damageMultiplier = 2.0f;
         public float itemDamage = 1.0f;
     }
 
     public static class SkywalkerOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.BoundedDiscrete(max = 16)
@@ -211,7 +207,7 @@ public class ModConfig implements ConfigData {
     public static class SpeedBlessingOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
-        public boolean EnchantingTable = true;
+        public boolean enchantingTable = true;
         public boolean bookOffer = true;
         @ConfigEntry.Gui.Tooltip
         public float speedBoost = 0.2f;
@@ -220,7 +216,7 @@ public class ModConfig implements ConfigData {
     public static class StripMinerOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = false;
-        public boolean EnchantingTable = false;
+        public boolean enchantingTable = false;
         public boolean bookOffer = false;
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
@@ -253,7 +249,7 @@ public class ModConfig implements ConfigData {
 
         reflectionOptions.divergence = clamp(reflectionOptions.divergence, 0.0f, 20.0f);
 
-        shapedGlassOptions.damageMultiplier = clamp(shapedGlassOptions.damageMultiplier, 0, 99999);
+        shapedGlassOptions.damageMultiplier = clamp(shapedGlassOptions.damageMultiplier, 0.0f, 99999.9f);
         shapedGlassOptions.itemDamage = clamp(shapedGlassOptions.itemDamage, 0, 99999);
 
         skywalkerOptions.radius = clamp(skywalkerOptions.radius, 0, 16);

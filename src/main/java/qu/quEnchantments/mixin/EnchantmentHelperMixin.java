@@ -19,15 +19,18 @@ public class EnchantmentHelperMixin {
     @Inject(method = "getPossibleEntries", at = @At("TAIL"))
     private static void quEnchantments$addQuEnchantmentCondition(int power, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
         if (treasureAllowed) return;
+
         List<EnchantmentLevelEntry> list = cir.getReturnValue();
         List<QuEnchantment> quEnchantments = new ArrayList<>(ModEnchantments.QU_ENCHANTMENTS);
-        for (QuEnchantment enchantment : ModEnchantments.QU_ENCHANTMENTS) {
-            for (EnchantmentLevelEntry entry : list) {
-                if (enchantment != entry.enchantment) continue;
-                quEnchantments.remove(enchantment);
-                if (!enchantment.isAvailableForEnchantingTable()) list.remove(entry);
+
+        list.removeIf(enchantmentLevelEntry -> {
+            if (enchantmentLevelEntry.enchantment instanceof QuEnchantment quEnchantment) {
+                quEnchantments.remove(quEnchantment);
+                return !quEnchantment.isAvailableForEnchantingTable();
             }
-        }
+            return false;
+        });
+
         for (QuEnchantment enchantment : quEnchantments) {
             if (!enchantment.isAvailableForEnchantingTable() || enchantment.isAvailableForRandomSelection()) continue;
             for (int i = enchantment.getMaxLevel(); i > enchantment.getMinLevel() - 1; --i) {

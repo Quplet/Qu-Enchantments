@@ -51,7 +51,7 @@ public class SpeedBlessingEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.EnchantingTable;
+        return CONFIG.enchantingTable;
     }
 
     @Override

@@ -65,12 +65,12 @@
   "text.autoconfig.qu-enchantments.option.aggressionBlessingOptions.randomSelection": "Spawn As Loot: ",
   "text.autoconfig.qu-enchantments.option.aggressionBlessingOptions.enchantingTable": "Available On Enchanting Table: ",
   "text.autoconfig.qu-enchantments.option.aggressionBlessingOptions.bookOffer": "Is Tradable: ",
+  "text.autoconfig.qu-enchantments.option.aggressionBlessingOptions.attackSpeed.@Tooltip": "REQUIRES RESTART",
   "text.autoconfig.qu-enchantments.option.aggressionBlessingOptions.attackSpeed": "Attack Speed Bonus: ",
 
   "text.autoconfig.qu-enchantments.option.agitationCurseOptions": "Agitation Curse Options",
   "text.autoconfig.qu-enchantments.option.agitationCurseOptions.isEnabled": "Is Enabled: ",
   "text.autoconfig.qu-enchantments.option.agitationCurseOptions.randomSelection": "Spawn as Loot: ",
-  "text.autoconfig.qu-enchantments.option.agitationCurseOptions.enchantingTable": "Available On Enchanting Table: ",
   "text.autoconfig.qu-enchantments.option.agitationCurseOptions.bookOffer": "Is Tradable: ",
   "text.autoconfig.qu-enchantments.option.agitationCurseOptions.radius": "Effect Radius: ",
 
@@ -96,11 +96,11 @@
   "text.autoconfig.qu-enchantments.option.essenceOfEnderOptions.mobTeleportDistance": "Is Tradable: ",
   "text.autoconfig.qu-enchantments.option.essenceOfEnderOptions.entityTeleportDistance": "Entity Teleport Distance: ",
 
-  "text.autoconfig.qu-enchantments.option.FidelityOptions": "Fidelity Options",
-  "text.autoconfig.qu-enchantments.option.FidelityOptions.isEnabled": "Is Enabled: ",
-  "text.autoconfig.qu-enchantments.option.FidelityOptions.randomSelection": "Spawn as Loot: ",
-  "text.autoconfig.qu-enchantments.option.FidelityOptions.enchantingTable": "Available On Enchanting Table: ",
-  "text.autoconfig.qu-enchantments.option.FidelityOptions.bookOffer": "Is Tradable: ",
+  "text.autoconfig.qu-enchantments.option.fidelityOptions": "Fidelity Options",
+  "text.autoconfig.qu-enchantments.option.fidelityOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.fidelityOptions.randomSelection": "Spawn as Loot: ",
+  "text.autoconfig.qu-enchantments.option.fidelityOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.fidelityOptions.bookOffer": "Is Tradable: ",
 
   "text.autoconfig.qu-enchantments.option.freezingAspectOptions": "Freezing Aspect Options",
   "text.autoconfig.qu-enchantments.option.freezingAspectOptions.isEnabled": "Is Enabled: ",
@@ -136,8 +136,10 @@
   "text.autoconfig.qu-enchantments.option.nightbloodOptions.enchantingTable": "Available On Enchanting Table: ",
   "text.autoconfig.qu-enchantments.option.nightbloodOptions.bookOffer": "Is Tradable: ",
   "text.autoconfig.qu-enchantments.option.nightbloodOptions.disablesExperience": "Disable Experience Dropping: ",
+  "text.autoconfig.qu-enchantments.option.nightbloodOptions.witherDuration.@Tooltip": "The amount of ticks for the wither affect to apply for any entity that isn't one-hit kill.",
   "text.autoconfig.qu-enchantments.option.nightbloodOptions.witherDuration": "Wither Effect Duration: ",
   "text.autoconfig.qu-enchantments.option.nightbloodOptions.witherAmplifier": "Wither Effect Amplifier: ",
+  "text.autoconfig.qu-enchantments.option.nightbloodOptions.drainRate.@Tooltip": "The rate at which the wielder's xp, hunger, and health will drain.",
   "text.autoconfig.qu-enchantments.option.nightbloodOptions.drainRate": "Investiture Drain Rate: ",
 
   "text.autoconfig.qu-enchantments.option.omenOfImmunityOptions": "Omen of Immunity Options",
@@ -152,5 +154,44 @@
   "text.autoconfig.qu-enchantments.option.reflectionOptions.randomSelection": "Spawn as Loot: ",
   "text.autoconfig.qu-enchantments.option.reflectionOptions.enchantingTable": "Available On Enchanting Table: ",
   "text.autoconfig.qu-enchantments.option.reflectionOptions.bookOffer": "Is Tradable: ",
-  "text.autoconfig.qu-enchantments.option.reflectionOptions.divergence": "Reflection Divergence: "
+  "text.autoconfig.qu-enchantments.option.reflectionOptions.divergence": "Reflection Divergence: ",
+
+  "text.autoconfig.qu-enchantments.option.regenerationBlessingOptions": "Blessing of Regeneration Options",
+  "text.autoconfig.qu-enchantments.option.regenerationBlessingOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.regenerationBlessingOptions.randomSelection": "Spawn as Loot: ",
+  "text.autoconfig.qu-enchantments.option.regenerationBlessingOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.regenerationBlessingOptions.bookOffer": "Is Tradable: ",
+
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions": "Shaped Glass Options",
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions.randomSelection": "Spawn as Loot: ",
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions.bookOffer": "Is Tradable: ",
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions.damageMultiplier": "Damage Multiplier: ",
+  "text.autoconfig.qu-enchantments.option.shapedGlassOptions.itemDamage": "Item Damage Multiplier: ",
+
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions": "Skywalker Options",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.randomSelection": "Spawn as Loot: ",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.bookOffer": "Is Tradable: ",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.radius": "Radius: ",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.cloudDuration.@Tooltip": "The average duration of the cloud block in ticks.",
+  "text.autoconfig.qu-enchantments.option.skywalkerOptions.cloudDuration": "Cloud Duration: ",
+
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions": "Blessing of Speed Options",
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions.randomSelection": "Spawn as Loot: ",
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions.bookOffer": "Is Tradable: ",
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions.speedBoost.@Tooltip": "REQUIRES RESTART",
+  "text.autoconfig.qu-enchantments.option.speedBlessingOptions.speedBoost": "Speed Boost: ",
+
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions": "Strip Miner Options",
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions.randomSelection": "Spawn as Loot: ",
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions.bookOffer": "Is Tradable: ",
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions.radius.@Tooltip": "The radius of effect of the enchantment at level II.",
+  "text.autoconfig.qu-enchantments.option.stripMinerOptions.radius": "Radius: "
 }

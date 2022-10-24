@@ -49,7 +49,7 @@ public class ReflectionEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.EnchantingTable;
+        return CONFIG.enchantingTable;
     }
 
     public static boolean reflect(PersistentProjectileEntity projectile, EntityHitResult result) {

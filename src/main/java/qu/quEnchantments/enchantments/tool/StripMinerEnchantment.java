@@ -43,7 +43,7 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.EnchantingTable;
+        return CONFIG.enchantingTable;
     }
 
     @Override
