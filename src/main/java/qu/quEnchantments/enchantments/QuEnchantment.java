@@ -5,6 +5,7 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
@@ -31,5 +32,5 @@ public abstract class QuEnchantment extends Enchantment {
 
     public void onBlock(LivingEntity user, LivingEntity attacker, ItemStack stack, int level) {}
 
-    public void onBlockBreak(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {}
+    public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {}
 }

@@ -3,6 +3,7 @@ package qu.quEnchantments.enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -31,8 +32,8 @@ public class QuEnchantmentHelper {
     }
 
     // This is called regardless of if the entity is a player in creative mode or not.
-    public static void onBlockBroken(LivingEntity entity, BlockPos pos) {
-        forEachQuEnchantment((enchantment, stack, level) -> enchantment.onBlockBreak(entity, pos, stack, level), entity.getMainHandStack());
+    public static void onBlockBroken(PlayerEntity player, BlockPos pos) {
+        forEachQuEnchantment((enchantment, stack, level) -> enchantment.onBlockBreak(player, pos, stack, level), player.getMainHandStack());
     }
 
     /*

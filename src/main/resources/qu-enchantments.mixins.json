@@ -17,6 +17,7 @@
     "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "LootTablesInvoker",
     "MiningToolItemMixin",
     "MobEntityMixin",
     "PersistentProjectileEntityMixin",

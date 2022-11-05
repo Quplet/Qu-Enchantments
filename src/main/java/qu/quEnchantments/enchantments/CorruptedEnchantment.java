@@ -37,7 +37,8 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
 
     /**
      * Will return the formatted name of the enchantment. Corrupted Enchantments will have a light purple color and will
-     * not display the enchantment level if the level is 1. I am considering changing this.
+     * not display the enchantment level if the level is 1.
+     *
      * @param level The level of the enchantment.
      * @return The formatted name of the enchantment.
      */
@@ -55,10 +56,7 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
 
     @Override
     public boolean canAccept(Enchantment other) {
-        if (other instanceof CorruptedEnchantment) {
-            return false;
-        }
-        return super.canAccept(other);
+        return !(other instanceof CorruptedEnchantment) && super.canAccept(other);
     }
 
     // If you override this, make sure you call super.tickAlways(...)
@@ -70,6 +68,7 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
     /**
      * Accepts an ItemStack and, if the stack contains a Corrupted Enchantment, will corrupt all other enchantments of
      * the same type. The Corrupted Enchantment's level will match the highest consumed enchantment's level.
+     *
      * @param stack The {@link ItemStack} to corrupt.
      */
     public static void corruptEnchantments(ItemStack stack) {

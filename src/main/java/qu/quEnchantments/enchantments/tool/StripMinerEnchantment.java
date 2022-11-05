@@ -3,7 +3,6 @@ package qu.quEnchantments.enchantments.tool;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -57,14 +56,14 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
     }
 
     @Override
-    public void onBlockBreak(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
-        if (entity.world.isClient) return;
+    public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
+        if (player.world.isClient) return;
         Iterable<BlockPos> iterable;
         if (level == 1) {
             List<BlockPos> temp = new ArrayList<>(2);
             temp.add(pos);
-            boolean aligned = pos.getX() == entity.getBlockX() && pos.getZ() == entity.getBlockZ();
-            if (pos.getY() >= entity.getBlockY() + 1) {
+            boolean aligned = pos.getX() == player.getBlockX() && pos.getZ() == player.getBlockZ();
+            if (pos.getY() >= player.getBlockY() + 1) {
                 if (aligned) temp.add(pos.up());
                 else temp.add(pos.down());
             } else {
@@ -77,17 +76,17 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
             iterable = BlockPos.iterate(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
         }
         for (BlockPos blockPos : iterable) {
-            BlockState blockState = entity.world.getBlockState(blockPos);
-            if (!blockState.isSolidBlock(entity.world, blockPos)) continue;
+            BlockState blockState = player.world.getBlockState(blockPos);
+            if (!blockState.isSolidBlock(player.world, blockPos)) continue;
             if (!stack.isSuitableFor(blockState)) continue;
-            entity.world.syncWorldEvent(ModWorldEvents.STRIP_MINER_DESTROY_BLOCK, blockPos, 0);
+            player.world.syncWorldEvent(ModWorldEvents.STRIP_MINER_DESTROY_BLOCK, blockPos, 0);
             if (pos.equals(blockPos)) continue;
             if (blockState.isIn(BlockTags.GUARDED_BY_PIGLINS)) {
-                PiglinBrain.onGuardedBlockInteracted((PlayerEntity) entity, false);
+                PiglinBrain.onGuardedBlockInteracted(player, false);
             }
-            entity.world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(entity, blockState));
-            if (entity.world.removeBlock(blockPos, false)) {
-                blockState.getBlock().onBroken(entity.world, blockPos, blockState);
+            player.world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, blockState));
+            if (player.world.removeBlock(blockPos, false)) {
+                blockState.getBlock().onBroken(player.world, blockPos, blockState);
             }
         }
     }

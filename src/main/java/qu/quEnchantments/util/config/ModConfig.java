@@ -33,6 +33,8 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public final LeechingAspectOptions leechingAspectOptions = new LeechingAspectOptions();
     @ConfigEntry.Gui.CollapsibleObject
+    public final LuckyMinerOptions luckyMinerOptions = new LuckyMinerOptions();
+    @ConfigEntry.Gui.CollapsibleObject
     public final MoltenWalkerOptions moltenWalkerOptions = new MoltenWalkerOptions();
     @ConfigEntry.Gui.CollapsibleObject
     public final NightbloodOptions nightbloodOptions = new NightbloodOptions();
@@ -135,6 +137,13 @@ public class ModConfig implements ConfigData {
         public boolean enchantingTable = true;
         public boolean bookOffer = true;
         public float healing = 0.25f;
+    }
+
+    public static class LuckyMinerOptions {
+        public boolean isEnabled = true;
+        public boolean randomSelection = true;
+        public boolean enchantingTable = false;
+        public boolean bookOffer = true;
     }
 
     public static class MoltenWalkerOptions {

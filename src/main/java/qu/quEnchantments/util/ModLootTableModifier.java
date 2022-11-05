@@ -8,8 +8,10 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetEnchantmentsLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.util.Identifier;
+import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.items.ModItems;
+import qu.quEnchantments.mixin.LootTablesInvoker;
 
 public class ModLootTableModifier {
     private static final Identifier END_CITY_TREASURE_ID = new Identifier("minecraft", "chests/end_city_treasure");
@@ -27,6 +29,8 @@ public class ModLootTableModifier {
     private static final Identifier WOODLAND_MANSION = new Identifier("minecraft", "chests/woodland_mansion");
 
     private static final Identifier WITCH_ID = new Identifier("minecraft", "entities/witch");
+
+    public static final Identifier LUCKY_MINER_GAMEPLAY = LootTablesInvoker.invokeRegister(new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner"));
 
     public static void ModifyLootTables() {
         LootTableEvents.MODIFY.register(((resourceManager, manager, id, builder, setter) -> {
