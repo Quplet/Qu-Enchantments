@@ -63,6 +63,8 @@
   "enchantment.qu-enchantments.agitation_curse.desc": "Mobs will become hostile to anything wearing this curse.",
   "enchantment.qu-enchantments.lucky_miner": "Lucky Miner",
   "enchantment.qu-enchantments.lucky_miner.desc": "Chance on block break to drop a iron ingot, copper ingot, gold ingot, diamond, or emerald. Growth is logarithmic.",
+  "enchantment.qu-enchantments.lightening_bound": "Lightening Bound",
+  "enchantment.qu-enchantments.lightening_bound.desc": "Chance on hit to summon a lightening strike on the target. Growth is linear.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
   "block.qu-enchantments.cloud": "Cloud",
@@ -81,7 +83,6 @@
 
   "text.autoconfig.qu-enchantments.option.accuracyOptions": "Accuracy Enchantment Options",
   "text.autoconfig.qu-enchantments.option.accuracyOptions.isEnabled": "Is Enabled: ",
-  "text.autoconfig.qu-enchantments.option.accuracyOptions.isTreasure": "Is Treasure: ",
   "text.autoconfig.qu-enchantments.option.accuracyOptions.randomSelection": "Spawn As Loot: ",
   "text.autoconfig.qu-enchantments.option.accuracyOptions.enchantingTable": "Available On Enchanting Table: ",
   "text.autoconfig.qu-enchantments.option.accuracyOptions.bookOffer": "Is Tradable: ",
@@ -148,6 +149,12 @@
   "text.autoconfig.qu-enchantments.option.leechingAspectOptions.enchantingTable": "Available On Enchanting Table: ",
   "text.autoconfig.qu-enchantments.option.leechingAspectOptions.bookOffer": "Is Tradable: ",
   "text.autoconfig.qu-enchantments.option.leechingAspectOptions.healing": "Healing Amount: ",
+
+  "text.autoconfig.qu-enchantments.option.lighteningBoundOptions": "Lightening Bound Options",
+  "text.autoconfig.qu-enchantments.option.lighteningBoundOptions.isEnabled": "Is Enabled: ",
+  "text.autoconfig.qu-enchantments.option.lighteningBoundOptions.randomSelection": "Spawn As Loot: ",
+  "text.autoconfig.qu-enchantments.option.lighteningBoundOptions.enchantingTable": "Available On Enchanting Table: ",
+  "text.autoconfig.qu-enchantments.option.lighteningBoundOptions.bookOffer": "Is Tradable: ",
 
   "text.autoconfig.qu-enchantments.option.luckyMinerOptions": "Lucky Miner Options",
   "text.autoconfig.qu-enchantments.option.luckyMinerOptions.isEnabled": "Is Enabled: ",

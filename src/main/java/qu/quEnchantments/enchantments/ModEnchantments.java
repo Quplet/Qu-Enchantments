@@ -16,7 +16,7 @@ import qu.quEnchantments.enchantments.rune.RegenerationBlessingEnchantment;
 import qu.quEnchantments.enchantments.rune.SpeedBlessingEnchantment;
 import qu.quEnchantments.enchantments.shield.BashingEnchantment;
 import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
-import qu.quEnchantments.enchantments.tool.LuckyMinerCompoundEnchantment;
+import qu.quEnchantments.enchantments.tool.LuckyMinerEnchantment;
 import qu.quEnchantments.enchantments.tool.StripMinerEnchantment;
 import qu.quEnchantments.enchantments.weapon.*;
 
@@ -53,7 +53,8 @@ public class ModEnchantments {
     public static final QuEnchantment AGITATION_CURSE = register("agitation_curse", new AgitationCurseEnchantment(Enchantment.Rarity.VERY_RARE, ALL_ARMOR));
 
     // Compound Enchantments
-    public static final QuEnchantment LUCKY_MINER = register("lucky_miner", new LuckyMinerCompoundEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
+    public static final QuEnchantment LUCKY_MINER = register("lucky_miner", new LuckyMinerEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
+    public static final QuEnchantment LIGHTENING_BOUND = register("lightening_bound", new LighteningBoundEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
 
     public static final ImmutableList<QuEnchantment> QU_ENCHANTMENTS = ImmutableList.of(FREEZING_ASPECT, LEECHING_ASPECT,
             INANE_ASPECT, MOLTEN_WALKER, BASHING, REFLECTION, ACCURACY, ARROWS_FLIGHT, SPEED_BLESSING, REGENERATION_BLESSING,

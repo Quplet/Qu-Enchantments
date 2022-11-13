@@ -3,6 +3,7 @@ package qu.quEnchantments.util.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import net.minecraft.util.math.MathHelper;
 import qu.quEnchantments.QuEnchantments;
 
 @Config(name = QuEnchantments.MOD_ID)
@@ -32,6 +33,8 @@ public class ModConfig implements ConfigData {
     public final InaneAspectOptions inaneAspectOptions = new InaneAspectOptions();
     @ConfigEntry.Gui.CollapsibleObject
     public final LeechingAspectOptions leechingAspectOptions = new LeechingAspectOptions();
+    @ConfigEntry.Gui.CollapsibleObject
+    public final LighteningBoundOptions lighteningBoundOptions = new LighteningBoundOptions();
     @ConfigEntry.Gui.CollapsibleObject
     public final LuckyMinerOptions luckyMinerOptions = new LuckyMinerOptions();
     @ConfigEntry.Gui.CollapsibleObject
@@ -139,6 +142,13 @@ public class ModConfig implements ConfigData {
         public float healing = 0.25f;
     }
 
+    public static class LighteningBoundOptions {
+        public boolean isEnabled = true;
+        public boolean randomSelection = true;
+        public boolean enchantingTable = true;
+        public boolean bookOffer = true;
+    }
+
     public static class LuckyMinerOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
@@ -234,52 +244,40 @@ public class ModConfig implements ConfigData {
 
     @Override
     public void validatePostLoad() {
-        aggressionBlessingOptions.attackSpeed = clamp(aggressionBlessingOptions.attackSpeed, 0.0f, 255.0f);
+        aggressionBlessingOptions.attackSpeed = MathHelper.clamp(aggressionBlessingOptions.attackSpeed, 0.0f, 255.0f);
 
-        agitationCurseOptions.radius = clamp(agitationCurseOptions.radius, 0.0, 64.0);
+        agitationCurseOptions.radius = MathHelper.clamp(agitationCurseOptions.radius, 0.0, 64.0);
 
-        arrowsFlightOptions.arrowSpeed = clamp(arrowsFlightOptions.arrowSpeed, 0.0f, 20.0f);
+        arrowsFlightOptions.arrowSpeed = MathHelper.clamp(arrowsFlightOptions.arrowSpeed, 0.0f, 20.0f);
 
-        bashingOptions.knockbackStrength = clamp(bashingOptions.knockbackStrength, 0.01f, 100.0f);
+        bashingOptions.knockbackStrength = MathHelper.clamp(bashingOptions.knockbackStrength, 0.01f, 100.0f);
 
-        essenceOfEnderOptions.entityTeleportDistance = clamp(essenceOfEnderOptions.entityTeleportDistance, 2, 8);
+        essenceOfEnderOptions.entityTeleportDistance = MathHelper.clamp(essenceOfEnderOptions.entityTeleportDistance, 2, 8);
 
-        freezingAspectOptions.duration = clamp(freezingAspectOptions.duration, 0, 99999);
+        freezingAspectOptions.duration = MathHelper.clamp(freezingAspectOptions.duration, 0, 99999);
 
-        inaneAspectOptions.duration = clamp(inaneAspectOptions.duration, 0, 99999);
+        inaneAspectOptions.duration = MathHelper.clamp(inaneAspectOptions.duration, 0, 99999);
 
-        leechingAspectOptions.healing = clamp(leechingAspectOptions.healing, 0.0f, 99999.0f);
+        leechingAspectOptions.healing = MathHelper.clamp(leechingAspectOptions.healing, 0.0f, 99999.0f);
 
-        moltenWalkerOptions.radius = clamp(moltenWalkerOptions.radius, 0, 16);
+        moltenWalkerOptions.radius = MathHelper.clamp(moltenWalkerOptions.radius, 0, 16);
 
-        nightbloodOptions.witherDuration = clamp(nightbloodOptions.witherDuration, 0, 99999);
-        nightbloodOptions.witherAmplifier = clamp(nightbloodOptions.witherAmplifier, 0, 255);
-        nightbloodOptions.drainRate = clamp(nightbloodOptions.drainRate, 0.0f, 99999.0f);
+        nightbloodOptions.witherDuration = MathHelper.clamp(nightbloodOptions.witherDuration, 0, 99999);
+        nightbloodOptions.witherAmplifier = MathHelper.clamp(nightbloodOptions.witherAmplifier, 0, 255);
+        nightbloodOptions.drainRate = MathHelper.clamp(nightbloodOptions.drainRate, 0.0f, 99999.0f);
 
-        reflectionOptions.divergence = clamp(reflectionOptions.divergence, 0.0f, 20.0f);
+        reflectionOptions.divergence = MathHelper.clamp(reflectionOptions.divergence, 0.0f, 20.0f);
 
-        shapedGlassOptions.damageMultiplier = clamp(shapedGlassOptions.damageMultiplier, 0.0f, 99999.9f);
-        shapedGlassOptions.itemDamage = clamp(shapedGlassOptions.itemDamage, 0, 99999);
+        shapedGlassOptions.damageMultiplier = MathHelper.clamp(shapedGlassOptions.damageMultiplier, 0.0f, 99999.9f);
+        shapedGlassOptions.itemDamage = MathHelper.clamp(shapedGlassOptions.itemDamage, 0, 99999);
 
-        skywalkerOptions.radius = clamp(skywalkerOptions.radius, 0, 16);
-        skywalkerOptions.cloudDuration = clamp(skywalkerOptions.cloudDuration, 1, 99999);
+        skywalkerOptions.radius = MathHelper.clamp(skywalkerOptions.radius, 0, 16);
+        skywalkerOptions.cloudDuration = MathHelper.clamp(skywalkerOptions.cloudDuration, 1, 99999);
 
-        speedBlessingOptions.speedBoost = clamp(speedBlessingOptions.speedBoost, 0.0f, 255.0f);
+        speedBlessingOptions.speedBoost = MathHelper.clamp(speedBlessingOptions.speedBoost, 0.0f, 255.0f);
 
-        stripMinerOptions.radius = clamp(stripMinerOptions.radius, 1, 16);
+        stripMinerOptions.radius = MathHelper.clamp(stripMinerOptions.radius, 1, 16);
 
         QuEnchantments.LOGGER.info("Finished validating config for " + QuEnchantments.MOD_ID);
-    }
-
-    private static double clamp(double data, double min, double max) {
-        return Math.min(Math.max(data, min), max);
-    }
-
-    private static int clamp(int data, int min, int max) {
-        return Math.min(Math.max(data, min), max);
-    }
-
-    private static float clamp(float data, float min, float max) {
-        return Math.min(Math.max(data, min), max);
     }
 }

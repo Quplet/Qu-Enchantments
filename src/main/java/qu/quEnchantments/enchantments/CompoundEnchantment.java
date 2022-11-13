@@ -2,6 +2,9 @@ package qu.quEnchantments.enchantments;
 
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -25,6 +28,16 @@ public abstract class CompoundEnchantment extends QuEnchantment {
     }
 
     @Override
+    public int getMinPower(int level) {
+        return level;
+    }
+
+    @Override
+    public int getMaxPower(int level) {
+        return getMinPower(level) + 5;
+    }
+
+    @Override
     public Text getName(int level) {
         MutableText mutableText = (MutableText) super.getName(level);
         int rg = Math.max(0, 169 - (int)(level * 1.69));
@@ -43,5 +56,13 @@ public abstract class CompoundEnchantment extends QuEnchantment {
             if (luck < 0 && !result) return false;
         }
         return result;
+    }
+
+    protected int getLuck(LivingEntity livingEntity) {
+        int luck = 0;
+        StatusEffectInstance statusEffect;
+        if ((statusEffect = livingEntity.getStatusEffect(StatusEffects.LUCK)) != null) luck += statusEffect.getAmplifier();
+        if ((statusEffect = livingEntity.getStatusEffect(StatusEffects.UNLUCK)) != null) luck -= statusEffect.getAmplifier();
+        return luck;
     }
 }

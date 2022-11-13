@@ -6,8 +6,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.LuckEnchantment;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
@@ -22,10 +20,10 @@ import qu.quEnchantments.enchantments.CompoundEnchantment;
 import qu.quEnchantments.util.ModLootTableModifier;
 import qu.quEnchantments.util.config.ModConfig;
 
-public class LuckyMinerCompoundEnchantment extends CompoundEnchantment {
+public class LuckyMinerEnchantment extends CompoundEnchantment {
 
     private static final ModConfig.LuckyMinerOptions CONFIG = QuEnchantments.getConfig().luckyMinerOptions;
-    public LuckyMinerCompoundEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
+    public LuckyMinerEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
 
@@ -55,16 +53,6 @@ public class LuckyMinerCompoundEnchantment extends CompoundEnchantment {
     }
 
     @Override
-    public int getMinPower(int level) {
-        return level;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return getMinPower(level) + 5;
-    }
-
-    @Override
     protected boolean canAccept(Enchantment other) {
         return !(other instanceof LuckEnchantment) && super.canAccept(other);
     }
@@ -73,11 +61,7 @@ public class LuckyMinerCompoundEnchantment extends CompoundEnchantment {
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
         if (player.world.isClient || player.getAbilities().creativeMode || !player.canHarvest(player.world.getBlockState(pos))) return;
 
-        int luck = 0;
-        StatusEffectInstance statusEffect;
-        if ((statusEffect = player.getStatusEffect(StatusEffects.LUCK)) != null) luck += statusEffect.getAmplifier();
-        if ((statusEffect = player.getStatusEffect(StatusEffects.UNLUCK)) != null) luck -= statusEffect.getAmplifier();
-        if (!passed(luck, player.world.random, aDouble -> aDouble * 20 >= 20.0 - Math.log(level + 1))) return;
+        if (!passed(getLuck(player), player.world.random, aDouble -> aDouble * 20 >= 20.0 - Math.log(level + 1))) return;
 
         LootContext.Builder builder = new LootContext.Builder((ServerWorld) player.world).parameter(LootContextParameters.BLOCK_STATE, player.world.getBlockState(pos)).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos)).parameter(LootContextParameters.TOOL, stack);
         LootTable lootTable = player.world.getServer().getLootManager().getTable(ModLootTableModifier.LUCKY_MINER_GAMEPLAY);
