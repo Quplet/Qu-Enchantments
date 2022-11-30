@@ -1,10 +1,11 @@
 package qu.quEnchantments.blocks;
 
 import net.minecraft.block.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import qu.quEnchantments.QuEnchantments;
 
@@ -14,7 +15,7 @@ public class ModBlocks {
     public static final Block CLOUD = register("cloud", new CloudBlock(AbstractBlock.Settings.of(Material.POWDER_SNOW).sounds(BlockSoundGroup.SNOW).breakInstantly().nonOpaque().suffocates(ModBlocks::never)));
 
     private static Block register(String name, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier(QuEnchantments.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, new Identifier(QuEnchantments.MOD_ID, name), block);
     }
 
     public static void registerModBlocks() {

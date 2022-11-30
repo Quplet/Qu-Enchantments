@@ -69,7 +69,7 @@ public class HotObsidianBlock extends Block {
         if (this.canAge(world, pos, 4)) {
             if (this.increaseAge(state, world, pos)) return;
         }
-        world.createAndScheduleBlockTick(pos, this, MathHelper.nextInt(random, 20, 80));
+        world.scheduleBlockTick(pos, this, MathHelper.nextInt(random, 20, 80));
     }
 
     @Override

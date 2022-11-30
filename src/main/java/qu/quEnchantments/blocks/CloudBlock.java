@@ -44,7 +44,7 @@ public class CloudBlock extends Block {
         double e = (double)pos.getY() - 0.05;
         double f = (double)pos.getZ() + random.nextDouble();
         world.spawnParticles(ParticleTypes.DRIPPING_WATER, d, e, f, 4, 0.0, 0.0, 0.0, 0.0);
-        world.createAndScheduleBlockTick(pos, this, MathHelper.nextInt(random, 50, 100));
+        world.scheduleBlockTick(pos, this, MathHelper.nextInt(random, 50, 100));
     }
 
     @SuppressWarnings("deprecation")

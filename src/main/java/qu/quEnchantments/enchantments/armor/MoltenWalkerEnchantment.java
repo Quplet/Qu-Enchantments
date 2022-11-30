@@ -86,7 +86,7 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
                     !entity.world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
 
             entity.world.setBlockState(blockPos2, blockState);
-            entity.world.createAndScheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
+            entity.world.scheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
             entity.world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
         }
     }

@@ -7,12 +7,13 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import qu.quEnchantments.util.interfaces.IItemStack;
 import qu.quEnchantments.util.ModTags;
 
@@ -91,7 +92,10 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
         Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
         for (Enchantment enchantment : newSet) {
             Optional<RegistryKey<Enchantment>> key;
-            if (enchantment.isCursed() || (key = Registry.ENCHANTMENT.getKey(enchantment)).isPresent() && Registry.ENCHANTMENT.getOrCreateEntry(key.orElseThrow()).isIn(corruptedEnchantment.enchantmentType.corruptible)) {
+            Optional<RegistryEntry.Reference<Enchantment>> entry;
+            if (enchantment.isCursed() || (key = Registries.ENCHANTMENT.getKey(enchantment)).isPresent() &&
+                    (entry = Registries.ENCHANTMENT.getEntry(key.get())).isPresent() &&
+                    entry.get().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
                 levels += enchantments.remove(enchantment);
             }
         }

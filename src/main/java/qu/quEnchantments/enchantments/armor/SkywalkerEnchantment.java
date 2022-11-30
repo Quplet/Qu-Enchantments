@@ -80,7 +80,7 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
             entity.world.setBlockState(blockPos2, blockState);
             int bl = entity.world.getDimension().ultrawarm() ? 1 : 2;
             int duration = Math.max(1, CONFIG.cloudDuration) * bl * level;
-            entity.world.createAndScheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(),
+            entity.world.scheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(),
                     duration, duration * 2));
             entity.world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
         }

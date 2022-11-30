@@ -7,8 +7,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class QuEnchantmentHelper {
         NbtList nbtList = stack.getEnchantments();
         for (int i = 0; i < nbtList.size(); i++) {
             NbtCompound compound = nbtList.getCompound(i);
-            Registry.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(compound)).ifPresent(enchantment -> {
+            Registries.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(compound)).ifPresent(enchantment -> {
                 if (enchantment instanceof QuEnchantment) {
                     consumer.accept((QuEnchantment) enchantment, stack, EnchantmentHelper.getLevelFromNbt(compound));
                 }

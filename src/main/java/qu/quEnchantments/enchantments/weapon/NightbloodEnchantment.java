@@ -12,10 +12,11 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.enchantments.ModEnchantments;
@@ -73,7 +74,10 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
                 ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
             }
             Optional<RegistryKey<EntityType<?>>> key;
-            if ((key = Registry.ENTITY_TYPE.getKey(target.getType())).isPresent() && !Registry.ENTITY_TYPE.getOrCreateEntry(key.orElseThrow()).isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+            Optional<RegistryEntry.Reference<EntityType<?>>> entry;
+            if ((key = Registries.ENTITY_TYPE.getKey(target.getType())).isPresent() &&
+                    (entry = Registries.ENTITY_TYPE.getEntry(key.get())).isPresent() &&
+                    !entry.get().isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
                 if (target instanceof LivingEntity livingEntity) {
                     if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return 0.0f;
                     if (CONFIG.disablesExperience) livingEntity.disableExperienceDropping();
