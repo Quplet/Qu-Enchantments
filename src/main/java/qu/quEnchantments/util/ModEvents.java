@@ -27,8 +27,8 @@ public class ModEvents {
                 }
             } else {
                 EntityAttributeInstance instance = livingEntity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-                if (instance != null && instance.getModifier(SpeedBlessingEnchantment.BLESSING_BOOST.getId()) != null) {
-                    instance.removeModifier(SpeedBlessingEnchantment.BLESSING_BOOST);
+                if (instance != null && instance.getModifier(SpeedBlessingEnchantment.SPEED_BOOST.getId()) != null) {
+                    instance.removeModifier(SpeedBlessingEnchantment.SPEED_BOOST);
                 }
                 instance = livingEntity.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
                 if (instance != null && instance.getModifier(AggressionBlessingEnchantment.ATTACK_BOOST.getId()) != null) {

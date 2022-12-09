@@ -43,8 +43,9 @@
   "depends": {
     "fabricloader": ">=0.14.10",
     "fabric": ">=0.67.1+1.19.3",
-    "minecraft": ">=1.19.3-beta.2",
-    "java": ">=17"
+    "minecraft": "1.19.3",
+    "java": ">=17",
+    "cloth-config": ">=9.0.94"
   },
   "suggests": {
     "another-mod": "*"

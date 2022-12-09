@@ -18,7 +18,7 @@ import java.util.UUID;
 public class SpeedBlessingEnchantment extends QuEnchantment {
 
     private static final ModConfig.SpeedBlessingOptions CONFIG = QuEnchantments.getConfig().speedBlessingOptions;
-    public static final EntityAttributeModifier BLESSING_BOOST = new EntityAttributeModifier(UUID.fromString("8d32ac69-5bac-4e72-856f-998074238b0d"), "enchantment speed boost", 0.1 * CONFIG.speedBoost, EntityAttributeModifier.Operation.ADDITION);
+    public static final EntityAttributeModifier SPEED_BOOST = new EntityAttributeModifier(UUID.fromString("8d32ac69-5bac-4e72-856f-998074238b0d"), "enchantment speed boost", 0.1 * CONFIG.speedBoost, EntityAttributeModifier.Operation.ADDITION);
 
     public SpeedBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
@@ -61,7 +61,7 @@ public class SpeedBlessingEnchantment extends QuEnchantment {
         EntityAttributeInstance instance = wearer.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (instance == null) return;
         if (stack.getDamage() < stack.getMaxDamage() && ((IEntity)wearer).getInaneTicks() <= 0) {
-            instance.addTemporaryModifier(BLESSING_BOOST);
+            instance.addTemporaryModifier(SPEED_BOOST);
         }
     }
 }

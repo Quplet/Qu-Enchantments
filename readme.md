@@ -55,6 +55,10 @@ This mod currently has 18 new enchantments, one new curse, and one new item as o
     a clear path. These blocks, including the mined one, will not drop their spoils. Corrupts all spoils enchantments
     (Fortune, Silk touch).
 
+- 🎲 Compound Enchantments
+  - Lucky Miner Enchantment (I-C) - Increases the likelihood of the user finding ores around them as they mine. Stacks logarithmically.
+  - Lightening Bound Enchantment (I-C) - Chance on hit to strike the target with a lightening bolt. Stacks linearly.
+
 - 💎 Items
   - Rune - A new item that can be enchanted for passive effects while held. While being used, the damage meter will drain
     depending on the amount of enchantments present and the rune variant. A rune with a corrupted enchantment will not
@@ -80,6 +84,9 @@ You can add or edit what enchantments fall under which category by changing the 
 
 The Nightblood corrupted enchantment will one-hit kill every entity not listed in
 `data/qu-enchantments/tags/entity_types/nightblood_immune_entities.json`.
+
+The Lucky Miner's ores and their weights can be edited by adjusting the `data/qu-enchantments/loot_tables/gameplay/mining/lucky_miner_overworld.json`
+and the `luck_miner_nether.json` json files.
 </details>
 
 
@@ -88,6 +95,8 @@ The Nightblood corrupted enchantment will one-hit kill every entity not listed i
 
 This mod relies on [Fabric-ASM](https://github.com/Chocohead/Fabric-ASM) by Chocohead. It is built into the mod, so there 
 is no need to download anything.
+
+This mod uses [Cloth Config](https://modrinth.com/mod/cloth-config) by Shedaniel for the configuration system.
 
 Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I requested made (Hot Obsidian Block and the Rune textures).
 
