@@ -55,7 +55,7 @@ This mod currently has 18 new enchantments, one new curse, and one new item as o
     a clear path. These blocks, including the mined one, will not drop their spoils. Corrupts all spoils enchantments
     (Fortune, Silk touch).
 
-- 🎲 Compound Enchantments
+- 🎲 Compound Enchantments - Enchantments that are chance based that stack greatly.
   - Lucky Miner Enchantment (I-C) - Increases the likelihood of the user finding ores around them as they mine. Stacks logarithmically.
   - Lightening Bound Enchantment (I-C) - Chance on hit to strike the target with a lightening bolt. Stacks linearly.
 
