@@ -30,7 +30,8 @@ public class ModLootTableModifier {
 
     private static final Identifier WITCH_ID = new Identifier("minecraft", "entities/witch");
 
-    public static final Identifier LUCKY_MINER_GAMEPLAY = LootTablesInvoker.invokeRegister(new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner"));
+    public static final Identifier LUCKY_MINER_OVERWORLD = LootTablesInvoker.invokeRegister(new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner_overworld"));
+    public static final Identifier LUCKY_MINER_NETHER = LootTablesInvoker.invokeRegister(new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner_nether"));
 
     public static void ModifyLootTables() {
         LootTableEvents.MODIFY.register(((resourceManager, manager, id, builder, setter) -> {

@@ -62,9 +62,9 @@
   "enchantment.qu-enchantments.agitation_curse": "Curse of Agitation",
   "enchantment.qu-enchantments.agitation_curse.desc": "Mobs will become hostile to anything wearing this curse.",
   "enchantment.qu-enchantments.lucky_miner": "Lucky Miner",
-  "enchantment.qu-enchantments.lucky_miner.desc": "Chance on block break to drop a iron ingot, copper ingot, gold ingot, diamond, or emerald. Growth is logarithmic.",
+  "enchantment.qu-enchantments.lucky_miner.desc": "Increases the likelihood of the user finding ores around them as they mine. Stacks logarithmically.",
   "enchantment.qu-enchantments.lightening_bound": "Lightening Bound",
-  "enchantment.qu-enchantments.lightening_bound.desc": "Chance on hit to summon a lightening strike on the target. Growth is linear.",
+  "enchantment.qu-enchantments.lightening_bound.desc": "Chance on hit to summon a lightening strike on the target. Stacks linearly.",
 
   "block.qu-enchantments.hot_obsidian": "Hot Obsidian",
   "block.qu-enchantments.cloud": "Cloud",
@@ -80,6 +80,7 @@
   "item.qu-enchantments.rune_8": "Rune",
 
   "text.autoconfig.qu-enchantments.option.runeOptions.breakOnNoDurability": "Runes Can Break: ",
+  "text.autoconfig.qu-enchantments.option.runeOptions.breakOnNoDurability.@Tooltip": "Whether all runes will break upon reaching 0 durability or not.",
 
   "text.autoconfig.qu-enchantments.option.accuracyOptions": "Accuracy Enchantment Options",
   "text.autoconfig.qu-enchantments.option.accuracyOptions.isEnabled": "Is Enabled: ",
