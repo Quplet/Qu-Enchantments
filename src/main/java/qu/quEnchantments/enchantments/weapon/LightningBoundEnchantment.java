@@ -10,11 +10,11 @@ import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CompoundEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
-public class LighteningBoundEnchantment extends CompoundEnchantment {
+public class LightningBoundEnchantment extends CompoundEnchantment {
 
-    private static final ModConfig.LighteningBoundOptions CONFIG = QuEnchantments.getConfig().lighteningBoundOptions;
+    private static final ModConfig.LightningBoundOptions CONFIG = QuEnchantments.getConfig().lightningBoundOptions;
 
-    public LighteningBoundEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
+    public LightningBoundEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
 

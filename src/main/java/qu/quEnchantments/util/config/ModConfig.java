@@ -34,7 +34,7 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public final LeechingAspectOptions leechingAspectOptions = new LeechingAspectOptions();
     @ConfigEntry.Gui.CollapsibleObject
-    public final LighteningBoundOptions lighteningBoundOptions = new LighteningBoundOptions();
+    public final LightningBoundOptions lightningBoundOptions = new LightningBoundOptions();
     @ConfigEntry.Gui.CollapsibleObject
     public final LuckyMinerOptions luckyMinerOptions = new LuckyMinerOptions();
     @ConfigEntry.Gui.CollapsibleObject
@@ -142,7 +142,7 @@ public class ModConfig implements ConfigData {
         public float healing = 0.25f;
     }
 
-    public static class LighteningBoundOptions {
+    public static class LightningBoundOptions {
         public boolean isEnabled = true;
         public boolean randomSelection = true;
         public boolean enchantingTable = true;
