@@ -24,7 +24,6 @@ import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.interfaces.IItemStack;
 import qu.quEnchantments.world.ModWorldEvents;
 
-@Debug(export = true)
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     @Unique
@@ -55,7 +54,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     private void quEnchantments$corruptOnUpdate(CallbackInfo info) {
         // Output stack needs to be manually corrupted
         ItemStack stack = this.output.getStack(0);
-        if (stack.hasEnchantments()) {
+        if (stack.hasEnchantments() || stack.isOf(Items.ENCHANTED_BOOK)) {
             ((IItemStack)(Object)stack).setEnchantmentsDirty(true);
             CorruptedEnchantment.corruptEnchantments(stack);
         }
@@ -85,7 +84,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         if (compoundLevel > 0) {
             int value = (int) (compoundLevel * 0.3);
             compoundLevel = 0;
-            return value;
+            return Math.max(value, 1);
         }
         return original;
     }
