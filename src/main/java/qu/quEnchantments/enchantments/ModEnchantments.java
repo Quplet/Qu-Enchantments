@@ -53,8 +53,8 @@ public class ModEnchantments {
     public static final QuEnchantment AGITATION_CURSE = register("agitation_curse", new AgitationCurseEnchantment(Enchantment.Rarity.VERY_RARE, ALL_ARMOR));
 
     // Compound Enchantments
-    public static final QuEnchantment LUCKY_MINER = register("lucky_miner", new LuckyMinerEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
-    public static final QuEnchantment LIGHTNING_BOUND = register("lightning_bound", new LightningBoundEnchantment(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final QuEnchantment LUCKY_MINER = register("lucky_miner", new LuckyMinerEnchantment(Enchantment.Rarity.COMMON, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
+    public static final QuEnchantment LIGHTNING_BOUND = register("lightning_bound", new LightningBoundEnchantment(Enchantment.Rarity.COMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
 
     public static final ImmutableList<QuEnchantment> QU_ENCHANTMENTS = ImmutableList.of(FREEZING_ASPECT, LEECHING_ASPECT,
             INANE_ASPECT, MOLTEN_WALKER, BASHING, REFLECTION, ACCURACY, ARROWS_FLIGHT, SPEED_BLESSING, REGENERATION_BLESSING,

@@ -7,18 +7,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.ForgingScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Debug;
-import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import qu.quEnchantments.enchantments.CompoundEnchantment;
@@ -30,6 +27,8 @@ import qu.quEnchantments.world.ModWorldEvents;
 @Debug(export = true)
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
+    @Unique
+    private int compoundLevel = 0;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Inject(at = @At("HEAD"), method = "onTakeOutput")
@@ -67,13 +66,40 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         Enchantment enchantment = args.get(0);
         if (!(enchantment instanceof CompoundEnchantment)) return;
 
-        ItemStack itemStack1 = this.input.getStack(0);
-        ItemStack itemStack2 = this.input.getStack(1);
+        ItemStack stack1 = this.input.getStack(0);
+        ItemStack stack2 = this.input.getStack(1);
+        Integer level1, level2;
+        level1 = EnchantmentHelper.get(stack1).get(enchantment);
+        if (level1 == null) level1 = 0;
+        level2 = EnchantmentHelper.get(stack2).get(enchantment);
+        if (level2 == null) level2 = 0;
+        int level = Math.min(level1 + level2, 100);
 
-        int level = EnchantmentHelper.getLevel(enchantment, itemStack1) + EnchantmentHelper.getLevel(enchantment, itemStack2);
+        compoundLevel = level;
 
-        args.set(1, Math.min(level, enchantment.getMaxLevel()));
+        args.set(1, level);
     }
+
+    @ModifyVariable(method = "updateResult", at = @At(value = "INVOKE", target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", shift = At.Shift.AFTER), ordinal = 4)
+    private int quEnchantments$modifyR(int original) {
+        if (compoundLevel > 0) {
+            int value = (int) (compoundLevel * 0.3);
+            compoundLevel = 0;
+            return value;
+        }
+        return original;
+    }
+
+    /*
+    @Inject(method = "updateResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/Property;set(I)V", ordinal = 5, shift = At.Shift.AFTER))
+    private void quEnchantments$updateLevelCost(CallbackInfo ci) {
+        System.out.println("Original " + this.levelCost.get());
+        System.out.println("Subtracting: " + subtractLevel);
+        this.levelCost.set((int) (this.levelCost.get() - subtractLevel * 0.9));
+        System.out.println("New: " + this.levelCost.get());
+        subtractLevel = 0;
+    }
+     */
 
     // Ignore
     public AnvilScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
