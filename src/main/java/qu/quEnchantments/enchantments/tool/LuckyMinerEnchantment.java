@@ -3,9 +3,7 @@ package qu.quEnchantments.enchantments.tool;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.LuckEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -54,11 +52,6 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
     @Override
     public boolean isTreasure() {
         return true;
-    }
-
-    @Override
-    protected boolean canAccept(Enchantment other) {
-        return !(other instanceof LuckEnchantment) && super.canAccept(other);
     }
 
     @Override
