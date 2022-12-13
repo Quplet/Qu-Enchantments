@@ -5,6 +5,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -38,10 +39,10 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
 
     /**
      * Will return the formatted name of the enchantment. Corrupted Enchantments will have a light purple color and will
-     * not display the enchantment level if the level is 1.
+     *     not display the enchantment level if the level is 1.
      *
-     * @param level The level of the enchantment.
-     * @return The formatted name of the enchantment.
+     * @param level The level of the enchantment
+     * @return The formatted name of the enchantment
      */
     @Override
     public Text getName(int level) {
@@ -68,9 +69,9 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
 
     /**
      * Accepts an ItemStack and, if the stack contains a Corrupted Enchantment, will corrupt all other enchantments of
-     * the same type. The Corrupted Enchantment's level will match the highest consumed enchantment's level.
+     *     the same type. The Corrupted Enchantment's level will match the highest consumed enchantment's level.
      *
-     * @param stack The {@link ItemStack} to corrupt.
+     * @param stack The {@link ItemStack} to corrupt
      */
     public static void corruptEnchantments(ItemStack stack) {
         if (stack == null) return;
@@ -88,6 +89,7 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
         }
         ((IItemStack)(Object)stack).setEnchantmentsDirty(false);
         if (corruptedEnchantment == null) return;
+
         int levels = 0;
         Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
         for (Enchantment enchantment : newSet) {
@@ -96,16 +98,17 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
             if (enchantment.isCursed() || (key = Registries.ENCHANTMENT.getKey(enchantment)).isPresent() &&
                     (entry = Registries.ENCHANTMENT.getEntry(key.get())).isPresent() &&
                     entry.get().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
-                levels += enchantments.remove(enchantment);
+                int level = enchantments.remove(enchantment);
+                if (enchantment instanceof CompoundEnchantment) level *= 0.2;
+                levels += level;
             }
         }
-        if (levels > 0) {
-            if (levels == cLevel) levels++;
-            levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
-            enchantments.put(corruptedEnchantment, levels);
-            if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt("StoredEnchantments");
-            EnchantmentHelper.set(enchantments, stack);
-        }
+
+        if (levels == cLevel) levels++;
+        levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
+        enchantments.put(corruptedEnchantment, levels);
+        if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt(EnchantedBookItem.STORED_ENCHANTMENTS_KEY);
+        EnchantmentHelper.set(enchantments, stack);
     }
 
     /**
