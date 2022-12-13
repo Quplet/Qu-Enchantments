@@ -1,5 +1,6 @@
 package qu.quEnchantments.mixin;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,15 +14,20 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+import qu.quEnchantments.enchantments.CompoundEnchantment;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.interfaces.IItemStack;
 import qu.quEnchantments.world.ModWorldEvents;
 
+@Debug(export = true)
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
@@ -54,6 +60,19 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
             ((IItemStack)(Object)stack).setEnchantmentsDirty(true);
             CorruptedEnchantment.corruptEnchantments(stack);
         }
+    }
+
+    @ModifyArgs(method = "updateResult", at = @At(value = "INVOKE", target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"))
+    private void quEnchantments$combineLevelForCompound(Args args) {
+        Enchantment enchantment = args.get(0);
+        if (!(enchantment instanceof CompoundEnchantment)) return;
+
+        ItemStack itemStack1 = this.input.getStack(0);
+        ItemStack itemStack2 = this.input.getStack(1);
+
+        int level = EnchantmentHelper.getLevel(enchantment, itemStack1) + EnchantmentHelper.getLevel(enchantment, itemStack2);
+
+        args.set(1, Math.min(level, enchantment.getMaxLevel()));
     }
 
     // Ignore
