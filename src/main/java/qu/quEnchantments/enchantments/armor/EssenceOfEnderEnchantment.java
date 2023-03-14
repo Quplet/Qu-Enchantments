@@ -5,7 +5,6 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
@@ -15,6 +14,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
@@ -82,7 +82,8 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     @Override
     public void tickWhileEquipped(LivingEntity entity, ItemStack stack, int level) {
-        if (!entity.world.isClient) {
+        World world = entity.world;
+        if (!world.isClient) {
             if (entity.isWet() && entity.getRandom().nextFloat() < 0.05f && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
                 entity.removeAllPassengers();
                 for (int j = 0; j < 5; j++) {
@@ -91,10 +92,10 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
                     double f = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
                     if (EssenceOfEnderEnchantment.teleportTo(entity, d, e, f)) break;
                 }
-                entity.damage(DamageSource.MAGIC, 1);
+                entity.damage(world.getDamageSources().magic(), 1);
             }
         } else {
-            entity.world.addParticle(ParticleTypes.PORTAL, entity.getParticleX(0.5), entity.getRandomBodyY() - 0.1, entity.getParticleZ(0.5), (entity.getRandom().nextDouble() - 0.5) * 2.0, -entity.getRandom().nextDouble(), (entity.getRandom().nextDouble() - 0.5) * 2.0);
+            world.addParticle(ParticleTypes.PORTAL, entity.getParticleX(0.5), entity.getRandomBodyY() - 0.1, entity.getParticleZ(0.5), (entity.getRandom().nextDouble() - 0.5) * 2.0, -entity.getRandom().nextDouble(), (entity.getRandom().nextDouble() - 0.5) * 2.0);
         }
     }
 

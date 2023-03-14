@@ -23,14 +23,14 @@ public abstract class InGameHudMixin {
 
     @Shadow @Final private MinecraftClient client;
 
-    @Shadow protected abstract void renderOverlay(Identifier texture, float opacity);
+    @Shadow protected abstract void renderOverlay(MatrixStack matrices, Identifier texture, float opacity);
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getFrozenTicks()I"))
     private void renderInaneLayer(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         if (this.client.player == null) return;
         int i;
         if ((i = ((IEntity)this.client.player).getInaneTicks()) > 0) {
-            this.renderOverlay(INANE_OUTLINE, Math.min(i, 80.0f) / 80.0f);
+            this.renderOverlay(matrices, INANE_OUTLINE, Math.min(i, 80.0f) / 80.0f);
         }
     }
 }

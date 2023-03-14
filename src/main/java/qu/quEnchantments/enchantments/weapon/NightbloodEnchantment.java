@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +16,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.enchantments.ModEnchantments;
@@ -92,17 +92,18 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
 
     @Override
     public void tickWhileEquipped(LivingEntity wearer, ItemStack stack, int level) {
-        if (wearer.world.isClient) return;
+        World world = wearer.world;
+        if (world.isClient) return;
         if (wearer instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
             if (player.experienceLevel > 0 || player.experienceProgress > 0) {
                 player.addExperience((int) (-4 * CONFIG.drainRate / level));
                 return;
             }
-            if (wearer.world.getDifficulty().getId() != 0 && player.getHungerManager().getFoodLevel() > 0) {
+            if (world.getDifficulty().getId() != 0 && player.getHungerManager().getFoodLevel() > 0) {
                 player.getHungerManager().addExhaustion(1.5f * CONFIG.drainRate / level);
                 return;
             }
         }
-        wearer.damage(DamageSource.MAGIC, 2.0f * CONFIG.drainRate / level);
+        wearer.damage(world.getDamageSources().magic(), 2.0f * CONFIG.drainRate / level);
     }
 }

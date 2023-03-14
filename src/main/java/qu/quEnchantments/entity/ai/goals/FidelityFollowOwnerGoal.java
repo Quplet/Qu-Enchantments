@@ -97,7 +97,7 @@ public class FidelityFollowOwnerGoal extends Goal {
     @Override
     public void tick() {
         this.horse.getLookControl().lookAt(this.owner, 10.0f, this.horse.getMaxLookPitchChange());
-        if (this.horse.getPrimaryPassenger() != null && !this.horse.getPrimaryPassenger().getUuid().equals(owner.getUuid())) {
+        if (this.horse.getFirstPassenger() != null && !this.horse.getFirstPassenger().getUuid().equals(owner.getUuid())) {
             horse.removeAllPassengers();
             this.horse.playAngrySound();
             this.horse.world.sendEntityStatus(this.horse, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);

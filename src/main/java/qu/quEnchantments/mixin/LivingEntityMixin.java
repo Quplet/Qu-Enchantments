@@ -50,9 +50,16 @@ public abstract class LivingEntityMixin extends EntityMixin {
         }
     }
 
-    @SuppressWarnings("unused")
-    @ModifyExpressionValue(method = {"modifyAppliedDamage", "tryUseTotem"}, at = {@At(value = "INVOKE", target = "net/minecraft/entity/damage/DamageSource.bypassesProtection()Z"), @At(value = "INVOKE", target = "net/minecraft/entity/damage/DamageSource.isOutOfWorld()Z")})
+    @ModifyExpressionValue(method = "modifyAppliedDamage",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isIn(Lnet/minecraft/registry/tag/TagKey;)Z", ordinal = 2))
     private boolean quEnchantments$setBypassIfInane(boolean original) {
         return original || (this.getInaneTicks() > 0 && EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, (LivingEntity)(Object)this) <= 0);
+    }
+
+    @SuppressWarnings("unused")
+    @ModifyExpressionValue(method = "tryUseTotem",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
+    private boolean quEnchantments$setBypassTotemIfInane(boolean original) {
+        return quEnchantments$setBypassIfInane(original);
     }
 }

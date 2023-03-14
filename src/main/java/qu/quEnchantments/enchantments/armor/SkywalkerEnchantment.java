@@ -64,10 +64,10 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
         if (entity.world.isClient || !entity.isOnGround() || !entity.isSneaking()) return;
         BlockState blockState = ModBlocks.CLOUD.getDefaultState();
-        float f = Math.min(16, CONFIG.radius);
+        int f = Math.min(16, CONFIG.radius);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(new BlockPos(entity.getX() - f, entity.getY() - 0.875, entity.getZ() - f),
-                new BlockPos(entity.getX() + f, entity.getY() - 0.875, entity.getZ() + f))) {
+        for (BlockPos blockPos2 : BlockPos.iterate(new BlockPos(entity.getBlockX() - f, (int)(entity.getY() - 0.875), entity.getBlockZ() - f),
+                new BlockPos(entity.getBlockX() + f, (int)(entity.getY() - 0.875), entity.getBlockZ() + f))) {
             // The reason for -0.875 is that 0.125 is how much something will sink into a cloud block before the collision box
             if (!entity.world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) ||
                     !blockPos2.isWithinDistance(entity.getPos(), Math.max(f, 1))) continue;

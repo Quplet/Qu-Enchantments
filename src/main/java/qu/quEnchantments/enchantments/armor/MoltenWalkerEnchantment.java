@@ -73,9 +73,9 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
         if (entity.world.isClient || !entity.isOnGround()) return;
         BlockState blockState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
-        float f = Math.min(16, CONFIG.radius + level - 1);
+        int f = Math.min(16, CONFIG.radius + level - 1);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(pos.add(-f, -1.0, -f), pos.add(f, -1.0, f))) {
+        for (BlockPos blockPos2 : BlockPos.iterate(pos.add(-f, -1, -f), pos.add(f, -1, f))) {
             if (!blockPos2.isWithinDistance(entity.getPos(), f)) continue;
 
             mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());

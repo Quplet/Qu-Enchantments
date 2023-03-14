@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
@@ -62,7 +61,7 @@ public class BashingEnchantment extends QuEnchantment {
             dx = (Math.random() - Math.random()) * 0.01;
             dz = (Math.random() - Math.random()) * 0.01;
         }
-        attacker.knockbackVelocity = (float) (MathHelper.atan2(dz, dx) * 57.2957763671875 - (double) attacker.getYaw());
+        //attacker.knockbackVelocity = (float) (MathHelper.atan2(dz, dx) * 57.2957763671875 - (double) attacker.getYaw());
         attacker.takeKnockback(CONFIG.knockbackStrength, dx, dz);
         if (EnchantmentHelper.getLevel(ModEnchantments.NIGHTBLOOD, stack) > 0) {
             ItemStack shield = defender.getActiveItem();

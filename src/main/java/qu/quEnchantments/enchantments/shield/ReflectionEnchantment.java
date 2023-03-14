@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.World;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
@@ -53,14 +54,15 @@ public class ReflectionEnchantment extends QuEnchantment {
     }
 
     public static boolean reflect(PersistentProjectileEntity projectile, EntityHitResult result) {
-        if (!projectile.world.isClient) {
+        World world = projectile.world;
+        if (!world.isClient) {
             Entity entity = result.getEntity();
             if (entity != null && !entity.getWorld().isClient() && entity instanceof PlayerEntity player) {
                 DamageSource damageSource;
                 if (projectile instanceof TridentEntity) {
-                    damageSource = DamageSource.trident(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
+                    damageSource = world.getDamageSources().trident(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
                 } else {
-                    damageSource = DamageSource.arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
+                    damageSource = world.getDamageSources().arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
                 }
                 int i;
                 if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) > 0) {

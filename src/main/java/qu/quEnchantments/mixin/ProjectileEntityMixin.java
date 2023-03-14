@@ -4,7 +4,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -20,15 +19,15 @@ import qu.quEnchantments.enchantments.ModEnchantments;
 @Mixin(ProjectileEntity.class)
 public abstract class ProjectileEntityMixin extends Entity {
 
-    @Shadow public abstract @Nullable Entity getOwner();
-
     @Shadow public abstract void setVelocity(Entity shooter, float pitch, float yaw, float roll, float speed, float divergence);
+
+    @Shadow private @Nullable Entity owner;
 
     @Inject(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/ProjectileEntity;onEntityHit(Lnet/minecraft/util/hit/EntityHitResult;)V"), cancellable = true)
     private void quEnchantments$injectOnBlock(HitResult hitResult, CallbackInfo ci) {
         EntityHitResult result = (EntityHitResult) hitResult;
         int i;
-        if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity.blockedByShield(DamageSource.thrownProjectile(this, this.getOwner())) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, livingEntity)) > 0) {
+        if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity.blockedByShield(livingEntity.world.getDamageSources().thrown(this, this.owner)) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, livingEntity)) > 0) {
             this.setVelocity(livingEntity, livingEntity.getPitch() - 1.0f, livingEntity.getYaw(), 0.0f, (float) this.getVelocity().length(), 25.0f / i);
             ci.cancel();
         }
@@ -39,3 +38,4 @@ public abstract class ProjectileEntityMixin extends Entity {
         super(type, world);
     }
 }
+//DamageSource.thrownProjectile(this, this.getOwner())
