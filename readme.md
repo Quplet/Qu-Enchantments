@@ -8,13 +8,13 @@ in the game while not straying too far from vanilla. It's not just your ordinary
 ## 🧰 Installation
 
 This mod requires the Fabric or Quilt loader. I have no plans at the moment for making a Forge equivalent. I have not extensively 
-tested what Fabric Loader versions work and don't work. This mod uses Minecraft 1.19+, so I believe any Fabric Loader 
-0.14.6 and beyond should work. This mod does utilize the [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) 
+tested what Fabric Loader versions work and don't work. This mod uses Minecraft 1.19.4+, so I believe any Fabric Loader 
+0.14.17 and beyond should work. This mod does utilize the [Fabric API](https://modrinth.com/mod/fabric-api) 
 so make sure you have that as well.
 
 ## 📖 Content
 
-This mod currently has 18 new enchantments, one new curse, and one new item as of 1.2.0-1.19.
+This mod currently has 20 new enchantments, one new curse, and one new item as of 1.3.0-1.19.
 
 <details>
   <summary>Click to expand</summary>
