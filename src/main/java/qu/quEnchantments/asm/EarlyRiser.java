@@ -10,8 +10,8 @@ public class EarlyRiser implements Runnable {
     public void run() {
         MappingResolver remapper = FabricLoader.getInstance().getMappingResolver();
         String target = remapper.mapClassName("intermediary", "net.minecraft.class_1886");
-        ClassTinkerers.enumBuilder(target).addEnumSubclass("SHIELD", "qu.quEnchantments.asm.Shield")
-                .addEnumSubclass("RUNE", "qu.quEnchantments.asm.Rune")
-                .addEnumSubclass("HORSE_ARMOR", "qu.quEnchantments.asm.HorseArmor").build();
+        ClassTinkerers.enumBuilder(target).addEnumSubclass("QU$SHIELD", "qu.quEnchantments.asm.Shield")
+                .addEnumSubclass("QU$RUNE", "qu.quEnchantments.asm.Rune")
+                .addEnumSubclass("QU$HORSE_ARMOR", "qu.quEnchantments.asm.HorseArmor").build();
     }
 }

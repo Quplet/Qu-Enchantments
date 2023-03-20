@@ -24,9 +24,9 @@ public class ModEnchantments {
 
     private static final EquipmentSlot[] ALL_ARMOR = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
-    private static final EnchantmentTarget SHIELD = ClassTinkerers.getEnum(EnchantmentTarget.class, "SHIELD");
-    private static final EnchantmentTarget RUNE = ClassTinkerers.getEnum(EnchantmentTarget.class, "RUNE");
-    private static final EnchantmentTarget HORSE_ARMOR = ClassTinkerers.getEnum(EnchantmentTarget.class, "HORSE_ARMOR");
+    private static final EnchantmentTarget SHIELD = ClassTinkerers.getEnum(EnchantmentTarget.class, "QU$SHIELD");
+    private static final EnchantmentTarget RUNE = ClassTinkerers.getEnum(EnchantmentTarget.class, "QU$RUNE");
+    private static final EnchantmentTarget HORSE_ARMOR = ClassTinkerers.getEnum(EnchantmentTarget.class, "QU$HORSE_ARMOR");
 
     public static final QuEnchantment FREEZING_ASPECT = register("freezing_aspect", new FreezingAspectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND));
     public static final QuEnchantment LEECHING_ASPECT = register("leeching_aspect", new LeechingAspectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND));
