@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
@@ -57,7 +58,8 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
-        if (player.world.isClient) return;
+        World world = player.world;
+        if (world.isClient) return;
         Iterable<BlockPos> iterable;
         if (level == 1) {
             List<BlockPos> temp = new ArrayList<>(2);
@@ -76,17 +78,17 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
             iterable = BlockPos.iterate(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
         }
         for (BlockPos blockPos : iterable) {
-            BlockState blockState = player.world.getBlockState(blockPos);
-            if (!blockState.isSolidBlock(player.world, blockPos)) continue;
-            if (!stack.isSuitableFor(blockState)) continue;
-            player.world.syncWorldEvent(ModWorldEvents.STRIP_MINER_DESTROY_BLOCK, blockPos, 0);
+            if (!world.canPlayerModifyAt(player, pos)) continue;
+            BlockState blockState = world.getBlockState(blockPos);
+            if (!blockState.isSolidBlock(world, blockPos) || !stack.isSuitableFor(blockState)) continue;
+            world.syncWorldEvent(ModWorldEvents.STRIP_MINER_DESTROY_BLOCK, blockPos, 0);
             if (pos.equals(blockPos)) continue;
             if (blockState.isIn(BlockTags.GUARDED_BY_PIGLINS)) {
                 PiglinBrain.onGuardedBlockInteracted(player, false);
             }
-            player.world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, blockState));
-            if (player.world.removeBlock(blockPos, false)) {
-                blockState.getBlock().onBroken(player.world, blockPos, blockState);
+            world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, blockState));
+            if (world.removeBlock(blockPos, false)) {
+                blockState.getBlock().onBroken(world, blockPos, blockState);
             }
         }
     }
