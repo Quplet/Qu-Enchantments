@@ -8,7 +8,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 
 import java.util.function.Predicate;
@@ -42,7 +41,7 @@ public abstract class CompoundEnchantment extends QuEnchantment {
         MutableText mutableText = (MutableText) super.getName(level);
         int rg = Math.max(0, 169 - (int)(level * 1.69));
         int b = Math.min(255, 167 + level);
-        mutableText.styled(style -> style.withColor(MathHelper.packRgb(rg, rg, b)));
+        mutableText.styled(style -> style.withColor(rg << 16 | rg << 8 | b));
         if (level >= 50) mutableText.formatted(Formatting.BOLD);
         if (level >= 90) mutableText.formatted(Formatting.ITALIC);
         return mutableText;
