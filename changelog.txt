@@ -3,3 +3,4 @@
 Fixes/Changes:
 - Fixed Compound Enchantment name coloring
 - Improved block modification permissions for Lucky Miner and Strip Miner
+- Fixed possible mod conflicts (#10)
