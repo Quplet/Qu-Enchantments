@@ -58,7 +58,7 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
         World world = player.world;
         if (world.isClient || player.getAbilities().creativeMode || !player.canHarvest(player.world.getBlockState(pos))) return;
-        if (!passed(getLuck(player), world.random, aDouble -> aDouble * 20 >= 20.0 - Math.log(level + 1))) return;
+        if (!passed(getLuck(player), world.random, aDouble -> aDouble < Math.log1p(level/10.0) / 10)) return;
 
         boolean isOverworld = world.getDimension().natural();
         LootContext.Builder builder = new LootContext.Builder((ServerWorld) player.world).parameter(LootContextParameters.BLOCK_STATE, player.world.getBlockState(pos)).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos)).parameter(LootContextParameters.TOOL, stack);
@@ -68,7 +68,7 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
         if (list.get(0).getItem() instanceof BlockItem blockItem) {
             BlockState state = blockItem.getBlock().getDefaultState();
             Random random = world.random;
-            Iterable<BlockPos> iterable = BlockPos.iterateRandomly(random, random.nextInt(3) + 1, pos, 2);
+            Iterable<BlockPos> iterable = BlockPos.iterateRandomly(random, random.nextInt(3) + 1, pos, 3);
             for (BlockPos pos2 : iterable) {
                 if (!world.canPlayerModifyAt(player, pos2) || !world.getBlockState(pos2).isOf(isOverworld ? Blocks.STONE : Blocks.NETHERRACK)) continue;
                 world.setBlockState(pos2, state);
