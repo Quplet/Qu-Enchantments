@@ -72,7 +72,6 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
             for (BlockPos pos2 : iterable) {
                 if (!world.canPlayerModifyAt(player, pos2) || !world.getBlockState(pos2).isOf(isOverworld ? Blocks.STONE : Blocks.NETHERRACK)) continue;
                 world.setBlockState(pos2, state);
-                System.out.println("Placed " + state.getBlock() + " at " + pos2);
             }
         }
     }
