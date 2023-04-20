@@ -3,3 +3,4 @@
 Fixes/Changes:
 - Removed old debug logging
 - Adjusted the chance and range of Lucky Miner's effect
+- Cloth Config is now bundled into the mod
