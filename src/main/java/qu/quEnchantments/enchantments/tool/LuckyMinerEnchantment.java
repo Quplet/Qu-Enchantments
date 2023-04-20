@@ -58,6 +58,7 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
         World world = player.world;
         if (world.isClient || player.getAbilities().creativeMode || !player.canHarvest(player.world.getBlockState(pos))) return;
+        // Should fall roughly in the 1% (min) to 24% (max) range, logarithmically
         if (!passed(getLuck(player), world.random, aDouble -> aDouble < Math.log1p(level/10.0) / 10)) return;
 
         boolean isOverworld = world.getDimension().natural();
