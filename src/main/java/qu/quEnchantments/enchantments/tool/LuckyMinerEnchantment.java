@@ -10,6 +10,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -56,15 +57,17 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
 
     @Override
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
-        World world = player.world;
-        if (world.isClient || player.getAbilities().creativeMode || !player.canHarvest(player.world.getBlockState(pos))) return;
+        World world;
+        if ((world = player.getWorld()).isClient || player.getAbilities().creativeMode || !player.canHarvest(world.getBlockState(pos))) return;
         // Should fall roughly in the 1% (min) to 24% (max) range, logarithmically
         if (!passed(getLuck(player), world.random, aDouble -> aDouble < Math.log1p(level/10.0) / 10)) return;
 
         boolean isOverworld = world.getDimension().natural();
-        LootContext.Builder builder = new LootContext.Builder((ServerWorld) player.world).parameter(LootContextParameters.BLOCK_STATE, player.world.getBlockState(pos)).parameter(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos)).parameter(LootContextParameters.TOOL, stack);
-        LootTable lootTable = player.world.getServer().getLootManager().getTable(isOverworld ? ModLootTableModifier.LUCKY_MINER_OVERWORLD : ModLootTableModifier.LUCKY_MINER_NETHER);
-        ObjectArrayList<ItemStack> list = lootTable.generateLoot(builder.build(LootContextTypes.BLOCK));
+        LootContextParameterSet parameterSet = new LootContextParameterSet.Builder((ServerWorld) world).add(LootContextParameters.BLOCK_STATE, world.getBlockState(pos)).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos)).add(LootContextParameters.TOOL, stack).build(LootContextTypes.BLOCK);
+        LootTable lootTable = world.getServer().getLootManager().getLootTable(isOverworld ? ModLootTableModifier.LUCKY_MINER_OVERWORLD : ModLootTableModifier.LUCKY_MINER_NETHER);
+        ObjectArrayList<ItemStack> list = lootTable.generateLoot(parameterSet);
+
+        if (list.get(0) == null) return;
 
         if (list.get(0).getItem() instanceof BlockItem blockItem) {
             BlockState state = blockItem.getBlock().getDefaultState();

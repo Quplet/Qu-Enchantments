@@ -10,6 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,10 +45,12 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         if (!bl) return;
         stack.setDamage(stack.getMaxDamage() - 1);
         stack.damage(100, player, Entity::toString);
-        if (player.world.isClient) {
+
+        World world;
+        if ((world = player.getWorld()).isClient) {
             player.playSound(SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 5.0f, 1.0f);
         }
-        player.world.syncWorldEvent(player, ModWorldEvents.SHAPED_GLASS_BREAK, player.getBlockPos(), 0);
+        world.syncWorldEvent(player, ModWorldEvents.SHAPED_GLASS_BREAK, player.getBlockPos(), 0);
     }
 
     @Inject(at = @At("TAIL"), method = "updateResult")

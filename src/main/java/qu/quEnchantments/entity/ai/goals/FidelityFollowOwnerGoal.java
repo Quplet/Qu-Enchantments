@@ -35,7 +35,7 @@ public class FidelityFollowOwnerGoal extends Goal {
 
     public FidelityFollowOwnerGoal(AbstractHorseEntity horse, double speed, float minDistance, float maxDistance, boolean leavesAllowed) {
         this.horse = horse;
-        this.world = horse.world;
+        this.world = horse.getWorld();
         this.speed = speed;
         this.navigation = horse.getNavigation();
         this.maxDistance = maxDistance;
@@ -55,7 +55,7 @@ public class FidelityFollowOwnerGoal extends Goal {
         if (this.horse.getOwnerUuid() == null) {
             return false;
         }
-        LivingEntity livingEntity = this.horse.world.getPlayerByUuid(this.horse.getOwnerUuid());
+        LivingEntity livingEntity = this.horse.getWorld().getPlayerByUuid(this.horse.getOwnerUuid());
         if (livingEntity == null) {
             return false;
         }
@@ -100,7 +100,7 @@ public class FidelityFollowOwnerGoal extends Goal {
         if (this.horse.getFirstPassenger() != null && !this.horse.getFirstPassenger().getUuid().equals(owner.getUuid())) {
             horse.removeAllPassengers();
             this.horse.playAngrySound();
-            this.horse.world.sendEntityStatus(this.horse, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+            this.horse.getWorld().sendEntityStatus(this.horse, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
         }
         if (--this.updateCountdownTicks > 0) {
             return;

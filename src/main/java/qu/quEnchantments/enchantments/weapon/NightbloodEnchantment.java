@@ -65,36 +65,39 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
 
     @Override
     public float getAttackDamage(Entity target, ItemStack stack, int level) {
-        if (!target.world.isClient) {
-            Random random = target.world.getRandom();
-            for (int x = 0; x < 25; x++) {
-                double d = random.nextGaussian() * 0.02;
-                double e = random.nextGaussian() * 0.02;
-                double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) target.world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+        World world;
+
+        if ((world = target.getWorld()).isClient) return 0.0f;
+
+        Random random = world.getRandom();
+        for (int x = 0; x < 25; x++) {
+            double d = random.nextGaussian() * 0.02;
+            double e = random.nextGaussian() * 0.02;
+            double f = random.nextGaussian() * 0.02;
+            ((ServerWorld) world).spawnParticles(ParticleTypes.LARGE_SMOKE, target.getParticleX(1.0), target.getRandomBodyY(), target.getParticleZ(1.0), 1, d, e, f, 0.0);
+        }
+        Optional<RegistryKey<EntityType<?>>> key;
+        Optional<RegistryEntry.Reference<EntityType<?>>> entry;
+        if ((key = Registries.ENTITY_TYPE.getKey(target.getType())).isPresent() &&
+                (entry = Registries.ENTITY_TYPE.getEntry(key.get())).isPresent() &&
+                !entry.get().isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
+            if (target instanceof LivingEntity livingEntity) {
+                if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return 0.0f;
+                if (CONFIG.disablesExperience) livingEntity.disableExperienceDropping();
             }
-            Optional<RegistryKey<EntityType<?>>> key;
-            Optional<RegistryEntry.Reference<EntityType<?>>> entry;
-            if ((key = Registries.ENTITY_TYPE.getKey(target.getType())).isPresent() &&
-                    (entry = Registries.ENTITY_TYPE.getEntry(key.get())).isPresent() &&
-                    !entry.get().isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
-                if (target instanceof LivingEntity livingEntity) {
-                    if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.OMEN_OF_IMMUNITY, livingEntity) > 0) return 0.0f;
-                    if (CONFIG.disablesExperience) livingEntity.disableExperienceDropping();
-                }
-                return 1000000.0f;
-            } else if (target instanceof LivingEntity livingEntity) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, CONFIG.witherDuration, CONFIG.witherAmplifier, false, true), livingEntity.getAttacker());
-            }
+            return 1000000.0f;
+        } else if (target instanceof LivingEntity livingEntity) {
+            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, CONFIG.witherDuration, CONFIG.witherAmplifier, false, true), livingEntity.getAttacker());
         }
         return 0.0f;
     }
 
     @Override
     public void tickWhileEquipped(LivingEntity wearer, ItemStack stack, int level) {
-        World world = wearer.world;
-        if (world.isClient) return;
-        if (wearer instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
+        World world;
+        if ((world = wearer.getWorld()).isClient) return;
+        if (wearer instanceof PlayerEntity player) {
+            if (player.getAbilities().creativeMode) return;
             if (player.experienceLevel > 0 || player.experienceProgress > 0) {
                 player.addExperience((int) (-4 * CONFIG.drainRate / level));
                 return;

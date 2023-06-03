@@ -11,6 +11,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
@@ -62,27 +63,32 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
     @Override
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
-        if (entity.world.isClient || !entity.isOnGround() || !entity.isSneaking()) return;
+        World world;
+        final double sinkDistance = 0.875;
+        if ((world = entity.getWorld()).isClient || !entity.isOnGround() || !entity.isSneaking()) return;
         BlockState blockState = ModBlocks.CLOUD.getDefaultState();
         int f = Math.min(16, CONFIG.radius);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(new BlockPos(entity.getBlockX() - f, (int)(entity.getY() - 0.875), entity.getBlockZ() - f),
-                new BlockPos(entity.getBlockX() + f, (int)(entity.getY() - 0.875), entity.getBlockZ() + f))) {
-            // The reason for -0.875 is that 0.125 is how much something will sink into a cloud block before the collision box
-            if (!entity.world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) ||
+        for (BlockPos blockPos2 : BlockPos.iterate(new BlockPos(entity.getBlockX() - f, (int)(entity.getY() - sinkDistance), entity.getBlockZ() - f),
+                new BlockPos(entity.getBlockX() + f, (int)(entity.getY() - sinkDistance), entity.getBlockZ() + f))) {
+
+            if (!world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) ||
                     !blockPos2.isWithinDistance(entity.getPos(), Math.max(f, 1))) continue;
 
             mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-            BlockState blockState2 = entity.world.getBlockState(mutable);
-            if (!blockState2.isAir() || !blockState.canPlaceAt(entity.world, blockPos2) ||
-                    !entity.world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
+            BlockState blockState2 = world.getBlockState(mutable);
+            if (!blockState2.isAir() || !blockState.canPlaceAt(world, blockPos2) ||
+                    !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
 
-            entity.world.setBlockState(blockPos2, blockState);
-            int bl = entity.world.getDimension().ultrawarm() ? 1 : 2;
+            world.setBlockState(blockPos2, blockState);
+            int bl = world.getDimension().ultrawarm() ? 1 : 2;
             int duration = Math.max(1, CONFIG.cloudDuration) * bl * level;
-            entity.world.scheduleBlockTick(blockPos2, ModBlocks.CLOUD, MathHelper.nextInt(entity.getRandom(),
-                    duration, duration * 2));
-            entity.world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
+            world.scheduleBlockTick(
+                    blockPos2,
+                    ModBlocks.CLOUD,
+                    MathHelper.nextInt(entity.getRandom(), duration, duration * 2)
+            );
+            world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
         }
     }
 }

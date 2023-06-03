@@ -52,7 +52,7 @@ public class RegenerationBlessingEnchantment extends QuEnchantment {
     @Override
     public void tickWhileEquipped(LivingEntity wearer, ItemStack stack, int level) {
         if (!(wearer instanceof PlayerEntity player && player.getAbilities().creativeMode) && wearer.age % 20 == 0) stack.setDamage(Math.min(stack.getMaxDamage(), stack.getDamage() + 1));
-        if (wearer instanceof PlayerEntity player && player.world.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION) && player.canFoodHeal() && stack.getDamage() < stack.getMaxDamage() && ((IEntity)player).getInaneTicks() <= 0) {
+        if (wearer instanceof PlayerEntity player && player.getWorld().getGameRules().getBoolean(GameRules.NATURAL_REGENERATION) && player.canFoodHeal() && stack.getDamage() < stack.getMaxDamage() && ((IEntity)player).getInaneTicks() <= 0) {
             int foodTickTimer = ((HungerManagerAccessor) player.getHungerManager()).getFoodTickTimer();
             if (foodTickTimer == 5 && player.getHungerManager().getSaturationLevel() > 0.0f && player.getHungerManager().getFoodLevel() >= 20) {
                 float f = Math.min(player.getHungerManager().getSaturationLevel(), 6.0f);

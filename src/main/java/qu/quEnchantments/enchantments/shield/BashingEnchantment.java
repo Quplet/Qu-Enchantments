@@ -9,6 +9,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
@@ -54,7 +55,8 @@ public class BashingEnchantment extends QuEnchantment {
 
     @Override
     public void onBlock(LivingEntity defender, LivingEntity attacker, ItemStack stack, int level) {
-        if (defender.world.isClient) return;
+        World world;
+        if ((world = defender.getWorld()).isClient) return;
         double dx = defender.getX() - attacker.getX();
         double dz = defender.getZ() - attacker.getZ();
         while (dx * dx + dz * dz < 1.0E-4) {
@@ -67,13 +69,13 @@ public class BashingEnchantment extends QuEnchantment {
             ItemStack shield = defender.getActiveItem();
             shield.setDamage(shield.getMaxDamage() - 1);
             shield.damage(50, defender, e -> e.sendToolBreakStatus(defender.getActiveHand()));
-            defender.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8f, 0.8f + defender.world.random.nextFloat() * 0.4f);
-            Random random = defender.world.getRandom();
+            defender.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8f, 0.8f + world.random.nextFloat() * 0.4f);
+            Random random = world.getRandom();
             for (int i = 0; i < 10; ++i) {
                 double d = random.nextGaussian() * 0.02;
                 double e = random.nextGaussian() * 0.02;
                 double f = random.nextGaussian() * 0.02;
-                ((ServerWorld) defender.world).spawnParticles(ParticleTypes.LARGE_SMOKE, defender.getParticleX(1.0), defender.getRandomBodyY(), defender.getParticleZ(1.0), 1, d, e, f, 0.0);
+                ((ServerWorld) world).spawnParticles(ParticleTypes.LARGE_SMOKE, defender.getParticleX(1.0), defender.getRandomBodyY(), defender.getParticleZ(1.0), 1, d, e, f, 0.0);
             }
         }
     }

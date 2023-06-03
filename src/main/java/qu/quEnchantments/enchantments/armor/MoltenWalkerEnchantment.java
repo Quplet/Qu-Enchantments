@@ -1,8 +1,8 @@
 package qu.quEnchantments.enchantments.armor;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.enchantment.DepthStriderEnchantment;
 import net.minecraft.enchantment.Enchantment;
@@ -13,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.QuEnchantment;
@@ -71,7 +72,8 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
 
     @Override
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
-        if (entity.world.isClient || !entity.isOnGround()) return;
+        World world = entity.getWorld();
+        if (world.isClient || !entity.isOnGround()) return;
         BlockState blockState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
         int f = Math.min(16, CONFIG.radius + level - 1);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
@@ -79,15 +81,16 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
             if (!blockPos2.isWithinDistance(entity.getPos(), f)) continue;
 
             mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-            BlockState blockState2 = entity.world.getBlockState(mutable);
+            BlockState blockState2 = world.getBlockState(mutable);
             BlockState blockState3;
-            if (!blockState2.isAir() || (blockState3 = entity.world.getBlockState(blockPos2)).getMaterial() != Material.LAVA ||
-                    blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(entity.world, blockPos2) ||
-                    !entity.world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
+            // TODO: test that this still works properly
+            if (!blockState2.isAir() || !(blockState3 = world.getBlockState(blockPos2)).isOf(Blocks.LAVA) ||
+                    blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(world, blockPos2) ||
+                    !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
 
-            entity.world.setBlockState(blockPos2, blockState);
-            entity.world.scheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
-            entity.world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
+            world.setBlockState(blockPos2, blockState);
+            world.scheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
+            world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
         }
     }
 }

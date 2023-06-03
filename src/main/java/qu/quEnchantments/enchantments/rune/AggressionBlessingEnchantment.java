@@ -57,7 +57,7 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
     @Override
     public void tickWhileEquipped(LivingEntity wearer, ItemStack stack, int level) {
         if (!(wearer instanceof PlayerEntity player && player.getAbilities().creativeMode) && wearer.age % 20 == 0) stack.setDamage(Math.min(stack.getMaxDamage(), stack.getDamage() + 1));
-        if (wearer.world.isClient) return;
+        if (wearer.getWorld().isClient) return;
         EntityAttributeInstance instance = wearer.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
         if (instance == null) return;
         if (stack.getDamage() < stack.getMaxDamage() && ((IEntity)wearer).getInaneTicks() <= 0) {

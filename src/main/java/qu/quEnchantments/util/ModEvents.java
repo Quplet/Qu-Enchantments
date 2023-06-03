@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.world.World;
 import qu.quEnchantments.callbacks.LivingEntityEvents;
 import qu.quEnchantments.enchantments.rune.AggressionBlessingEnchantment;
 import qu.quEnchantments.enchantments.rune.SpeedBlessingEnchantment;
@@ -17,13 +18,14 @@ public class ModEvents {
     public static void RegisterModEvents() {
 
         LivingEntityEvents.ON_TICK_EVENT.register(livingEntity -> {
-            if (livingEntity.world.isClient) {
+            World world;
+            if ((world = livingEntity.getWorld()).isClient) {
                 // Inane effect client particle logic
                 if (((IEntity)livingEntity).getInaneTicks() > 0 && livingEntity != MinecraftClient.getInstance().player) {
                     double px = livingEntity.getParticleX(1.0);
                     double py = livingEntity.getRandomBodyY();
                     double pz = livingEntity.getParticleZ(1.0);
-                    livingEntity.world.addParticle(ModParticles.INANE_PARTICLE, px, py, pz, (livingEntity.getX() - px) * 0.05, (py - livingEntity.getY()) * 0.05, (livingEntity.getZ() - pz) * 0.05);
+                    world.addParticle(ModParticles.INANE_PARTICLE, px, py, pz, (livingEntity.getX() - px) * 0.05, (py - livingEntity.getY()) * 0.05, (livingEntity.getZ() - pz) * 0.05);
                 }
             } else {
                 EntityAttributeInstance instance = livingEntity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);

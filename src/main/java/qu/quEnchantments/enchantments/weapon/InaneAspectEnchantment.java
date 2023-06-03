@@ -57,7 +57,7 @@ public class InaneAspectEnchantment extends QuEnchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {
-        if (user.world.isClient) return;
+        if (user.getWorld().isClient) return;
         ((IEntity)target).setInaneTicks(40 + CONFIG.duration * level);
     }
 }

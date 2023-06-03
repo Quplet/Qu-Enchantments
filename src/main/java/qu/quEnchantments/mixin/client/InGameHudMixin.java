@@ -3,6 +3,7 @@ package qu.quEnchantments.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -23,14 +24,14 @@ public abstract class InGameHudMixin {
 
     @Shadow @Final private MinecraftClient client;
 
-    @Shadow protected abstract void renderOverlay(MatrixStack matrices, Identifier texture, float opacity);
+    @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getFrozenTicks()I"))
-    private void renderInaneLayer(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+    private void renderInaneLayer(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (this.client.player == null) return;
         int i;
         if ((i = ((IEntity)this.client.player).getInaneTicks()) > 0) {
-            this.renderOverlay(matrices, INANE_OUTLINE, Math.min(i, 80.0f) / 80.0f);
+            this.renderOverlay(context, INANE_OUTLINE, Math.min(i, 80.0f) / 80.0f);
         }
     }
 }

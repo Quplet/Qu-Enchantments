@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
@@ -63,8 +64,16 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
     @Override
     public void tickWhileEquipped(LivingEntity livingEntity, ItemStack stack, int level) {
-        if (livingEntity.world.isClient || (livingEntity instanceof PlayerEntity player && player.getAbilities().creativeMode) || livingEntity.age % 20 != 10) return;
-        List<Entity> mobs = livingEntity.world.getOtherEntities(livingEntity, livingEntity.getBoundingBox().expand(CONFIG.radius), entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity mob && mob.getTarget() == null);
+        World world;
+        if ((world = livingEntity.getWorld()).isClient ||
+                (livingEntity instanceof PlayerEntity player && player.getAbilities().creativeMode) ||
+                livingEntity.age % 20 != 10) return;
+
+        List<Entity> mobs = world.getOtherEntities(
+                livingEntity,
+                livingEntity.getBoundingBox().expand(CONFIG.radius),
+                entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity mob && mob.getTarget() == null);
+
         for (Entity mob : mobs) {
             ((MobEntity)mob).setTarget(livingEntity);
         }

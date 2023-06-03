@@ -27,7 +27,7 @@ public abstract class ProjectileEntityMixin extends Entity {
     private void quEnchantments$injectOnBlock(HitResult hitResult, CallbackInfo ci) {
         EntityHitResult result = (EntityHitResult) hitResult;
         int i;
-        if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity.blockedByShield(livingEntity.world.getDamageSources().thrown(this, this.owner)) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, livingEntity)) > 0) {
+        if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity.blockedByShield(livingEntity.getWorld().getDamageSources().thrown(this, this.owner)) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, livingEntity)) > 0) {
             this.setVelocity(livingEntity, livingEntity.getPitch() - 1.0f, livingEntity.getYaw(), 0.0f, (float) this.getVelocity().length(), 25.0f / i);
             ci.cancel();
         }

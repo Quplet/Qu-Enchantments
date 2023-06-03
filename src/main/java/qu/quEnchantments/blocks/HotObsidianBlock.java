@@ -3,7 +3,6 @@ package qu.quEnchantments.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -37,11 +36,11 @@ public class HotObsidianBlock extends Block {
     @Override
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, state, blockEntity, stack);
-        if (EnchantmentHelper.getEquipmentLevel(Enchantments.SILK_TOUCH, player) == 0) {
-            Material material = world.getBlockState(pos.down()).getMaterial();
-            if (material.blocksMovement() || material.isLiquid()) {
-                world.setBlockState(pos, Blocks.LAVA.getDefaultState());
-            }
+        if (EnchantmentHelper.getEquipmentLevel(Enchantments.SILK_TOUCH, player) != 0) return;
+
+        BlockState blockStateDown = world.getBlockState(pos.down());
+        if (blockStateDown.blocksMovement() || blockStateDown.isLiquid()) {
+            world.setBlockState(pos, Blocks.LAVA.getDefaultState());
         }
     }
 

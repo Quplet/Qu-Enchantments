@@ -58,8 +58,8 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
-        World world = player.world;
-        if (world.isClient) return;
+        World world;
+        if ((world = player.getWorld()).isClient) return;
         Iterable<BlockPos> iterable;
         if (level == 1) {
             List<BlockPos> temp = new ArrayList<>(2);

@@ -54,23 +54,21 @@ public class ReflectionEnchantment extends QuEnchantment {
     }
 
     public static boolean reflect(PersistentProjectileEntity projectile, EntityHitResult result) {
-        World world = projectile.world;
-        if (!world.isClient) {
-            Entity entity = result.getEntity();
-            if (entity != null && !entity.getWorld().isClient() && entity instanceof PlayerEntity player) {
-                DamageSource damageSource;
-                if (projectile instanceof TridentEntity) {
-                    damageSource = world.getDamageSources().trident(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
-                } else {
-                    damageSource = world.getDamageSources().arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
-                }
-                int i;
-                if (player.blockedByShield(damageSource) && (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) > 0) {
-                    projectile.setVelocity(player, player.getPitch() - 1.0f, player.getYaw(), 0.0f, (float) projectile.getVelocity().length(), 25.0f * (CONFIG.divergence * 0.1f) / i);
-                    return true;
-                }
-            }
+        World world;
+        if ((world = projectile.getWorld()).isClient) return false;
+        if (!(result.getEntity() instanceof PlayerEntity player)) return false;
+
+        DamageSource damageSource;
+        if (projectile instanceof TridentEntity) {
+            damageSource = world.getDamageSources().trident(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
+        } else {
+            damageSource = world.getDamageSources().arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
         }
-        return false;
+
+        int i;
+        if (!player.blockedByShield(damageSource) || (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) == 0) return false;
+
+        projectile.setVelocity(player, player.getPitch() - 1.0f, player.getYaw(), 0.0f, (float) projectile.getVelocity().length(), 25.0f * (CONFIG.divergence * 0.1f) / i);
+        return true;
     }
 }

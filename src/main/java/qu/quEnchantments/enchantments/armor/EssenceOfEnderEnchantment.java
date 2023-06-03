@@ -68,7 +68,7 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onUserDamaged(LivingEntity user, Entity attacker, int level) {
-        if (user.world.isClient || attacker == null) return;
+        if (user.getWorld().isClient || attacker == null) return;
         if (attacker instanceof PlayerEntity player && player.getAbilities().creativeMode) return;
         if (attacker instanceof LivingEntity livingEntity) {
             for (int i = 0; i < 7; i++) {
@@ -82,7 +82,7 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     @Override
     public void tickWhileEquipped(LivingEntity entity, ItemStack stack, int level) {
-        World world = entity.world;
+        World world = entity.getWorld();
         if (!world.isClient) {
             if (entity.isWet() && entity.getRandom().nextFloat() < 0.05f && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
                 entity.removeAllPassengers();
@@ -109,11 +109,11 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
     // Functionally equivalent to the Enderman's teleport
     public static boolean teleportTo(LivingEntity subject, double x, double y, double z) {
         BlockPos.Mutable mutable = new BlockPos.Mutable(x, y, z);
-        while (mutable.getY() > subject.world.getBottomY() && !subject.world.getBlockState(mutable).getMaterial().blocksMovement()) {
+        while (mutable.getY() > subject.getWorld().getBottomY() && !subject.getWorld().getBlockState(mutable).blocksMovement()) {
             mutable.move(Direction.DOWN);
         }
-        BlockState blockState = subject.world.getBlockState(mutable);
-        boolean bl = blockState.getMaterial().blocksMovement();
+        BlockState blockState = subject.getWorld().getBlockState(mutable);
+        boolean bl = blockState.blocksMovement();
         boolean bl2 = blockState.getFluidState().isIn(FluidTags.WATER);
         if (!bl || bl2) {
             return false;
@@ -121,12 +121,12 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
         Vec3d vec3d = subject.getPos();
         boolean bl3 = subject.teleport(x, y, z, true);
         if (bl3) {
-            subject.world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(subject));
+            subject.getWorld().emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(subject));
             if (!subject.isSilent()) {
                 if (subject instanceof PlayerEntity) {
-                    subject.world.playSound((PlayerEntity) subject, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
+                    subject.getWorld().playSound((PlayerEntity) subject, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
                 } else {
-                    subject.world.playSound(null, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
+                    subject.getWorld().playSound(null, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
                 }
                 subject.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
             }
