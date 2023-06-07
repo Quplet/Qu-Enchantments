@@ -83,7 +83,7 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
             mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
             BlockState blockState2 = world.getBlockState(mutable);
             BlockState blockState3;
-            // TODO: test that this still works properly
+
             if (!blockState2.isAir() || !(blockState3 = world.getBlockState(blockPos2)).isOf(Blocks.LAVA) ||
                     blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(world, blockPos2) ||
                     !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
