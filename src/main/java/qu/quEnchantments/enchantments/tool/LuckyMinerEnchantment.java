@@ -1,6 +1,7 @@
 package qu.quEnchantments.enchantments.tool;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -13,7 +14,10 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.annotation.Debug;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -57,6 +61,7 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
 
     @Override
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
+        // TODO: Rewrite
         World world;
         if ((world = player.getWorld()).isClient || player.getAbilities().creativeMode || !player.canHarvest(world.getBlockState(pos))) return;
         // Should fall roughly in the 1% (min) to 24% (max) range, logarithmically
@@ -70,12 +75,27 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
         if (list.get(0) == null) return;
 
         if (list.get(0).getItem() instanceof BlockItem blockItem) {
-            BlockState state = blockItem.getBlock().getDefaultState();
+            BlockState rolledState = blockItem.getBlock().getDefaultState();
             Random random = world.random;
             Iterable<BlockPos> iterable = BlockPos.iterateRandomly(random, random.nextInt(3) + 1, pos, 3);
             for (BlockPos pos2 : iterable) {
-                if (!world.canPlayerModifyAt(player, pos2) || !world.getBlockState(pos2).isOf(isOverworld ? Blocks.STONE : Blocks.NETHERRACK)) continue;
-                world.setBlockState(pos2, state);
+                if (!world.canPlayerModifyAt(player, pos2)) continue;
+                BlockState tempState = world.getBlockState(pos2);
+                BlockState newState = rolledState;
+
+                if (isOverworld) {
+                    if (tempState.isOf(Blocks.DEEPSLATE)) {
+                        String newID = "deepslate_" + Registries.BLOCK.getId(newState.getBlock()).getPath();
+                        System.out.println(newID);
+                        newState = Registries.BLOCK.get(new Identifier(newID)).getDefaultState();
+                    } else if (!tempState.isOf(Blocks.STONE)) {
+                        continue;
+                    }
+                } else if (!tempState.isOf(Blocks.NETHERRACK)) {
+                    continue;
+                }
+
+                world.setBlockState(pos2, newState);
             }
         }
     }
