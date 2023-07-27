@@ -64,31 +64,32 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
     @Override
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
         World world;
-        final double sinkDistance = 0.875;
+
         if ((world = entity.getWorld()).isClient || !entity.isOnGround() || !entity.isSneaking()) return;
-        BlockState blockState = ModBlocks.CLOUD.getDefaultState();
-        int f = Math.min(16, CONFIG.radius);
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(new BlockPos(entity.getBlockX() - f, (int)(entity.getY() - sinkDistance), entity.getBlockZ() - f),
-                new BlockPos(entity.getBlockX() + f, (int)(entity.getY() - sinkDistance), entity.getBlockZ() + f))) {
 
-            if (!world.getBlockState(blockPos2).equals(Blocks.AIR.getDefaultState()) ||
-                    !blockPos2.isWithinDistance(entity.getPos(), Math.max(f, 1))) continue;
+        final float sinkDistance = 0.875f;
+        final BlockState cloudDefaultState = ModBlocks.CLOUD.getDefaultState();
+        final int radius = Math.min(16, CONFIG.radius);
 
-            mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-            BlockState blockState2 = world.getBlockState(mutable);
-            if (!blockState2.isAir() || !blockState.canPlaceAt(world, blockPos2) ||
-                    !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
+        for (BlockPos blockPosItr : BlockPos.iterate(
+                new BlockPos(entity.getBlockX() - radius, Math.round((float)entity.getY() - sinkDistance), entity.getBlockZ() - radius),
+                new BlockPos(entity.getBlockX() + radius, Math.round((float)entity.getY() - sinkDistance), entity.getBlockZ() + radius)
+        )) {
+            if (!world.getBlockState(blockPosItr).equals(Blocks.AIR.getDefaultState()) ||
+                    !blockPosItr.isWithinDistance(entity.getPos(), Math.max(radius, 1)) ||
+                    !world.getBlockState(blockPosItr.up()).isAir() ||
+                    !cloudDefaultState.canPlaceAt(world, blockPosItr) ||
+                    !world.canPlace(cloudDefaultState, blockPosItr, ShapeContext.absent())) continue;
 
-            world.setBlockState(blockPos2, blockState);
-            int bl = world.getDimension().ultrawarm() ? 1 : 2;
-            int duration = Math.max(1, CONFIG.cloudDuration) * bl * level;
+            world.setBlockState(blockPosItr, cloudDefaultState);
+            int overworldMultiplier = world.getDimension().ultrawarm() ? 1 : 2;
+            int duration = Math.max(1, CONFIG.cloudDuration) * overworldMultiplier * level;
             world.scheduleBlockTick(
-                    blockPos2,
+                    blockPosItr,
                     ModBlocks.CLOUD,
                     MathHelper.nextInt(entity.getRandom(), duration, duration * 2)
             );
-            world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPos2, 0);
+            world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, blockPosItr, 0);
         }
     }
 }
