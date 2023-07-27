@@ -18,6 +18,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import qu.quEnchantments.enchantments.armor.SkywalkerEnchantment;
 
 public class CloudBlock extends Block {
 
@@ -30,11 +31,7 @@ public class CloudBlock extends Block {
     @SuppressWarnings("deprecation")
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        boolean bl;
-        if ((bl = world.getDimension().ultrawarm()) || random.nextInt(3) == 0 || world.hasRain(pos.up())) {
-            if (bl) {
-                world.syncWorldEvent(14005, pos, 0);
-            }
+        if (random.nextInt(3) == 0 || world.hasRain(pos.up())) {
             world.removeBlock(pos, false);
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             world.updateNeighbor(pos, Blocks.AIR, pos);
@@ -43,7 +40,7 @@ public class CloudBlock extends Block {
         double d = (double)pos.getX() + random.nextDouble();
         double e = (double)pos.getY() - 0.05;
         double f = (double)pos.getZ() + random.nextDouble();
-        world.spawnParticles(ParticleTypes.DRIPPING_WATER, d, e, f, 4, 0.0, 0.0, 0.0, 0.0);
+        world.spawnParticles(world.getDimension().ultrawarm() ? ParticleTypes.SMOKE : ParticleTypes.DRIPPING_WATER, d, e, f, 4, 0.0, 0.0, 0.0, 0.0);
         world.scheduleBlockTick(pos, this, MathHelper.nextInt(random, 50, 100));
     }
 
@@ -53,7 +50,7 @@ public class CloudBlock extends Block {
         Entity entity;
         if (context instanceof EntityShapeContext && (entity = ((EntityShapeContext)context).getEntity()) != null) {
             if (entity.isSneaking() || entity instanceof SpiderEntity || entity instanceof SilverfishEntity || entity instanceof EndermiteEntity) {
-                if (entity.getY() >= pos.getY() + 0.875 && entity.fallDistance <= 1.0f) {
+                if (entity.getY() >= pos.getY() + SkywalkerEnchantment.SINK_DISTANCE && entity.fallDistance <= 1.0f) {
                     return COLLISION_SHAPE;
                 }
             }
