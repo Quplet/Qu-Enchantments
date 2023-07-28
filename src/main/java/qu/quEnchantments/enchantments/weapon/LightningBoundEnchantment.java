@@ -51,6 +51,7 @@ public class LightningBoundEnchantment extends CompoundEnchantment {
 
         LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
         if (lightning == null) return;
+
         lightning.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(target.getBlockPos()));
         lightning.setChanneler(user instanceof ServerPlayerEntity ? (ServerPlayerEntity)user : null);
         world.spawnEntity(lightning);

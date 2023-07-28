@@ -68,34 +68,33 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     @Override
     public void onUserDamaged(LivingEntity user, Entity attacker, int level) {
-        if (user.getWorld().isClient || attacker == null) return;
-        if (attacker instanceof PlayerEntity player && player.getAbilities().creativeMode) return;
-        if (attacker instanceof LivingEntity livingEntity) {
-            for (int i = 0; i < 7; i++) {
-                double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.entityTeleportDistance * level;
-                double e = attacker.getY() + (double) (user.getRandom().nextInt(CONFIG.entityTeleportDistance * 2 * level) - (CONFIG.entityTeleportDistance * level));
-                double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.entityTeleportDistance * level;
-                if (teleportTo(livingEntity, d, e, f)) break;
-            }
+        if (user.getWorld().isClient || !(attacker instanceof LivingEntity livingEntity) || (attacker instanceof PlayerEntity player && player.getAbilities().creativeMode)) return;
+
+        for (int i = 0; i < 7; i++) {
+            double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.entityTeleportDistance * level;
+            double e = attacker.getY() + (double) (user.getRandom().nextInt(CONFIG.entityTeleportDistance * 2 * level) - (CONFIG.entityTeleportDistance * level));
+            double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.entityTeleportDistance * level;
+            if (teleportTo(livingEntity, d, e, f)) break;
         }
     }
 
     @Override
     public void tickWhileEquipped(LivingEntity entity, ItemStack stack, int level) {
         World world = entity.getWorld();
-        if (!world.isClient) {
-            if (entity.isWet() && entity.getRandom().nextFloat() < 0.05f && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
-                entity.removeAllPassengers();
-                for (int j = 0; j < 5; j++) {
-                    double d = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
-                    double e = entity.getY() + (double) (entity.getRandom().nextInt(32) - 16);
-                    double f = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
-                    if (EssenceOfEnderEnchantment.teleportTo(entity, d, e, f)) break;
-                }
-                entity.damage(world.getDamageSources().magic(), 1);
-            }
-        } else {
+        if (world.isClient) {
             world.addParticle(ParticleTypes.PORTAL, entity.getParticleX(0.5), entity.getRandomBodyY() - 0.1, entity.getParticleZ(0.5), (entity.getRandom().nextDouble() - 0.5) * 2.0, -entity.getRandom().nextDouble(), (entity.getRandom().nextDouble() - 0.5) * 2.0);
+            return;
+        }
+
+        if (entity.isWet() && entity.getRandom().nextFloat() < 0.05f && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode)) {
+            entity.removeAllPassengers();
+            for (int j = 0; j < 5; j++) {
+                double d = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
+                double e = entity.getY() + (double) (entity.getRandom().nextInt(32) - 16);
+                double f = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
+                if (EssenceOfEnderEnchantment.teleportTo(entity, d, e, f)) break;
+            }
+            entity.damage(world.getDamageSources().magic(), 1);
         }
     }
 
@@ -113,24 +112,17 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
             mutable.move(Direction.DOWN);
         }
         BlockState blockState = subject.getWorld().getBlockState(mutable);
-        boolean bl = blockState.blocksMovement();
-        boolean bl2 = blockState.getFluidState().isIn(FluidTags.WATER);
-        if (!bl || bl2) {
-            return false;
-        }
+        if (!blockState.blocksMovement() || blockState.getFluidState().isIn(FluidTags.WATER)) return false;
+
         Vec3d vec3d = subject.getPos();
-        boolean bl3 = subject.teleport(x, y, z, true);
-        if (bl3) {
+        boolean teleportSucceeded = subject.teleport(x, y, z, true);
+        if (teleportSucceeded) {
             subject.getWorld().emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(subject));
             if (!subject.isSilent()) {
-                if (subject instanceof PlayerEntity) {
-                    subject.getWorld().playSound((PlayerEntity) subject, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
-                } else {
-                    subject.getWorld().playSound(null, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
-                }
+                subject.getWorld().playSound(subject instanceof PlayerEntity player ? player : null, subject.prevX, subject.prevY, subject.prevZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, subject.getSoundCategory(), 1.0f, 1.0f);
                 subject.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
             }
         }
-        return bl3;
+        return teleportSucceeded;
     }
 }

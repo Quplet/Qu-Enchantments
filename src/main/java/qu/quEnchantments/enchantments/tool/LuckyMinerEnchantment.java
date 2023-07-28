@@ -63,40 +63,46 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
         // TODO: Rewrite
         World world;
-        if ((world = player.getWorld()).isClient || player.getAbilities().creativeMode || !player.canHarvest(world.getBlockState(pos))) return;
+        if ((world = player.getWorld()).isClient ||
+                player.getAbilities().creativeMode ||
+                !player.canHarvest(world.getBlockState(pos))) return;
         // Should fall roughly in the 1% (min) to 24% (max) range, logarithmically
         if (!passed(getLuck(player), world.random, aDouble -> aDouble < Math.log1p(level/10.0) / 10)) return;
 
         boolean isOverworld = world.getDimension().natural();
-        LootContextParameterSet parameterSet = new LootContextParameterSet.Builder((ServerWorld) world).add(LootContextParameters.BLOCK_STATE, world.getBlockState(pos)).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos)).add(LootContextParameters.TOOL, stack).build(LootContextTypes.BLOCK);
-        LootTable lootTable = world.getServer().getLootManager().getLootTable(isOverworld ? ModLootTableModifier.LUCKY_MINER_OVERWORLD : ModLootTableModifier.LUCKY_MINER_NETHER);
+
+        LootContextParameterSet parameterSet = new LootContextParameterSet.Builder((ServerWorld) world)
+                .add(LootContextParameters.BLOCK_STATE, world.getBlockState(pos))
+                .add(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos))
+                .add(LootContextParameters.TOOL, stack).build(LootContextTypes.BLOCK);
+
+        LootTable lootTable = world.getServer().getLootManager().getLootTable(
+                isOverworld ? ModLootTableModifier.LUCKY_MINER_OVERWORLD : ModLootTableModifier.LUCKY_MINER_NETHER
+        );
         ObjectArrayList<ItemStack> list = lootTable.generateLoot(parameterSet);
 
-        if (list.get(0) == null) return;
+        if (list.get(0) == null || !(list.get(0).getItem() instanceof BlockItem blockItem)) return;
 
-        if (list.get(0).getItem() instanceof BlockItem blockItem) {
-            BlockState rolledState = blockItem.getBlock().getDefaultState();
-            Random random = world.random;
-            Iterable<BlockPos> iterable = BlockPos.iterateRandomly(random, random.nextInt(3) + 1, pos, 3);
-            for (BlockPos pos2 : iterable) {
-                if (!world.canPlayerModifyAt(player, pos2)) continue;
-                BlockState tempState = world.getBlockState(pos2);
-                BlockState newState = rolledState;
+        BlockState rolledState = blockItem.getBlock().getDefaultState();
+        Random random = world.random;
+        Iterable<BlockPos> iterable = BlockPos.iterateRandomly(random, random.nextInt(3) + 1, pos, 3);
+        for (BlockPos placementPos : iterable) {
+            if (!world.canPlayerModifyAt(player, placementPos)) continue;
+            BlockState tempState = world.getBlockState(placementPos);
+            BlockState newState = rolledState;
 
-                if (isOverworld) {
-                    if (tempState.isOf(Blocks.DEEPSLATE)) {
-                        String newID = "deepslate_" + Registries.BLOCK.getId(newState.getBlock()).getPath();
-                        System.out.println(newID);
-                        newState = Registries.BLOCK.get(new Identifier(newID)).getDefaultState();
-                    } else if (!tempState.isOf(Blocks.STONE)) {
-                        continue;
-                    }
-                } else if (!tempState.isOf(Blocks.NETHERRACK)) {
+            if (isOverworld) {
+                if (tempState.isOf(Blocks.DEEPSLATE)) {
+                    String newID = "deepslate_" + Registries.BLOCK.getId(newState.getBlock()).getPath();
+                    newState = Registries.BLOCK.get(new Identifier(newID)).getDefaultState();
+                } else if (!tempState.isOf(Blocks.STONE)) {
                     continue;
                 }
-
-                world.setBlockState(pos2, newState);
+            } else if (!tempState.isOf(Blocks.NETHERRACK)) {
+                continue;
             }
+
+            world.setBlockState(placementPos, newState);
         }
     }
 }

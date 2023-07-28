@@ -48,11 +48,11 @@ public abstract class CompoundEnchantment extends QuEnchantment {
     }
 
     public boolean passed(int luck, Random random, Predicate<Double> predicate) {
-        boolean result = false;
-        for (int i = 0; i <= Math.abs(luck); i++) {
-            result = predicate.test(random.nextDouble());
+        boolean result = predicate.test(random.nextDouble());
+        for (int i = 0; i < Math.abs(luck); i++) {
             if (luck > 0 && result) return true;
             if (luck < 0 && !result) return false;
+            result = predicate.test(random.nextDouble());
         }
         return result;
     }

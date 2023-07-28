@@ -64,8 +64,10 @@ public class LeechingAspectEnchantment extends QuEnchantment {
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {
         World world;
         if ((world = user.getWorld()).isClient) return;
+
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, false, false, false));
         user.heal(CONFIG.healing * level);
+
         Random random = world.getRandom();
         double d = random.nextGaussian() * 0.02;
         double e = random.nextGaussian() * 0.02;

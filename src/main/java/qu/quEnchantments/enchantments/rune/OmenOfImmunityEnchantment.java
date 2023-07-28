@@ -58,7 +58,12 @@ public class OmenOfImmunityEnchantment extends CorruptedEnchantment {
     public void tickWhileEquipped(LivingEntity wearer, ItemStack stack, int level) {
         if (!(wearer instanceof PlayerEntity player && player.getAbilities().creativeMode) && wearer.age % 20 == 0) {
             stack.setDamage(Math.min(stack.getMaxDamage(), stack.getDamage() + 6 - level));
-            if (stack.getDamage() >= stack.getMaxDamage() && CONFIG.breakOnNoDurability) stack.damage(1, wearer, e -> e.sendEquipmentBreakStatus(wearer.getStackInHand(Hand.MAIN_HAND) == stack ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+            if (stack.getDamage() >= stack.getMaxDamage() && CONFIG.breakOnNoDurability)
+                stack.damage(
+                        1,
+                        wearer,
+                        e -> e.sendEquipmentBreakStatus(wearer.getStackInHand(Hand.MAIN_HAND) == stack ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND)
+                );
         }
         wearer.clearStatusEffects();
         wearer.extinguish();

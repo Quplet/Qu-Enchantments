@@ -74,23 +74,23 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
     public void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos, ItemStack stack, int level) {
         World world = entity.getWorld();
         if (world.isClient || !entity.isOnGround()) return;
-        BlockState blockState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
-        int f = Math.min(16, CONFIG.radius + level - 1);
+
+        BlockState hotObsidianDefaultState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
+        int radius = Math.min(16, CONFIG.radius + level - 1);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(pos.add(-f, -1, -f), pos.add(f, -1, f))) {
-            if (!blockPos2.isWithinDistance(entity.getPos(), f)) continue;
+        for (BlockPos blockPosItr : BlockPos.iterate(pos.add(-radius, -1, -radius), pos.add(radius, -1, radius))) {
+            if (!blockPosItr.isWithinDistance(entity.getPos(), radius)) continue;
 
-            mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
-            BlockState blockState2 = world.getBlockState(mutable);
-            BlockState blockState3;
+            mutable.set(blockPosItr.getX(), blockPosItr.getY() + 1, blockPosItr.getZ());
+            BlockState itrBlockState = world.getBlockState(blockPosItr);
 
-            if (!blockState2.isAir() || !(blockState3 = world.getBlockState(blockPos2)).isOf(Blocks.LAVA) ||
-                    blockState3.get(FluidBlock.LEVEL) != 0 || !blockState.canPlaceAt(world, blockPos2) ||
-                    !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
+            if (!world.getBlockState(blockPosItr.up()).isAir() || !itrBlockState.isOf(Blocks.LAVA) ||
+                    itrBlockState.get(FluidBlock.LEVEL) != 0 || !hotObsidianDefaultState.canPlaceAt(world, blockPosItr) ||
+                    !world.canPlace(hotObsidianDefaultState, blockPosItr, ShapeContext.absent())) continue;
 
-            world.setBlockState(blockPos2, blockState);
-            world.scheduleBlockTick(blockPos2, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
-            world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPos2, 0);
+            world.setBlockState(blockPosItr, hotObsidianDefaultState);
+            world.scheduleBlockTick(blockPosItr, ModBlocks.HOT_OBSIDIAN, MathHelper.nextInt(entity.getRandom(), 60, 120));
+            world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, blockPosItr, 0);
         }
     }
 }

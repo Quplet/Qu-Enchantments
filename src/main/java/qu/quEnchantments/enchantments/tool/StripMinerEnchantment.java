@@ -60,6 +60,7 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
     public void onBlockBreak(PlayerEntity player, BlockPos pos, ItemStack stack, int level) {
         World world;
         if ((world = player.getWorld()).isClient) return;
+
         Iterable<BlockPos> iterable;
         if (level == 1) {
             List<BlockPos> temp = new ArrayList<>(2);
@@ -77,6 +78,7 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
             int radius = CONFIG.radius;
             iterable = BlockPos.iterate(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
         }
+
         for (BlockPos blockPos : iterable) {
             if (!world.canPlayerModifyAt(player, pos)) continue;
             BlockState blockState = world.getBlockState(blockPos);

@@ -34,7 +34,22 @@ public class CrossbowItemMixin {
     }
 
     @Inject(method = "shoot", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"), locals = LocalCapture.CAPTURE_FAILSOFT)
-    private static void quEnchantments$setShotFromStack(World world, LivingEntity shooter, Hand hand, ItemStack crossbow, ItemStack projectile, float soundPitch, boolean creative, float speed, float divergence, float simulated, CallbackInfo ci, boolean bl, ProjectileEntity projectileEntity) {
+    private static void quEnchantments$setShotFromStack(
+            World world,
+            LivingEntity
+                    shooter,
+            Hand hand,
+            ItemStack crossbow,
+            ItemStack projectile,
+            float soundPitch,
+            boolean creative,
+            float speed,
+            float divergence,
+            float simulated,
+            CallbackInfo ci,
+            boolean bl,
+            ProjectileEntity projectileEntity
+    ) {
         if (projectileEntity instanceof PersistentProjectileEntity) {
             ((IPersistentProjectileEntity)projectileEntity).setShotFromStack(crossbow);
         }

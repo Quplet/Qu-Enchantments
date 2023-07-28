@@ -37,7 +37,21 @@ public class BowItemMixin {
     @Inject(method = "onStoppedUsing",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"),
             locals = LocalCapture.CAPTURE_FAILSOFT)
-    public void quEnchantment$setShotFromStack(ItemStack stack, World world, LivingEntity user, int remainingUseTicks, CallbackInfo ci, PlayerEntity player, boolean bl, ItemStack stack1, int i, float f, boolean bl2, ArrowItem arrowItem, PersistentProjectileEntity persistentProjectileEntity) {
+    public void quEnchantment$setShotFromStack(
+            ItemStack stack,
+            World world,
+            LivingEntity user,
+            int remainingUseTicks,
+            CallbackInfo ci,
+            PlayerEntity player,
+            boolean bl,
+            ItemStack stack1,
+            int i,
+            float f,
+            boolean bl2,
+            ArrowItem arrowItem,
+            PersistentProjectileEntity persistentProjectileEntity
+    ) {
         ((IPersistentProjectileEntity)persistentProjectileEntity).setShotFromStack(stack);
     }
 }

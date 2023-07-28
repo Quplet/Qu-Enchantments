@@ -72,10 +72,9 @@ public class AgitationCurseEnchantment extends QuEnchantment {
         List<Entity> mobs = world.getOtherEntities(
                 livingEntity,
                 livingEntity.getBoundingBox().expand(CONFIG.radius),
-                entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity mob && mob.getTarget() == null);
+                entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity
+        );
 
-        for (Entity mob : mobs) {
-            ((MobEntity)mob).setTarget(livingEntity);
-        }
+        mobs.forEach(entity -> ((MobEntity)entity).setTarget(livingEntity));
     }
 }

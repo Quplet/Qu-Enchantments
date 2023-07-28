@@ -56,12 +56,16 @@ public class SpeedBlessingEnchantment extends QuEnchantment {
 
     @Override
     public void tickWhileEquipped(LivingEntity wearer, ItemStack stack, int level) {
-        if (!(wearer instanceof PlayerEntity player && player.getAbilities().creativeMode) && wearer.age % 20 == 0) stack.setDamage(Math.min(stack.getMaxDamage(), stack.getDamage() + 1));
+        if (!(wearer instanceof PlayerEntity player && player.getAbilities().creativeMode) && wearer.age % 20 == 0)
+            stack.setDamage(Math.min(stack.getMaxDamage(), stack.getDamage() + 1));
+
         if (wearer.getWorld().isClient) return;
+
         EntityAttributeInstance instance = wearer.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        if (instance == null) return;
-        if (stack.getDamage() < stack.getMaxDamage() && ((IEntity)wearer).getInaneTicks() <= 0) {
-            instance.addTemporaryModifier(SPEED_BOOST);
-        }
+
+        if (instance == null || stack.getDamage() >= stack.getMaxDamage() || ((IEntity)wearer).getInaneTicks() > 0) return;
+
+        instance.addTemporaryModifier(SPEED_BOOST);
+
     }
 }

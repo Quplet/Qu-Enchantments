@@ -55,20 +55,24 @@ public class ReflectionEnchantment extends QuEnchantment {
 
     public static boolean reflect(PersistentProjectileEntity projectile, EntityHitResult result) {
         World world;
-        if ((world = projectile.getWorld()).isClient) return false;
-        if (!(result.getEntity() instanceof PlayerEntity player)) return false;
+        if ((world = projectile.getWorld()).isClient || !(result.getEntity() instanceof PlayerEntity player)) return false;
 
-        DamageSource damageSource;
-        if (projectile instanceof TridentEntity) {
-            damageSource = world.getDamageSources().trident(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
-        } else {
-            damageSource = world.getDamageSources().arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
-        }
+        DamageSource damageSource = projectile instanceof TridentEntity ?
+                world.getDamageSources().trident(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner()) :
+                world.getDamageSources().arrow(projectile, projectile.getOwner() == null ? projectile : projectile.getOwner());
 
-        int i;
-        if (!player.blockedByShield(damageSource) || (i = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) == 0) return false;
+        int reflectionLevel;
+        if (!player.blockedByShield(damageSource) ||
+                (reflectionLevel = EnchantmentHelper.getEquipmentLevel(ModEnchantments.REFLECTION, player)) == 0) return false;
 
-        projectile.setVelocity(player, player.getPitch() - 1.0f, player.getYaw(), 0.0f, (float) projectile.getVelocity().length(), 25.0f * (CONFIG.divergence * 0.1f) / i);
+        projectile.setVelocity(
+                player,
+                player.getPitch() - 1.0f,
+                player.getYaw(), 0.0f,
+                (float)projectile.getVelocity().length(),
+                25.0f * (CONFIG.divergence * 0.1f) / reflectionLevel
+        );
+
         return true;
     }
 }

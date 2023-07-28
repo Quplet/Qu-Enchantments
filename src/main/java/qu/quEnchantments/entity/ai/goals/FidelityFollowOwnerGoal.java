@@ -46,37 +46,22 @@ public class FidelityFollowOwnerGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.horse.isTame()) {
-            return false;
-        }
-        if (this.horse.isLeashed()) {
-            return false;
-        }
-        if (this.horse.getOwnerUuid() == null) {
-            return false;
-        }
+        if (!this.horse.isTame() || this.horse.isLeashed() || this.horse.getOwnerUuid() == null) return false;
+
         LivingEntity livingEntity = this.horse.getWorld().getPlayerByUuid(this.horse.getOwnerUuid());
-        if (livingEntity == null) {
-            return false;
-        }
-        if (livingEntity.isSpectator()) {
-            return false;
-        }
-        if (this.horse.squaredDistanceTo(livingEntity) < (this.maxDistance * this.maxDistance)) {
-            return false;
-        }
-        if (EnchantmentHelper.getEquipmentLevel(ModEnchantments.FIDELITY, horse) == 0) {
-            return false;
-        }
+        if (livingEntity == null ||
+                livingEntity.isSpectator() ||
+                this.horse.squaredDistanceTo(livingEntity) < (this.maxDistance * this.maxDistance) ||
+                EnchantmentHelper.getEquipmentLevel(ModEnchantments.FIDELITY, horse) == 0) return false;
+
         this.owner = livingEntity;
         return true;
     }
 
     @Override
     public boolean shouldContinue() {
-        if (this.navigation.isIdle()) {
-            return false;
-        }
+        if (this.navigation.isIdle()) return false;
+
         return !(this.horse.squaredDistanceTo(this.owner) <= (this.minDistance * this.minDistance));
     }
 

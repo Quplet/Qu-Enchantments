@@ -20,6 +20,7 @@ import qu.quEnchantments.world.ModWorldEvents;
 
 public class SkywalkerEnchantment extends CorruptedEnchantment {
 
+    public static final float SINK_DISTANCE = 0.875f;
     private static final ModConfig.SkywalkerOptions CONFIG = QuEnchantments.getConfig().skywalkerOptions;
 
     public SkywalkerEnchantment(EnchantmentType enchantmentType, Rarity weight, EquipmentSlot... slotTypes) {
@@ -67,13 +68,12 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
         if ((world = entity.getWorld()).isClient || !entity.isOnGround() || !entity.isSneaking()) return;
 
-        final float sinkDistance = 0.875f;
         final BlockState cloudDefaultState = ModBlocks.CLOUD.getDefaultState();
         final int radius = Math.min(16, CONFIG.radius);
 
         for (BlockPos blockPosItr : BlockPos.iterate(
-                new BlockPos(entity.getBlockX() - radius, Math.round((float)entity.getY() - sinkDistance), entity.getBlockZ() - radius),
-                new BlockPos(entity.getBlockX() + radius, Math.round((float)entity.getY() - sinkDistance), entity.getBlockZ() + radius)
+                new BlockPos(entity.getBlockX() - radius, Math.round((float)entity.getY() - SINK_DISTANCE), entity.getBlockZ() - radius),
+                new BlockPos(entity.getBlockX() + radius, Math.round((float)entity.getY() - SINK_DISTANCE), entity.getBlockZ() + radius)
         )) {
             if (!world.getBlockState(blockPosItr).equals(Blocks.AIR.getDefaultState()) ||
                     !blockPosItr.isWithinDistance(entity.getPos(), Math.max(radius, 1)) ||

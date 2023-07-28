@@ -74,12 +74,14 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
      * @param stack The {@link ItemStack} to corrupt
      */
     public static void corruptEnchantments(ItemStack stack) {
-        if (stack == null) return;
-        if (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) return;
-        if (!((IItemStack)(Object)stack).isEnchantmentsDirty()) return;
+        if (stack == null ||
+                (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) ||
+                !((IItemStack)(Object)stack).isEnchantmentsDirty()) return;
+
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
         CorruptedEnchantment corruptedEnchantment = null;
         int cLevel = 0;
+
         for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
             if (entry.getKey() instanceof CorruptedEnchantment) {
                 corruptedEnchantment = (CorruptedEnchantment) entry.getKey();
@@ -92,6 +94,7 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
 
         int levels = 0;
         Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
+
         for (Enchantment enchantment : newSet) {
             Optional<RegistryKey<Enchantment>> key;
             Optional<RegistryEntry.Reference<Enchantment>> entry;
@@ -99,7 +102,7 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
                     (entry = Registries.ENCHANTMENT.getEntry(key.get())).isPresent() &&
                     entry.get().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
                 int level = enchantments.remove(enchantment);
-                if (enchantment instanceof CompoundEnchantment) level *= 0.2;
+                if (enchantment instanceof CompoundEnchantment) level /= 5;
                 levels += level;
             }
         }

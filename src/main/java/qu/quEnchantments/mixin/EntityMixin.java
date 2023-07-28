@@ -62,8 +62,7 @@ public class EntityMixin implements IEntity {
 
     @Inject(method = "applyDamageEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/Entity;)V"))
     private void quEnchantments$injectOnTargetDamage(LivingEntity attacker, Entity target, CallbackInfo ci) {
-        if (attacker != null) {
-            QuEnchantmentHelper.onTargetDamaged(attacker, attacker.getMainHandStack(), target);
-        }
+        if (attacker == null) return;
+        QuEnchantmentHelper.onTargetDamaged(attacker, attacker.getMainHandStack(), target);
     }
 }

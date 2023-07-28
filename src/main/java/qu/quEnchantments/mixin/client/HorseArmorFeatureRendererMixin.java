@@ -20,7 +20,21 @@ public class HorseArmorFeatureRendererMixin {
 
     @ModifyVariable(method = "render*", at = @At(value = "INVOKE_ASSIGN",
             target = "Lnet/minecraft/client/render/VertexConsumerProvider;getBuffer(Lnet/minecraft/client/render/RenderLayer;)Lnet/minecraft/client/render/VertexConsumer;"))
-    private VertexConsumer quEnchantments$applyGlint(VertexConsumer original, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, HorseEntity horseEntity, float f, float g, float h, float j, float k, float l) {
-        return horseEntity.getArmorType().hasEnchantments() ? VertexConsumers.union(vertexConsumerProvider.getBuffer(RenderLayer.getEntityGlint()), vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(((HorseArmorItem) horseEntity.getArmorType().getItem()).getEntityTexture()))) : original;
+    private VertexConsumer quEnchantments$applyGlint(
+            VertexConsumer original,
+            MatrixStack matrixStack,
+            VertexConsumerProvider vertexConsumerProvider,
+            int i,
+            HorseEntity horseEntity,
+            float f,
+            float g,
+            float h,
+            float j,
+            float k,
+            float l
+    ) {
+        return horseEntity.getArmorType().hasEnchantments() ?
+                VertexConsumers.union(vertexConsumerProvider.getBuffer(RenderLayer.getEntityGlint()), vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(((HorseArmorItem) horseEntity.getArmorType().getItem()).getEntityTexture()))) :
+                original;
     }
 }

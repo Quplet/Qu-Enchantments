@@ -19,7 +19,7 @@ public class BashingEnchantment extends QuEnchantment {
 
     private static final ModConfig.BashingOptions CONFIG = QuEnchantments.getConfig().bashingOptions;
 
-    public BashingEnchantment(Rarity weight, EnchantmentTarget type,EquipmentSlot ... slotTypes) {
+    public BashingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
         super(weight, type, slotTypes);
     }
 

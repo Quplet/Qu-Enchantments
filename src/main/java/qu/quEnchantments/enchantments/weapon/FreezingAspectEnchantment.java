@@ -62,6 +62,7 @@ public class FreezingAspectEnchantment extends QuEnchantment {
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {
         World world;
         if ((world = user.getWorld()).isClient) return;
+
         target.extinguish();
         if (target.canFreeze()) {
             target.setFrozenTicks(target.getMinFreezeDamageTicks() + CONFIG.duration * level);
