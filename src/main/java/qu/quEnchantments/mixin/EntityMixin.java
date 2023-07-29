@@ -26,7 +26,6 @@ public class EntityMixin implements IEntity {
     @Final
     protected DataTracker dataTracker;
 
-    @Shadow public World world;
     @Unique
     private static final TrackedData<Integer> INANE_TICKS = DataTracker.registerData(Entity.class, TrackedDataHandlerRegistry.INTEGER);
 
