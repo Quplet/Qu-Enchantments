@@ -48,9 +48,9 @@ public class EntityMixin implements IEntity {
 
     @Inject(method = "writeNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V"))
     private void quEnchantments$writeInaneTicksToNbt(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir) {
-        int i;
-        if ((i = this.getInaneTicks()) > 0) {
-            nbt.putInt("TicksInane", i);
+        int inaneTicks;
+        if ((inaneTicks = this.getInaneTicks()) > 0) {
+            nbt.putInt("TicksInane", inaneTicks);
         }
     }
 
