@@ -1,4 +1,4 @@
-<img src="src/main/resources/assets/qu-enchantments/banner.png" width="2048" alt="banner">
+![banner](https://i.imgur.com/71ADjCd.png)
 
 # Qu Enchantments Mod (For Fabric/Quilt)
 
@@ -18,6 +18,7 @@ This mod currently has 20 new enchantments, one new curse, and one new item as o
 
 <details>
   <summary>Click to expand</summary>
+<img src="https://i.imgur.com/7sWk0oH.png" alt="aspects image">
 
 - 📘 Normal Enchantments
   - Freezing Aspect Enchantment (I-II) (Sword) - Slows enemy on hit.
@@ -59,6 +60,8 @@ This mod currently has 20 new enchantments, one new curse, and one new item as o
   - Lucky Miner Enchantment (I-C) - Increases the likelihood of the user finding ores around them as they mine. Stacks logarithmically.
   - Lightening Bound Enchantment (I-C) - Chance on hit to strike the target with a lightening bolt. Stacks linearly.
 
+<img src="https://i.imgur.com/ArWKMX1.png" alt="runes image">
+
 - 💎 Items
   - Rune - A new item that can be enchanted for passive effects while held. While being used, the damage meter will drain
     depending on the amount of enchantments present and the rune variant. A rune with a corrupted enchantment will not
@@ -67,7 +70,7 @@ This mod currently has 20 new enchantments, one new curse, and one new item as o
 
 - 🛠️ Vanilla Changes
   - Shields can be enchanted at an enchanting table.
-  - Horse Armor can be enchanted at an enchanting table with Protection and Thorns enchantments.
+  - Horse Armor can be enchanted at an enchanting table.
 </details>
 
 ## ⚙ Modpacks
@@ -98,8 +101,10 @@ is no need to download anything.
 
 This mod uses [Cloth Config](https://modrinth.com/mod/cloth-config) by Shedaniel for the configuration system.
 
-Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I requested made (Hot Obsidian Block and the Rune textures).
+Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I requested made (Hot Obsidian Block and Rune textures and web graphics).
 
 ## 📜 License
 
 Copyright 2022 Quplet, Apache License 2.0. Please credit if you use or distribute my work.
+
+For the web graphics, Copyright 2023 E_Leven, All Rights Reserved.
