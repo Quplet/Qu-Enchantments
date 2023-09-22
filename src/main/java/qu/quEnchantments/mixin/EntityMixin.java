@@ -20,7 +20,7 @@ import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 @Mixin(Entity.class)
-public class EntityMixin implements IEntity {
+public abstract class EntityMixin implements IEntity {
 
     @Shadow
     @Final

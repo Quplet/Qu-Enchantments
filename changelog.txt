@@ -1,8 +1,6 @@
-1.3.6-1.20
+1.3.7-1.20
 
 Fixes/Changes:
-- Updated Cloth Config
-- Fixed Lucky Miner not working with deepslate ores (#12)
-- Fixed Skywalker not working properly at negative Y values
-- Nightblood now has a good chance to destroy an armor piece instead of killing the target
-- Cloud blocks now emmit smoke (steam) instead of water droplets in ultrawarm dimensions
+- Updated to 1.20.2
+- Updated mod icon
+- Updated dependencies
