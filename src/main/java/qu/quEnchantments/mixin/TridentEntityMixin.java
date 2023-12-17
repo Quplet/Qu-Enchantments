@@ -24,8 +24,6 @@ public abstract class TridentEntityMixin extends PersistentProjectileEntity {
     @Shadow
     private boolean dealtDamage;
 
-    @Shadow private ItemStack tridentStack;
-
     @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/TridentEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V"), cancellable = true)
     private void quEnchantments$reflect(EntityHitResult entityHitResult, CallbackInfo ci) {
         TridentEntity projectile = (TridentEntity)(Object)this;
@@ -42,19 +40,19 @@ public abstract class TridentEntityMixin extends PersistentProjectileEntity {
     at = @At(value = "STORE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F"),
     ordinal = 0)
     private float quEnchantments$injectGetAttackDamage(float original, EntityHitResult entityHitResult) {
-        return original + QuEnchantmentHelper.getAttackDamage(this.tridentStack, entityHitResult.getEntity());
+        return original + QuEnchantmentHelper.getAttackDamage(this.getItemStack(), entityHitResult.getEntity());
     }
 
     @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;onTargetDamaged(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/Entity;)V"))
     private void quEnchantments$injectOnTargetDamaged(EntityHitResult entityHitResult, CallbackInfo ci) {
         Entity attacker = this.getOwner();
         if (attacker instanceof LivingEntity) {
-            QuEnchantmentHelper.onTargetDamaged((LivingEntity) attacker, this.tridentStack, entityHitResult.getEntity());
+            QuEnchantmentHelper.onTargetDamaged((LivingEntity) attacker, this.getItemStack(), entityHitResult.getEntity());
         }
     }
 
     // Ignore
-    protected TridentEntityMixin(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
-        super(entityType, world);
+    protected TridentEntityMixin(EntityType<? extends PersistentProjectileEntity> entityType, World world, ItemStack stack) {
+        super(entityType, world, stack);
     }
 }

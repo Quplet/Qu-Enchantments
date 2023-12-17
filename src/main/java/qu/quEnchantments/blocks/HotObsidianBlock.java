@@ -75,10 +75,10 @@ public class HotObsidianBlock extends Block {
         builder.add(AGE);
     }
 
-    @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return ItemStack.EMPTY;
-    }
+    //@Override
+    //public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    //    return ItemStack.EMPTY;
+    //}
 
     private boolean increaseAge(BlockState state, World world, BlockPos pos) {
         int i = state.get(AGE);

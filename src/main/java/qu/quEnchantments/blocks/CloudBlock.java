@@ -77,10 +77,10 @@ public class CloudBlock extends Block {
         entity.setVelocity(a, b, c);
     }
 
-    @Override
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return ItemStack.EMPTY;
-    }
+    //@Override
+    //public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    //    return ItemStack.EMPTY;
+    //}
 
     @SuppressWarnings("deprecation")
     @Override
