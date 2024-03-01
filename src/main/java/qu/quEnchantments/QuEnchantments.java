@@ -25,7 +25,7 @@ import qu.quEnchantments.util.config.ModConfig;
  *
  * @author Qu
  */
-public class QuEnchantments implements ModInitializer, ClientModInitializer, PreLaunchEntrypoint {
+public class QuEnchantments implements ModInitializer, ClientModInitializer {
 	public static final String MOD_ID = "qu-enchantments";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static ModConfig config;
@@ -51,11 +51,6 @@ public class QuEnchantments implements ModInitializer, ClientModInitializer, Pre
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CLOUD, RenderLayer.getTranslucent());
 
 		ParticleFactoryRegistry.getInstance().register(ModParticles.INANE_PARTICLE, InaneParticle.Factory::new);
-	}
-
-	@Override
-	public void onPreLaunch() {
-		MixinExtrasBootstrap.init();
 	}
 
 	public static ModConfig getConfig() {
