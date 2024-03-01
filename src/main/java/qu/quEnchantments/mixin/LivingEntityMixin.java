@@ -21,7 +21,7 @@ import qu.quEnchantments.items.RuneItem;
 public abstract class LivingEntityMixin extends EntityMixin {
 
     @Inject(method = "applyMovementEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getLandingBlockState()Lnet/minecraft/block/BlockState;"))
-    private void quEnchantments$hardenLavaCondenseCloud(BlockPos pos, CallbackInfo info) {
+    private void quEnchantments$injectWhileMoving(BlockPos pos, CallbackInfo info) {
         QuEnchantmentHelper.tickEquippedWhileMoving((LivingEntity)(Object)this, pos);
     }
 
