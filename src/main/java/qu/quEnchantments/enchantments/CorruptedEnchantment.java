@@ -1,15 +1,12 @@
 package qu.quEnchantments.enchantments;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.MutableText;
@@ -18,8 +15,6 @@ import net.minecraft.util.Formatting;
 import qu.quEnchantments.util.interfaces.IItemStack;
 import qu.quEnchantments.util.ModTags;
 
-import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
@@ -30,9 +25,8 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
 
     private final CorruptedEnchantment.EnchantmentType enchantmentType;
 
-    public CorruptedEnchantment(CorruptedEnchantment.EnchantmentType enchantmentType, Rarity weight,
-                                EnchantmentTarget type, EquipmentSlot ... slotTypes) {
-        super(weight, type, slotTypes);
+    public CorruptedEnchantment(CorruptedEnchantment.EnchantmentType enchantmentType, Properties properties) {
+        super(properties);
         this.enchantmentType = enchantmentType;
     }
 
@@ -76,42 +70,95 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
     public static void corruptEnchantments(ItemStack stack) {
         if (stack == null ||
                 (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) ||
-                !((IItemStack)(Object)stack).isEnchantmentsDirty()) return;
+                !((IItemStack)(Object)stack).qu_Enchantments$isEnchantmentsDirty()) return;
 
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
         CorruptedEnchantment corruptedEnchantment = null;
-        int cLevel = 0;
+        int corruptedLevel = 0;
+        int newLevel = 0;
 
-        for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-            if (entry.getKey() instanceof CorruptedEnchantment) {
-                corruptedEnchantment = (CorruptedEnchantment) entry.getKey();
-                cLevel = entry.getValue();
+        Set<Object2IntMap.Entry<RegistryEntry<Enchantment>>> enchantmentsMap = EnchantmentHelper.getEnchantments(stack).getEnchantmentsMap();
+
+        if (enchantmentsMap.size() < 2) {
+            ((IItemStack)(Object)stack).qu_Enchantments$setEnchantmentsDirty(false);
+            return;
+        }
+
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantmentsMap) {
+            Enchantment enchantment = entry.getKey().value();
+            if (enchantment instanceof CorruptedEnchantment) {
+                corruptedEnchantment = (CorruptedEnchantment) enchantment;
+                corruptedLevel = entry.getIntValue();
                 break;
             }
         }
-        ((IItemStack)(Object)stack).setEnchantmentsDirty(false);
+
+        ((IItemStack)(Object)stack).qu_Enchantments$setEnchantmentsDirty(false);
         if (corruptedEnchantment == null) return;
 
-        int levels = 0;
-        Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
+        Object2IntMap<Enchantment> newMap = new Object2IntOpenHashMap<>();
 
-        for (Enchantment enchantment : newSet) {
-            Optional<RegistryKey<Enchantment>> key;
-            Optional<RegistryEntry.Reference<Enchantment>> entry;
-            if (enchantment.isCursed() || (key = Registries.ENCHANTMENT.getKey(enchantment)).isPresent() &&
-                    (entry = Registries.ENCHANTMENT.getEntry(key.get())).isPresent() &&
-                    entry.get().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
-                int level = enchantments.remove(enchantment);
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantmentsMap) {
+            Enchantment enchantment = entry.getKey().value();
+            int level = entry.getIntValue();
+            if (enchantment.isCursed() || entry.getKey().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
                 if (enchantment instanceof CompoundEnchantment) level /= 5;
-                levels += level;
+                newLevel += level;
+            } else {
+                newMap.put(enchantment, level);
             }
         }
 
-        if (levels == cLevel) levels++;
-        levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
-        enchantments.put(corruptedEnchantment, levels);
-        if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt(EnchantedBookItem.STORED_ENCHANTMENTS_KEY);
-        EnchantmentHelper.set(enchantments, stack);
+        if (newLevel == corruptedLevel) newLevel++;
+        newLevel = Math.clamp(newLevel, corruptedLevel, corruptedEnchantment.getMaxLevel());
+        newMap.put(corruptedEnchantment, newLevel);
+
+        EnchantmentHelper.apply(stack, components -> {
+            components.remove(e -> !newMap.containsKey(e));
+            for (Object2IntMap.Entry<Enchantment> entry : newMap.object2IntEntrySet()) {
+                components.set(entry.getKey(), entry.getIntValue());
+            }
+        });
+
+
+
+//        if (stack == null ||
+//                (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) ||
+//                !((IItemStack)(Object)stack).isEnchantmentsDirty()) return;
+//
+//        Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
+//        CorruptedEnchantment corruptedEnchantment = null;
+//        int cLevel = 0;
+//
+//        for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+//            if (entry.getKey() instanceof CorruptedEnchantment) {
+//                corruptedEnchantment = (CorruptedEnchantment) entry.getKey();
+//                cLevel = entry.getValue();
+//                break;
+//            }
+//        }
+//        ((IItemStack)(Object)stack).setEnchantmentsDirty(false);
+//        if (corruptedEnchantment == null) return;
+//
+//        int levels = 0;
+//        Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
+//
+//        for (Enchantment enchantment : newSet) {
+//            Optional<RegistryKey<Enchantment>> key;
+//            Optional<RegistryEntry.Reference<Enchantment>> entry;
+//            if (enchantment.isCursed() || (key = Registries.ENCHANTMENT.getKey(enchantment)).isPresent() &&
+//                    (entry = Registries.ENCHANTMENT.getEntry(key.get())).isPresent() &&
+//                    entry.get().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
+//                int level = enchantments.remove(enchantment);
+//                if (enchantment instanceof CompoundEnchantment) level /= 5;
+//                levels += level;
+//            }
+//        }
+//
+//        if (levels == cLevel) levels++;
+//        levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
+//        enchantments.put(corruptedEnchantment, levels);
+//        if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt(EnchantedBookItem.STORED_ENCHANTMENTS_KEY);
+//        EnchantmentHelper.set(enchantments, stack);
     }
 
     /**

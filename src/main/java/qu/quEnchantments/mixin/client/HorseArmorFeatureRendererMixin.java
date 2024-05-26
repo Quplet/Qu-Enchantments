@@ -9,7 +9,7 @@ import net.minecraft.client.render.VertexConsumers;
 import net.minecraft.client.render.entity.feature.HorseArmorFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.HorseEntity;
-import net.minecraft.item.HorseArmorItem;
+import net.minecraft.item.AnimalArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -33,8 +33,8 @@ public class HorseArmorFeatureRendererMixin {
             float k,
             float l
     ) {
-        return horseEntity.getArmorType().hasEnchantments() ?
-                VertexConsumers.union(vertexConsumerProvider.getBuffer(RenderLayer.getEntityGlint()), vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(((HorseArmorItem) horseEntity.getArmorType().getItem()).getEntityTexture()))) :
+        return horseEntity.getBodyArmor().hasEnchantments() ?
+                VertexConsumers.union(vertexConsumerProvider.getBuffer(RenderLayer.getEntityGlint()), vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(((AnimalArmorItem)horseEntity.getBodyArmor().getItem()).getEntityTexture()))) :
                 original;
     }
 }

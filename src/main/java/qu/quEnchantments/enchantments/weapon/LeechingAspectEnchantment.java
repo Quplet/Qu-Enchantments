@@ -1,10 +1,8 @@
 package qu.quEnchantments.enchantments.weapon;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.FireAspectEnchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -21,29 +19,19 @@ public class LeechingAspectEnchantment extends QuEnchantment {
 
     private static final ModConfig.LeechingAspectOptions CONFIG = QuEnchantments.getConfig().leechingAspectOptions;
 
-    public LeechingAspectEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {
-        super(weight, EnchantmentTarget.WEAPON, slotTypes);
+    public LeechingAspectEnchantment(Properties properties) {
+        super(properties);
     }
 
     @Override
     public boolean canAccept(Enchantment other) {
-        return !(other instanceof FireAspectEnchantment || other instanceof FreezingAspectEnchantment || other instanceof InaneAspectEnchantment) && super.canAccept(other);
+        return !(other == Enchantments.FIRE_ASPECT || other instanceof FreezingAspectEnchantment || other instanceof InaneAspectEnchantment) && super.canAccept(other);
     }
 
-    @Override
-    public int getMinPower(int level) {
-        return 10 + 20 * (level - 1);
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return super.getMinPower(level) + 50;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 2 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 2 : 0;
+//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {

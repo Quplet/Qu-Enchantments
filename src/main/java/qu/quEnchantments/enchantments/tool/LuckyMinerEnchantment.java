@@ -3,8 +3,6 @@ package qu.quEnchantments.enchantments.tool;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -27,8 +25,8 @@ import qu.quEnchantments.util.config.ModConfig;
 public class LuckyMinerEnchantment extends CompoundEnchantment {
 
     private static final ModConfig.LuckyMinerOptions CONFIG = QuEnchantments.getConfig().luckyMinerOptions;
-    public LuckyMinerEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
-        super(weight, type, slotTypes);
+    public LuckyMinerEnchantment(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -36,10 +34,10 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
         return CONFIG.enchantingTable;
     }
 
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? super.getMaxLevel() : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? super.getMaxLevel() : 0;
+//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {
@@ -73,12 +71,12 @@ public class LuckyMinerEnchantment extends CompoundEnchantment {
                 .add(LootContextParameters.ORIGIN, Vec3d.ofCenter(pos))
                 .add(LootContextParameters.TOOL, stack).build(LootContextTypes.BLOCK);
 
-        LootTable lootTable = world.getServer().getLootManager().getLootTable(
+        LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(
                 isOverworld ? ModLootTableModifier.LUCKY_MINER_OVERWORLD : ModLootTableModifier.LUCKY_MINER_NETHER
         );
         ObjectArrayList<ItemStack> list = lootTable.generateLoot(parameterSet);
 
-        if (list.get(0) == null || !(list.get(0).getItem() instanceof BlockItem blockItem)) return;
+        if (list.getFirst() == null || !(list.getFirst().getItem() instanceof BlockItem blockItem)) return;
 
         BlockState rolledState = blockItem.getBlock().getDefaultState();
         Random random = world.random;

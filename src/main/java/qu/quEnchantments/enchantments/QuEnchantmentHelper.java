@@ -1,13 +1,14 @@
 package qu.quEnchantments.enchantments;
 
-import net.minecraft.enchantment.EnchantmentHelper;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
@@ -42,11 +43,13 @@ public class QuEnchantmentHelper {
      */
     public static void tickWhileEquipped(LivingEntity entity) {
         List<QuEnchantment> ticked = new ArrayList<>();
+
         forEachQuEnchantment((enchantment, stack, level) -> {
             if (!enchantment.getEquipment(entity).containsValue(stack) || ticked.contains(enchantment)) return;
             ticked.add(enchantment);
             enchantment.tickWhileEquipped(entity, stack, level);
-        }, entity.getItemsEquipped());
+        }, entity.getEquippedItems());
+
     }
 
     public static void tickEquippedWhileMoving(LivingEntity entity, BlockPos pos) {
@@ -55,7 +58,7 @@ public class QuEnchantmentHelper {
             if (!enchantment.getEquipment(entity).containsValue(stack) || ticked.contains(enchantment)) return;
             ticked.add(enchantment);
             enchantment.tickEquippedWhileMoving(entity, pos, stack, level);
-        }), entity.getItemsEquipped());
+        }), entity.getEquippedItems());
     }
 
     public static void tick(LivingEntity holder, Iterable<ItemStack> stacks) {
@@ -70,14 +73,12 @@ public class QuEnchantmentHelper {
 
     private static void forEachQuEnchantment(Consumer consumer, ItemStack stack) {
         if (stack == null || stack.isEmpty()) return;
-        NbtList nbtList = stack.getEnchantments();
-        for (int i = 0; i < nbtList.size(); i++) {
-            NbtCompound compound = nbtList.getCompound(i);
-            Registries.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(compound)).ifPresent(enchantment -> {
-                if (enchantment instanceof QuEnchantment) {
-                    consumer.accept((QuEnchantment) enchantment, stack, EnchantmentHelper.getLevelFromNbt(compound));
-                }
-            });
+        ItemEnchantmentsComponent itemEnchantmentsComponent = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : itemEnchantmentsComponent.getEnchantmentsMap()) {
+            Enchantment enchantment = entry.getKey().value();
+            if (enchantment instanceof QuEnchantment quEnchantment) {
+                consumer.accept(quEnchantment, stack, entry.getIntValue());
+            }
         }
     }
 

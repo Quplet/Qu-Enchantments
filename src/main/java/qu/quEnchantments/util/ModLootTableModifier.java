@@ -3,10 +3,14 @@ package qu.quEnchantments.util;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetEnchantmentsLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
@@ -14,30 +18,16 @@ import qu.quEnchantments.items.ModItems;
 import qu.quEnchantments.mixin.LootTablesInvoker;
 
 public class ModLootTableModifier {
-    private static final Identifier END_CITY_TREASURE_ID = new Identifier("minecraft", "chests/end_city_treasure");
-    private static final Identifier BASTION_BRIDGE_ID = new Identifier("minecraft", "chests/bastion_bridge");
-    private static final Identifier BASTION_HOGLIN_STABLE_ID = new Identifier("minecraft", "chests/bastion_hoglin_stable");
-    private static final Identifier BASTION_OTHER_ID = new Identifier("minecraft", "chests/bastion_other");
-    private static final Identifier BASTION_TREASURE_ID = new Identifier("minecraft", "chests/bastion_treasure");
-    private static final Identifier RUINED_PORTAL_ID = new Identifier("minecraft", "chests/ruined_portal");
-    private static final Identifier NETHER_BRIDGE_ID = new Identifier("minecraft", "chests/nether_bridge");
-    private static final Identifier ANCIENT_CITY_ID = new Identifier("minecraft", "chests/ancient_city");
-    private static final Identifier ANCIENT_CITY_ICE_BOX_ID = new Identifier("minecraft", "chests/ancient_city_ice_box");
-    private static final Identifier BURIED_TREASURE = new Identifier("minecraft", "chests/buried_treasure");
-    private static final Identifier PILLAGER_OUTPOST = new Identifier("minecraft", "chests/pillager_outpost");
-    private static final Identifier STRONGHOLD_LIBRARY = new Identifier("minecraft", "chests/stronghold_library");
-    private static final Identifier WOODLAND_MANSION = new Identifier("minecraft", "chests/woodland_mansion");
-
     private static final Identifier WITCH_ID = new Identifier("minecraft", "entities/witch");
 
-    public static final Identifier LUCKY_MINER_OVERWORLD = LootTablesInvoker.invokeRegister(new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner_overworld"));
-    public static final Identifier LUCKY_MINER_NETHER = LootTablesInvoker.invokeRegister(new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner_nether"));
+    public static final RegistryKey<LootTable> LUCKY_MINER_OVERWORLD = LootTablesInvoker.invokeRegister(RegistryKey.of(RegistryKeys.LOOT_TABLE, new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner_overworld")));
+    public static final RegistryKey<LootTable> LUCKY_MINER_NETHER = LootTablesInvoker.invokeRegister(RegistryKey.of(RegistryKeys.LOOT_TABLE, new Identifier(QuEnchantments.MOD_ID, "gameplay/mining/lucky_miner_nether")));
 
     public static void ModifyLootTables() {
-        LootTableEvents.MODIFY.register(((resourceManager, manager, id, builder, setter) -> {
-            if (END_CITY_TREASURE_ID.equals(id) || BASTION_BRIDGE_ID.equals(id) || BASTION_HOGLIN_STABLE_ID.equals(id) ||
-                    BASTION_OTHER_ID.equals(id) || BASTION_TREASURE_ID.equals(id)) {
-                float chance = 0.02f;
+        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
+            if (key == LootTables.END_CITY_TREASURE_CHEST || key == LootTables.BASTION_BRIDGE_CHEST ||
+                    key == LootTables.BASTION_HOGLIN_STABLE_CHEST || key == LootTables.BASTION_OTHER_CHEST || key == LootTables.BASTION_TREASURE_CHEST) {
+                float chance = 0.2f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
                         .with(ItemEntry.builder(Items.BOOK)
@@ -65,7 +55,7 @@ public class ModLootTableModifier {
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
 
                 chance = 0.08f;
                 pool = LootPool.builder()
@@ -77,10 +67,10 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_8)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
 
-            if (ANCIENT_CITY_ID.equals(id) || ANCIENT_CITY_ICE_BOX_ID.equals(id)) {
+            if (key == LootTables.ANCIENT_CITY_CHEST || key == LootTables.ANCIENT_CITY_ICE_BOX_CHEST) {
                 float chance = 0.01f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
@@ -109,7 +99,7 @@ public class ModLootTableModifier {
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
 
                 chance = 0.05f;
                 pool = LootPool.builder()
@@ -121,10 +111,10 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_8)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
 
-            if (RUINED_PORTAL_ID.equals(id) || NETHER_BRIDGE_ID.equals(id)) {
+            if (key == LootTables.RUINED_PORTAL_CHEST || key == LootTables.NETHER_BRIDGE_CHEST) {
                 float chance = 0.003f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
@@ -153,7 +143,7 @@ public class ModLootTableModifier {
                                 .apply(new SetEnchantmentsLootFunction.Builder(false)
                                         .enchantment(ModEnchantments.STRIP_MINER, ConstantLootNumberProvider.create(1))))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
 
                 chance = 0.05f;
                 pool = LootPool.builder()
@@ -165,10 +155,10 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_5)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
 
-            if (WITCH_ID.equals(id)) {
+            if (key.getValue().equals(WITCH_ID)) {
                 float chance = 0.005f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -203,10 +193,10 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_2)
                                 .conditionally(RandomChanceLootCondition.builder(0.05f)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
 
-            if(BURIED_TREASURE.equals(id)) {
+            if(key == LootTables.BURIED_TREASURE_CHEST) {
                 float chance = 0.1f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -217,10 +207,10 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_2)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
 
-            if (PILLAGER_OUTPOST.equals(id) || WOODLAND_MANSION.equals(id)) {
+            if (key == LootTables.PILLAGER_OUTPOST_CHEST || key == LootTables.WOODLAND_MANSION_CHEST) {
                 float chance = 0.1f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
@@ -231,10 +221,10 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_5)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
 
-            if (STRONGHOLD_LIBRARY.equals(id)) {
+            if (key == LootTables.STRONGHOLD_LIBRARY_CHEST) {
                 float chance = 0.15f;
                 LootPool pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(2))
@@ -245,8 +235,8 @@ public class ModLootTableModifier {
                         .with(ItemEntry.builder(ModItems.RUNE_8)
                                 .conditionally(RandomChanceLootCondition.builder(chance)))
                         .build();
-                builder.pool(pool);
+                tableBuilder.pool(pool);
             }
-        }));
+        });
     }
 }

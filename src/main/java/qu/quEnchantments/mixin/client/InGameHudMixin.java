@@ -27,8 +27,8 @@ public abstract class InGameHudMixin {
 
     @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getFrozenTicks()I"))
-    private void renderInaneLayer(DrawContext context, float tickDelta, CallbackInfo ci) {
+    @Inject(method = "renderMiscOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getFrozenTicks()I"))
+    private void qu_Enchantments$renderInaneLayer(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (this.client.player == null) return;
         int inaneLevel;
         if ((inaneLevel = ((IEntity)this.client.player).getInaneTicks()) > 0) {

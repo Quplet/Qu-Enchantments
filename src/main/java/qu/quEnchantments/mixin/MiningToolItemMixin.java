@@ -14,7 +14,7 @@ import qu.quEnchantments.enchantments.ModEnchantments;
 @Mixin(MiningToolItem.class)
 public class MiningToolItemMixin {
 
-    @ModifyArgs(method = "postHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Ljava/util/function/Consumer;)V"))
+    @ModifyArgs(method = "postHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V"))
     private void quEnchantments$setItemPostHitDamageForShapedGlass(Args args, ItemStack stack, LivingEntity target, LivingEntity attacker) {
         int shapedGlassLevel;
         if ((shapedGlassLevel = EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, stack)) > 0) {

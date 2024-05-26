@@ -1,5 +1,6 @@
 package qu.quEnchantments.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -11,8 +12,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import qu.quEnchantments.enchantments.QuEnchantmentHelper;
@@ -28,17 +27,14 @@ public abstract class MobEntityMixin extends LivingEntity {
         if (entity instanceof HorseEntity) cir.setReturnValue(Collections.singleton(entity.getEquippedStack(EquipmentSlot.CHEST)));
     }
 
-    @ModifyVariable(method = "tryAttack",
-            slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F")),
-            at = @At(value = "STORE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F"),
-            ordinal = 0)
+    @ModifyExpressionValue(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityType;)F"))
     private float quEnchantments$injectGetAttackDamage(float original, Entity target) {
         return original + QuEnchantmentHelper.getAttackDamage(this.getMainHandStack(), target);
     }
 
     @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V"))
     private void quEnchantments$injectTickEnchantments(CallbackInfo ci) {
-        QuEnchantmentHelper.tick((MobEntity)(Object)this, this.getItemsEquipped());
+        QuEnchantmentHelper.tick((MobEntity)(Object)this, this.getEquippedItems());
         QuEnchantmentHelper.tickWhileEquipped((MobEntity)(Object)this);
     }
 

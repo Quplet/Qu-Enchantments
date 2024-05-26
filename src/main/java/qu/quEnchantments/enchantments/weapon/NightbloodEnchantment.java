@@ -2,7 +2,6 @@ package qu.quEnchantments.enchantments.weapon;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -40,24 +39,14 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
             ArmorItem.Type.BOOTS, 0.1f
     );
 
-    public NightbloodEnchantment(EnchantmentType enchantmentType, Rarity weight, EquipmentSlot... slotTypes) {
-        super(enchantmentType, weight, EnchantmentTarget.WEAPON, slotTypes);
+    public NightbloodEnchantment(Properties properties) {
+        super(EnchantmentType.ASPECT, properties);
     }
 
-    @Override
-    public int getMinPower(int level) {
-        return 10 + 20 * level;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return getMinPower(level) + 50;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 2 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 2 : 0;
+//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {
@@ -107,7 +96,8 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
             ArmorItem.Type armorItemType = ((ArmorItem) armorItemStack.getItem()).getType();
             //noinspection DataFlowIssue
             if (random.nextFloat() < ARMOR_CHANCE_MAP.get(armorItemType)) {
-                armorItemStack.damage(1000000, livingEntity, livingEntityLambda -> livingEntityLambda.sendEquipmentBreakStatus(EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, armorItems.indexOf(armorItemStack))));
+                armorItemStack.setDamage(armorItemStack.getMaxDamage() - 1);
+                armorItemStack.damage(100, livingEntity, EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, armorItems.indexOf(armorItemStack)));
                 return 0.0f;
             }
         }

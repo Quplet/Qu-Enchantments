@@ -1,6 +1,5 @@
 package qu.quEnchantments.enchantments.weapon;
 
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,8 +14,8 @@ public class LightningBoundEnchantment extends CompoundEnchantment {
 
     private static final ModConfig.LightningBoundOptions CONFIG = QuEnchantments.getConfig().lightningBoundOptions;
 
-    public LightningBoundEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
-        super(weight, type, slotTypes);
+    public LightningBoundEnchantment(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -34,10 +33,10 @@ public class LightningBoundEnchantment extends CompoundEnchantment {
         return CONFIG.randomSelection;
     }
 
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? super.getMaxLevel() : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? super.getMaxLevel() : 0;
+//    }
 
     @Override
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {

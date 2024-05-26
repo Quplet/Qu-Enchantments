@@ -1,8 +1,6 @@
 package qu.quEnchantments.enchantments.armor;
 
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,23 +16,8 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
     private static final ModConfig.AgitationCurseOptions CONFIG = QuEnchantments.getConfig().agitationCurseOptions;
 
-    public AgitationCurseEnchantment(Rarity weight, EquipmentSlot ... slotTypes) {
-        super(weight, EnchantmentTarget.WEARABLE, slotTypes);
-    }
-
-    @Override
-    public int getMinPower(int level) {
-        return 25;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return 50;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 1 : 0;
+    public AgitationCurseEnchantment(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -46,6 +29,11 @@ public class AgitationCurseEnchantment extends QuEnchantment {
     public boolean isCursed() {
         return true;
     }
+
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 1 : 0;
+//    }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {

@@ -1,17 +1,15 @@
 package qu.quEnchantments.enchantments;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public abstract class QuEnchantment extends Enchantment {
-    public QuEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
-        super(weight, type, slotTypes);
+    public QuEnchantment(Properties properties) {
+        super(properties);
     }
 
     public abstract boolean isAvailableForEnchantingTable();

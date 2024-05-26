@@ -1,8 +1,6 @@
 package qu.quEnchantments.enchantments.tool;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -22,14 +20,14 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
 
     private static final ModConfig.StripMinerOptions CONFIG = QuEnchantments.getConfig().stripMinerOptions;
 
-    public StripMinerEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
-        super(enchantmentType, weight, type, slotTypes);
+    public StripMinerEnchantment(Properties properties) {
+        super(EnchantmentType.PICKAXE_DROP, properties);
     }
 
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 2 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 2 : 0;
+//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {
@@ -44,16 +42,6 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
     @Override
     public boolean isAvailableForEnchantingTable() {
         return CONFIG.enchantingTable;
-    }
-
-    @Override
-    public int getMinPower(int level) {
-        return 15 + (level - 1) * 9;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return super.getMinPower(level) + 50;
     }
 
     @Override

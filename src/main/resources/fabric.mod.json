@@ -20,14 +20,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "preLaunch": [
-      "qu.quEnchantments.QuEnchantments"
-    ],
     "main": [
       "qu.quEnchantments.QuEnchantments"
-    ],
-    "mm:early_risers": [
-      "qu.quEnchantments.asm.EarlyRiser"
     ],
     "client": [
       "qu.quEnchantments.QuEnchantments"
@@ -41,14 +35,13 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.17",
-    "fabric": ">=0.83.0+1.20",
-    "minecraft": ">=1.20",
-    "java": ">=17",
-    "cloth-config": ">=11.0.98"
+    "fabricloader": ">=0.15.11",
+    "fabric": ">=0.97.8+1.20.5",
+    "minecraft": ">=1.20.5",
+    "java": ">=21",
+    "cloth-config": ">=14.0.126"
   },
   "suggests": {
     "another-mod": "*"
-  },
-  "accessWidener" : "qu-enchantments.accesswidener"
+  }
 }

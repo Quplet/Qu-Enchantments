@@ -1,8 +1,6 @@
 package qu.quEnchantments.enchantments.shield;
 
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -18,24 +16,14 @@ public class ReflectionEnchantment extends QuEnchantment {
 
     private static final ModConfig.ReflectionOptions CONFIG = QuEnchantments.getConfig().reflectionOptions;
 
-    public ReflectionEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
-        super(weight, type, slotTypes);
+    public ReflectionEnchantment(Properties properties) {
+        super(properties);
     }
 
-    @Override
-    public int getMinPower(int level) {
-        return 5 + 10 * (level - 1);
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return super.getMinPower(level) + 50;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 3 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 3 : 0;
+//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {

@@ -3,6 +3,7 @@ package qu.quEnchantments.mixin;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resource.featuretoggle.FeatureSet;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,7 +18,7 @@ import java.util.List;
 public class EnchantmentHelperMixin {
 
     @Inject(method = "getPossibleEntries", at = @At("TAIL"))
-    private static void quEnchantments$addQuEnchantmentCondition(int power, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
+    private static void quEnchantments$addQuEnchantmentCondition(FeatureSet enabledFeatures, int level, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
         if (treasureAllowed) return;
 
         List<EnchantmentLevelEntry> list = cir.getReturnValue();
@@ -34,7 +35,7 @@ public class EnchantmentHelperMixin {
         for (QuEnchantment enchantment : quEnchantments) {
             if (!enchantment.isAvailableForEnchantingTable() || enchantment.isAvailableForRandomSelection()) continue;
             for (int i = enchantment.getMaxLevel(); i > enchantment.getMinLevel() - 1; --i) {
-                if (power < enchantment.getMinPower(i) || power > enchantment.getMaxPower(i)) continue;
+                if (level < enchantment.getMinPower(i) || level > enchantment.getMaxPower(i)) continue;
                 list.add(new EnchantmentLevelEntry(enchantment, i));
                 break;
             }

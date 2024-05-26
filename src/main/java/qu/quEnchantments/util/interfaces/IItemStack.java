@@ -2,9 +2,9 @@ package qu.quEnchantments.util.interfaces;
 
 public interface IItemStack {
 
-    boolean isEnchantmentsDirty();
+    boolean qu_Enchantments$isEnchantmentsDirty();
 
-    void setEnchantmentsDirty(boolean value);
+    void qu_Enchantments$setEnchantmentsDirty(boolean value);
 
-    int corruptedLevel();
+    int qu_Enchantments$corruptedLevel();
 }

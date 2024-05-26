@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
@@ -35,10 +34,14 @@ public abstract class TridentEntityMixin extends PersistentProjectileEntity {
         }
     }
 
-    @ModifyVariable(method = "onEntityHit",
-    slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F")),
-    at = @At(value = "STORE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityGroup;)F"),
-    ordinal = 0)
+    @ModifyVariable(
+            method = "onEntityHit",
+            at = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/enchantment/EnchantmentHelper;getAttackDamage(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/EntityType;)F"
+            ),
+            ordinal = 0
+    )
     private float quEnchantments$injectGetAttackDamage(float original, EntityHitResult entityHitResult) {
         return original + QuEnchantmentHelper.getAttackDamage(this.getItemStack(), entityHitResult.getEntity());
     }

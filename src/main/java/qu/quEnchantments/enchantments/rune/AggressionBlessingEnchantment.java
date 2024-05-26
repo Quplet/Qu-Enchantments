@@ -1,7 +1,5 @@
 package qu.quEnchantments.enchantments.rune;
 
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -21,21 +19,11 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
     public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(
             UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"),
             "enchantment attack boost", CONFIG.attackSpeed,
-            EntityAttributeModifier.Operation.ADDITION
+            EntityAttributeModifier.Operation.ADD_VALUE
     );
 
-    public AggressionBlessingEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
-        super(weight, type, slotTypes);
-    }
-
-    @Override
-    public int getMinPower(int level) {
-        return 15;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return 50;
+    public AggressionBlessingEnchantment(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -48,10 +36,10 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
         return CONFIG.bookOffer;
     }
 
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 1 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 1 : 0;
+//    }
 
     @Override
     public boolean isAvailableForEnchantingTable() {

@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.util.interfaces.IEntity;
 
@@ -29,9 +30,9 @@ public abstract class EntityMixin implements IEntity {
     @Unique
     private static final TrackedData<Integer> INANE_TICKS = DataTracker.registerData(Entity.class, TrackedDataHandlerRegistry.INTEGER);
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void quEnchantments$trackInaneTicks(EntityType<?> type, World world, CallbackInfo ci) {
-        dataTracker.startTracking(INANE_TICKS, 0);
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;initDataTracker(Lnet/minecraft/entity/data/DataTracker$Builder;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void quEnchantments$trackInaneTicks(EntityType<?> type, World world, CallbackInfo ci, DataTracker.Builder builder) {
+        builder.add(INANE_TICKS, 0);
     }
 
     @Override

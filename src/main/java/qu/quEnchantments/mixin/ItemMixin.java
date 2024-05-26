@@ -1,6 +1,6 @@
 package qu.quEnchantments.mixin;
 
-import net.minecraft.item.HorseArmorItem;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
@@ -16,12 +16,14 @@ public class ItemMixin {
     private void quEnchantments$setEnchantability(CallbackInfoReturnable<Integer> cir) {
         Item item = (Item) (Object) this;
         if (item instanceof ShieldItem) cir.setReturnValue(1);
-        if (item instanceof HorseArmorItem horseArmorItem) cir.setReturnValue(horseArmorItem.getBonus() == 7 ? 12 : 1);
+        if (item instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType() == AnimalArmorItem.Type.EQUESTRIAN) {
+            cir.setReturnValue(1);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "isEnchantable", cancellable = true)
     private void quEnchantments$setIsEnchantable(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         Item item = (Item) (Object) this;
-        if (item instanceof ShieldItem || item instanceof HorseArmorItem) cir.setReturnValue(true);
+        if (item instanceof ShieldItem) cir.setReturnValue(true);
     }
 }

@@ -1,7 +1,6 @@
 package qu.quEnchantments.blocks;
 
 import net.minecraft.block.*;
-import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,7 +17,6 @@ public class ModBlocks {
             new HotObsidianBlock(AbstractBlock.Settings.copy(Blocks.OBSIDIAN).luminance(state -> 7))
     );
 
-    //public static final Block CLOUD = register("cloud", new CloudBlock(AbstractBlock.Settings.of(Material.POWDER_SNOW).sounds(BlockSoundGroup.SNOW).breakInstantly().nonOpaque().suffocates(ModBlocks::never)));
     public static final Block CLOUD = register(
             "cloud",
             new CloudBlock(

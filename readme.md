@@ -1,5 +1,3 @@
-![banner](https://i.imgur.com/71ADjCd.png)
-
 # Qu Enchantments Mod (For Fabric/Quilt)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
@@ -8,8 +6,8 @@ in the game while not straying too far from vanilla. It's not just your ordinary
 ## 🧰 Installation
 
 This mod requires the Fabric or Quilt loader. I have no plans at the moment for making a Forge equivalent. I have not extensively 
-tested what Fabric Loader versions work and don't work. This mod uses Minecraft 1.19.4+, so I believe any Fabric Loader 
-0.14.17 and beyond should work. This mod does utilize the [Fabric API](https://modrinth.com/mod/fabric-api) 
+tested what Fabric Loader versions work and don't work. This mod uses Minecraft 1.20.5+, so I believe any Fabric Loader 
+0.15.11 and beyond should work. This mod does utilize the [Fabric API](https://modrinth.com/mod/fabric-api) 
 so make sure you have that as well.
 
 ## 📖 Content
@@ -18,7 +16,6 @@ This mod currently has 20 new enchantments, one new curse, and one new item as o
 
 <details>
   <summary>Click to expand</summary>
-<img src="https://i.imgur.com/7sWk0oH.png" alt="aspects image">
 
 - 📘 Normal Enchantments
   - Freezing Aspect Enchantment (I-II) (Sword) - Slows enemy on hit.
@@ -59,8 +56,6 @@ This mod currently has 20 new enchantments, one new curse, and one new item as o
 - 🎲 Compound Enchantments - Enchantments that are chance based that stack greatly.
   - Lucky Miner Enchantment (I-C) - Increases the likelihood of the user finding ores around them as they mine. Stacks logarithmically.
   - Lightening Bound Enchantment (I-C) - Chance on hit to strike the target with a lightening bolt. Stacks linearly.
-
-<img src="https://i.imgur.com/ArWKMX1.png" alt="runes image">
 
 - 💎 Items
   - Rune - A new item that can be enchanted for passive effects while held. While being used, the damage meter will drain

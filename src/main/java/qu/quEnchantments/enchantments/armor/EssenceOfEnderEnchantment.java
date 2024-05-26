@@ -1,9 +1,7 @@
 package qu.quEnchantments.enchantments.armor;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
@@ -24,18 +22,8 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     private static final ModConfig.EssenceOfEnderOptions CONFIG = QuEnchantments.getConfig().essenceOfEnderOptions;
 
-    public EssenceOfEnderEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot ... slotTypes) {
-        super(enchantmentType, weight, type, slotTypes);
-    }
-
-    @Override
-    public int getMinPower(int level) {
-        return 10 + 20 * (level - 1);
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return super.getMinPower(level) + 50;
+    public EssenceOfEnderEnchantment(Properties properties) {
+        super(EnchantmentType.THORNS, properties);
     }
 
     @Override
@@ -48,10 +36,10 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
         return CONFIG.bookOffer;
     }
 
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 3 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 3 : 0;
+//    }
 
     @Override
     public boolean isAvailableForEnchantingTable() {

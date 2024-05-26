@@ -1,10 +1,9 @@
 package qu.quEnchantments.enchantments.weapon;
 
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
@@ -13,19 +12,19 @@ public class ShapedGlassEnchantment extends CorruptedEnchantment {
 
     private static final ModConfig.ShapedGlassOptions CONFIG = QuEnchantments.getConfig().shapedGlassOptions;
 
-    public ShapedGlassEnchantment(EnchantmentType enchantmentType, Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
-        super(enchantmentType, weight, type, slotTypes);
+    public ShapedGlassEnchantment(Properties properties) {
+        super(EnchantmentType.DAMAGE, properties);
     }
 
     @Override
-    public float getAttackDamage(int level, EntityGroup group) {
+    public float getAttackDamage(int level, @Nullable EntityType<?> entityType) {
         return level * CONFIG.damageMultiplier;
     }
 
-    @Override
-    public int getMaxLevel() {
-        return CONFIG.isEnabled ? 5 : 0;
-    }
+//    @Override
+//    public int getMaxLevel() {
+//        return CONFIG.isEnabled ? 5 : 0;
+//    }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
@@ -40,16 +39,6 @@ public class ShapedGlassEnchantment extends CorruptedEnchantment {
     @Override
     public boolean isAvailableForEnchantingTable() {
         return CONFIG.enchantingTable;
-    }
-
-    @Override
-    public int getMinPower(int level) {
-        return 10 + 20 * level;
-    }
-
-    @Override
-    public int getMaxPower(int level) {
-        return getMinPower(level) + 50;
     }
 
     @Override

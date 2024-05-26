@@ -1,8 +1,10 @@
 package qu.quEnchantments.mixin;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.util.interfaces.IItemStack;
 
-import java.util.Map;
-
 @Mixin(ItemStack.class)
 public class ItemStackMixin implements IItemStack {
 
@@ -20,27 +20,27 @@ public class ItemStackMixin implements IItemStack {
     private boolean isEnchantmentsDirty = false;
 
     @Inject(method = "addEnchantment", at = @At("TAIL"))
-    private void quEnchantments$makeStackDirty(Enchantment enchantment, int level, CallbackInfo ci) {
+    private void qu_Enchantments$makeStackDirty(Enchantment enchantment, int level, CallbackInfo ci) {
         this.isEnchantmentsDirty = true;
     }
 
     @Override
     @Unique
-    public boolean isEnchantmentsDirty() {
+    public boolean qu_Enchantments$isEnchantmentsDirty() {
         return this.isEnchantmentsDirty;
     }
 
     @Override
     @Unique
-    public void setEnchantmentsDirty(boolean value) {
+    public void qu_Enchantments$setEnchantmentsDirty(boolean value) {
         this.isEnchantmentsDirty = value;
     }
 
     @Override
     @Unique
-    public int corruptedLevel() {
-        for (Map.Entry<Enchantment, Integer> entry : EnchantmentHelper.get((ItemStack)(Object)this).entrySet()) {
-            if (entry.getKey() instanceof CorruptedEnchantment) return entry.getValue();
+    public int qu_Enchantments$corruptedLevel() {
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : EnchantmentHelper.getEnchantments((ItemStack)(Object)this).getEnchantmentsMap()) {
+            if (entry.getKey().value() instanceof CorruptedEnchantment) return entry.getIntValue();
         }
         return 0;
     }
