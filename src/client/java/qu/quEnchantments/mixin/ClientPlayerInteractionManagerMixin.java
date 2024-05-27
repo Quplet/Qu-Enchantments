@@ -1,4 +1,4 @@
-package qu.quEnchantments.mixin.client;
+package qu.quEnchantments.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;

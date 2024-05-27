@@ -24,14 +24,18 @@
       "qu.quEnchantments.QuEnchantments"
     ],
     "client": [
-      "qu.quEnchantments.QuEnchantments"
+      "qu.quEnchantments.QuEnchantmentsClient"
     ],
     "modmenu": [
       "qu.quEnchantments.util.config.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "qu-enchantments.mixins.json"
+    "qu-enchantments.mixins.json",
+    {
+      "config": "qu-enchantments.client.mixins.json",
+      "environment": "client"
+    }
   ],
 
   "depends": {

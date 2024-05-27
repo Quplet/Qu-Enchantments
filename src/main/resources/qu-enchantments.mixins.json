@@ -1,6 +1,5 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "qu.quEnchantments.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
@@ -27,12 +26,6 @@
     "ServerPlayerInteractionManagerMixin",
     "SwordItemMixin",
     "TridentEntityMixin"
-  ],
-  "client": [
-    "client.ClientPlayerInteractionManagerMixin",
-    "client.HorseArmorFeatureRendererMixin",
-    "client.InGameHudMixin",
-    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
