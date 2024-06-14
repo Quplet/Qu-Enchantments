@@ -17,36 +17,31 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CompoundEnchantment;
 import qu.quEnchantments.util.ModLootTableModifier;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class LuckyMinerEnchantment extends CompoundEnchantment {
 
-    private static final ModConfig.LuckyMinerOptions CONFIG = QuEnchantments.getConfig().luckyMinerOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
+
     public LuckyMinerEnchantment(Properties properties) {
         super(properties);
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.luckyMinerEnchantingTable;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? super.getMaxLevel() : 0;
-//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.luckyMinerRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.luckyMinerBookOffer;
     }
 
     @Override

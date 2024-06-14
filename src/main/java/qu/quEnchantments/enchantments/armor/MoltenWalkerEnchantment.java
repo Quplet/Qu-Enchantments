@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
@@ -20,7 +19,7 @@ import qu.quEnchantments.world.ModWorldEvents;
 
 public class MoltenWalkerEnchantment extends QuEnchantment {
 
-    private static final ModConfig.MoltenWalkerOptions CONFIG = QuEnchantments.getConfig().moltenWalkerOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public MoltenWalkerEnchantment(Properties properties) {
         super(properties);
@@ -28,18 +27,13 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.moltenWalkerRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.moltenWalkerBookOffer;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 2 : 0;
-//    }
 
     @Override
     public boolean isTreasure() {
@@ -48,7 +42,7 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.moltenWalkerEnchantingTable;
     }
 
     @Override
@@ -64,7 +58,7 @@ public class MoltenWalkerEnchantment extends QuEnchantment {
         if (world.isClient || !entity.isOnGround()) return;
 
         BlockState hotObsidianDefaultState = ModBlocks.HOT_OBSIDIAN.getDefaultState();
-        int radius = Math.min(16, CONFIG.radius + level - 1);
+        int radius = Math.min(16, CONFIG.moltenWalkerRadius + level - 1);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         for (BlockPos blockPosItr : BlockPos.iterate(pos.add(-radius, -1, -radius), pos.add(radius, -1, radius))) {
             if (!blockPosItr.isWithinDistance(entity.getPos(), radius)) continue;

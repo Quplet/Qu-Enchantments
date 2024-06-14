@@ -6,13 +6,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CompoundEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class LightningBoundEnchantment extends CompoundEnchantment {
 
-    private static final ModConfig.LightningBoundOptions CONFIG = QuEnchantments.getConfig().lightningBoundOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public LightningBoundEnchantment(Properties properties) {
         super(properties);
@@ -20,23 +19,18 @@ public class LightningBoundEnchantment extends CompoundEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.lightningBoundEnchantingTable;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.lightningBoundBookOffer;
     }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.lightningBoundRandomSelection;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? super.getMaxLevel() : 0;
-//    }
 
     @Override
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {

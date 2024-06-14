@@ -5,14 +5,13 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 public class InaneAspectEnchantment extends QuEnchantment {
 
-    private static final ModConfig.InaneAspectOptions CONFIG = QuEnchantments.getConfig().inaneAspectOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public InaneAspectEnchantment(Properties properties) {
         super(properties);
@@ -23,30 +22,24 @@ public class InaneAspectEnchantment extends QuEnchantment {
         return !(other == Enchantments.FIRE_ASPECT || other instanceof FreezingAspectEnchantment || other instanceof LeechingAspectEnchantment) && super.canAccept(other);
     }
 
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 2 : 0;
-//    }
-
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.inaneAspectRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.inaneAspectBookOffer;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.inaneAspectEnchantingTable;
     }
 
     @Override
     public void onTargetDamaged(LivingEntity user, ItemStack stack, Entity target, int level) {
         if (user.getWorld().isClient) return;
-        ((IEntity)target).setInaneTicks(40 + CONFIG.duration * level);
+        ((IEntity)target).setInaneTicks(40 + CONFIG.inaneAspectDuration * level);
     }
 }

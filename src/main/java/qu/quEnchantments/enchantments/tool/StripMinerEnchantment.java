@@ -8,7 +8,6 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.world.ModWorldEvents;
@@ -18,30 +17,26 @@ import java.util.List;
 
 public class StripMinerEnchantment extends CorruptedEnchantment {
 
-    private static final ModConfig.StripMinerOptions CONFIG = QuEnchantments.getConfig().stripMinerOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public StripMinerEnchantment(Properties properties) {
         super(EnchantmentType.PICKAXE_DROP, properties);
     }
 
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 2 : 0;
-//    }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.stripMinerRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.stripMinerBookOffer;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.stripMinerEnchantingTable;
     }
 
     @Override
@@ -63,7 +58,7 @@ public class StripMinerEnchantment extends CorruptedEnchantment {
             }
             iterable = temp;
         } else {
-            int radius = CONFIG.radius;
+            int radius = CONFIG.stripMinerRadius;
             iterable = BlockPos.iterate(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius));
         }
 

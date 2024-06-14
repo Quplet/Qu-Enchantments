@@ -6,7 +6,6 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
@@ -15,10 +14,11 @@ import java.util.UUID;
 
 public class SpeedBlessingEnchantment extends QuEnchantment {
 
-    private static final ModConfig.SpeedBlessingOptions CONFIG = QuEnchantments.getConfig().speedBlessingOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
+
     public static final EntityAttributeModifier SPEED_BOOST = new EntityAttributeModifier(
             UUID.fromString("8d32ac69-5bac-4e72-856f-998074238b0d"),
-            "enchantment speed boost", 0.1 * CONFIG.speedBoost,
+            "enchantment speed boost", 0.1 * CONFIG.speedBlessingSpeedBoost,
             EntityAttributeModifier.Operation.ADD_VALUE
     );
 
@@ -28,22 +28,18 @@ public class SpeedBlessingEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.speedBlessingRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.speedBlessingBookOffer;
     }
 
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 1 : 0;
-//    }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.speedBlessingEnchantingTable;
     }
 
     @Override

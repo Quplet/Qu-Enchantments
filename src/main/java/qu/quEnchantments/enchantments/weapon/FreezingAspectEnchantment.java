@@ -9,13 +9,12 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class FreezingAspectEnchantment extends QuEnchantment {
 
-    private static final ModConfig.FreezingAspectOptions CONFIG = QuEnchantments.getConfig().freezingAspectOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public FreezingAspectEnchantment(Properties properties) {
         super(properties);
@@ -33,17 +32,17 @@ public class FreezingAspectEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.freezingAspectRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.freezingAspectBookOffer;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.freezingAspectEnchantingTable;
     }
 
     @Override
@@ -53,7 +52,7 @@ public class FreezingAspectEnchantment extends QuEnchantment {
 
         target.extinguish();
         if (target.canFreeze()) {
-            target.setFrozenTicks(target.getMinFreezeDamageTicks() + CONFIG.duration * level);
+            target.setFrozenTicks(target.getMinFreezeDamageTicks() + CONFIG.freezingAspectDuration * level);
         }
 
         Random random = world.getRandom();

@@ -6,7 +6,6 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IEntity;
@@ -15,10 +14,11 @@ import java.util.UUID;
 
 public class AggressionBlessingEnchantment extends QuEnchantment {
 
-    private static final ModConfig.AggressionBlessingOptions CONFIG = QuEnchantments.getConfig().aggressionBlessingOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
+
     public static final EntityAttributeModifier ATTACK_BOOST = new EntityAttributeModifier(
             UUID.fromString("75924c77-91f8-4db6-b604-0e7ebaf9c429"),
-            "enchantment attack boost", CONFIG.attackSpeed,
+            "enchantment attack boost", CONFIG.aggressionBlessingAttackSpeed,
             EntityAttributeModifier.Operation.ADD_VALUE
     );
 
@@ -28,22 +28,17 @@ public class AggressionBlessingEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.agitationCurseRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.agitationCurseBookOffer;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 1 : 0;
-//    }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.aggressionBlessingEnchantingTable;
     }
 
     @Override

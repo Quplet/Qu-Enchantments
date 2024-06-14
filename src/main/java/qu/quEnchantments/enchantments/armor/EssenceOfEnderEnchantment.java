@@ -14,13 +14,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
-    private static final ModConfig.EssenceOfEnderOptions CONFIG = QuEnchantments.getConfig().essenceOfEnderOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public EssenceOfEnderEnchantment(Properties properties) {
         super(EnchantmentType.THORNS, properties);
@@ -28,22 +27,17 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.essenceOfEnderRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.essenceOfEnderBookOffer;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 3 : 0;
-//    }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.essenceOfEnderEnchantingTable;
     }
 
     @Override
@@ -59,9 +53,9 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
         if (user.getWorld().isClient || !(attacker instanceof LivingEntity livingEntity) || (attacker instanceof PlayerEntity player && player.getAbilities().creativeMode)) return;
 
         for (int i = 0; i < 7; i++) {
-            double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.entityTeleportDistance * level;
-            double e = attacker.getY() + (double) (user.getRandom().nextInt(CONFIG.entityTeleportDistance * 2 * level) - (CONFIG.entityTeleportDistance * level));
-            double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.entityTeleportDistance * level;
+            double d = attacker.getX() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getX() - user.getX())) * CONFIG.essenceOfEnderTeleportDistance * level;
+            double e = attacker.getY() + Math.round(user.getRandom().nextDouble() * CONFIG.essenceOfEnderTeleportDistance * 2 * level - (CONFIG.essenceOfEnderTeleportDistance * level));
+            double f = attacker.getZ() + (user.getRandom().nextDouble() * clampEither(-0.5, 0.5, attacker.getZ() - user.getZ())) * CONFIG.essenceOfEnderTeleportDistance * level;
             if (teleportTo(livingEntity, d, e, f)) break;
         }
     }
@@ -80,7 +74,7 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
                 double d = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
                 double e = entity.getY() + (double) (entity.getRandom().nextInt(32) - 16);
                 double f = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 16.0;
-                if (EssenceOfEnderEnchantment.teleportTo(entity, d, e, f)) break;
+                if (teleportTo(entity, d, e, f)) break;
             }
             entity.damage(world.getDamageSources().magic(), 1);
         }
@@ -94,7 +88,7 @@ public class EssenceOfEnderEnchantment extends CorruptedEnchantment {
     }
 
     // Functionally equivalent to the Enderman's teleport
-    public static boolean teleportTo(LivingEntity subject, double x, double y, double z) {
+    private static boolean teleportTo(LivingEntity subject, double x, double y, double z) {
         BlockPos.Mutable mutable = new BlockPos.Mutable(x, y, z);
         while (mutable.getY() > subject.getWorld().getBottomY() && !subject.getWorld().getBlockState(mutable).blocksMovement()) {
             mutable.move(Direction.DOWN);

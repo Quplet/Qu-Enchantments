@@ -113,52 +113,11 @@ public abstract class CorruptedEnchantment extends QuEnchantment {
         newMap.put(corruptedEnchantment, newLevel);
 
         EnchantmentHelper.apply(stack, components -> {
-            components.remove(e -> !newMap.containsKey(e));
+            components.remove(e -> !newMap.containsKey((Enchantment) e));
             for (Object2IntMap.Entry<Enchantment> entry : newMap.object2IntEntrySet()) {
                 components.set(entry.getKey(), entry.getIntValue());
             }
         });
-
-
-
-//        if (stack == null ||
-//                (!stack.hasEnchantments() && !stack.isOf(Items.ENCHANTED_BOOK)) ||
-//                !((IItemStack)(Object)stack).isEnchantmentsDirty()) return;
-//
-//        Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
-//        CorruptedEnchantment corruptedEnchantment = null;
-//        int cLevel = 0;
-//
-//        for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-//            if (entry.getKey() instanceof CorruptedEnchantment) {
-//                corruptedEnchantment = (CorruptedEnchantment) entry.getKey();
-//                cLevel = entry.getValue();
-//                break;
-//            }
-//        }
-//        ((IItemStack)(Object)stack).setEnchantmentsDirty(false);
-//        if (corruptedEnchantment == null) return;
-//
-//        int levels = 0;
-//        Set<Enchantment> newSet = Set.copyOf(enchantments.keySet());
-//
-//        for (Enchantment enchantment : newSet) {
-//            Optional<RegistryKey<Enchantment>> key;
-//            Optional<RegistryEntry.Reference<Enchantment>> entry;
-//            if (enchantment.isCursed() || (key = Registries.ENCHANTMENT.getKey(enchantment)).isPresent() &&
-//                    (entry = Registries.ENCHANTMENT.getEntry(key.get())).isPresent() &&
-//                    entry.get().isIn(corruptedEnchantment.enchantmentType.corruptible)) {
-//                int level = enchantments.remove(enchantment);
-//                if (enchantment instanceof CompoundEnchantment) level /= 5;
-//                levels += level;
-//            }
-//        }
-//
-//        if (levels == cLevel) levels++;
-//        levels = Math.min(Math.max(cLevel, levels), corruptedEnchantment.getMaxLevel());
-//        enchantments.put(corruptedEnchantment, levels);
-//        if (stack.isOf(Items.ENCHANTED_BOOK)) stack.removeSubNbt(EnchantedBookItem.STORED_ENCHANTMENTS_KEY);
-//        EnchantmentHelper.set(enchantments, stack);
     }
 
     /**

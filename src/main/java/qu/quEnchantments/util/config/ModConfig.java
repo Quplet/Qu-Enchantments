@@ -1,283 +1,283 @@
 package qu.quEnchantments.util.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import net.minecraft.util.math.MathHelper;
+import com.google.gson.GsonBuilder;
+import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
+import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.Identifier;
 import qu.quEnchantments.QuEnchantments;
 
-@Config(name = QuEnchantments.MOD_ID)
-//@Config.Gui.Background("qu-enchantments:textures/block/hot_obsidian_2.png")
-public class ModConfig implements ConfigData {
+public class ModConfig {
 
-    @ConfigEntry.Gui.TransitiveObject
-    public final RuneOptions runeOptions = new RuneOptions();
+    public static ConfigClassHandler<ModConfig> CONFIG_HANDLER = ConfigClassHandler.createBuilder(ModConfig.class)
+            .id(new Identifier(QuEnchantments.MOD_ID, "configuration"))
+            .serializer(config -> GsonConfigSerializerBuilder.create(config)
+                    .setPath(FabricLoader.getInstance().getConfigDir().resolve(QuEnchantments.MOD_ID + ".json5"))
+                    .appendGsonBuilder(GsonBuilder::setPrettyPrinting)
+                    .setJson5(true)
+                    .build())
+            .build();
 
-    @ConfigEntry.Gui.CollapsibleObject
-    public final AccuracyOptions accuracyOptions = new AccuracyOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final AggressionBlessingOptions aggressionBlessingOptions = new AggressionBlessingOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final AgitationCurseOptions agitationCurseOptions = new AgitationCurseOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final ArrowsFlightOptions arrowsFlightOptions = new ArrowsFlightOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final BashingOptions bashingOptions = new BashingOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final EssenceOfEnderOptions essenceOfEnderOptions = new EssenceOfEnderOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final FidelityOptions fidelityOptions = new FidelityOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final FreezingAspectOptions freezingAspectOptions = new FreezingAspectOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final InaneAspectOptions inaneAspectOptions = new InaneAspectOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final LeechingAspectOptions leechingAspectOptions = new LeechingAspectOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final LightningBoundOptions lightningBoundOptions = new LightningBoundOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final LuckyMinerOptions luckyMinerOptions = new LuckyMinerOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final MoltenWalkerOptions moltenWalkerOptions = new MoltenWalkerOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final NightbloodOptions nightbloodOptions = new NightbloodOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final OmenOfImmunityOptions omenOfImmunityOptions = new OmenOfImmunityOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final ReflectionOptions reflectionOptions = new ReflectionOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final RegenerationBlessingOptions regenerationBlessingOptions = new RegenerationBlessingOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final ShapedGlassOptions shapedGlassOptions = new ShapedGlassOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final SkywalkerOptions skywalkerOptions = new SkywalkerOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final SpeedBlessingOptions speedBlessingOptions = new SpeedBlessingOptions();
-    @ConfigEntry.Gui.CollapsibleObject
-    public final StripMinerOptions stripMinerOptions = new StripMinerOptions();
-
-    public static class RuneOptions {
-        @ConfigEntry.Gui.Tooltip
-        public boolean breakOnNoDurability = false;
+    static {
+        if (!CONFIG_HANDLER.load()) {
+            QuEnchantments.LOGGER.warn("Unable to load configuration file. Perhaps it doesn't exist yet?");
+        }
     }
 
-    public static class AccuracyOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-    }
+    // Rune options
+    @SerialEntry
+    public boolean runeBreakOnNoDurability = false;
 
-    public static class AggressionBlessingOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        @ConfigEntry.Gui.Tooltip
-        public float attackSpeed = 0.8f; // REQUIRES RESTART
-    }
-    
-    public static class AgitationCurseOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean bookOffer = false;
-        @ConfigEntry.BoundedDiscrete(min = 8, max = 64)
-        public double radius = 16.0;
-    }
+    // Accuracy options
+    @SerialEntry
+    public boolean accuracyEnabled = true;
+    @SerialEntry
+    public boolean accuracyRandomSelection = true;
+    @SerialEntry
+    public boolean accuracyEnchantingTable = true;
+    @SerialEntry
+    public boolean accuracyBookOffer = true;
 
-    public static class ArrowsFlightOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        public float arrowSpeed = 1.0f;
-    }
+    // Aggression Blessing options
+    @SerialEntry
+    public boolean aggressionBlessingEnabled = true;
+    @SerialEntry
+    public boolean aggressionBlessingRandomSelection = true;
+    @SerialEntry
+    public boolean aggressionBlessingEnchantingTable = true;
+    @SerialEntry
+    public boolean aggressionBlessingBookOffer = true;
+    @SerialEntry
+    public float aggressionBlessingAttackSpeed = 0.8f;
 
-    public static class BashingOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        public float knockbackStrength = 0.6f;
+    // Agitation Curse options
+    @SerialEntry
+    public boolean agitationCurseEnabled = true;
+    @SerialEntry
+    public boolean agitationCurseRandomSelection = false;
+    @SerialEntry
+    public boolean agitationCurseBookOffer = false;
+    @SerialEntry
+    public double agitationCurseRadius = 16.0;
 
-    }
+    // Arrows Flight options
+    @SerialEntry
+    public boolean arrowsFlightEnabled = true;
+    @SerialEntry
+    public boolean arrowsFlightRandomSelection = true;
+    @SerialEntry
+    public boolean arrowsFlightEnchantingTable = true;
+    @SerialEntry
+    public boolean arrowsFlightBookOffer = true;
+    @SerialEntry
+    public float arrowsFlightArrowSpeed = 1.0f;
 
-    public static class EssenceOfEnderOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        @ConfigEntry.BoundedDiscrete(min = 2, max = 8)
-        public int entityTeleportDistance = 5;
-    }
+    // Bashing options
+    @SerialEntry
+    public boolean bashingEnabled = true;
+    @SerialEntry
+    public boolean bashingRandomSelection = true;
+    @SerialEntry
+    public boolean bashingEnchantingTable = true;
+    @SerialEntry
+    public boolean bashingBookOffer = true;
+    @SerialEntry
+    public float bashingKnockbackStrength = 0.6f;
 
-    public static class FidelityOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-    }
+    // Essence Of Ender options
+    @SerialEntry
+    public boolean essenceOfEnderEnabled = true;
+    @SerialEntry
+    public boolean essenceOfEnderRandomSelection = false;
+    @SerialEntry
+    public boolean essenceOfEnderEnchantingTable = false;
+    @SerialEntry
+    public boolean essenceOfEnderBookOffer = false;
+    @SerialEntry
+    public double essenceOfEnderTeleportDistance = 5.0;
 
-    public static class FreezingAspectOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        public int duration = 75;
-    }
+    // Fidelity options
+    @SerialEntry
+    public boolean fidelityEnabled = true;
+    @SerialEntry
+    public boolean fidelityRandomSelection = false;
+    @SerialEntry
+    public boolean fidelityEnchantingTable = false;
+    @SerialEntry
+    public boolean fidelityBookOffer = false;
 
-    public static class InaneAspectOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        public int duration = 40;
-    }
+    // Freezing Aspect options
+    @SerialEntry
+    public boolean freezingAspectEnabled = true;
+    @SerialEntry
+    public boolean freezingAspectRandomSelection = true;
+    @SerialEntry
+    public boolean freezingAspectEnchantingTable = true;
+    @SerialEntry
+    public boolean freezingAspectBookOffer = true;
+    @SerialEntry
+    public int freezingAspectDuration = 75;
 
-    public static class LeechingAspectOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        public float healing = 0.25f;
-    }
+    // Inane Aspect options
+    @SerialEntry
+    public boolean inaneAspectEnabled = true;
+    @SerialEntry
+    public boolean inaneAspectRandomSelection = true;
+    @SerialEntry
+    public boolean inaneAspectEnchantingTable = true;
+    @SerialEntry
+    public boolean inaneAspectBookOffer = true;
+    @SerialEntry
+    public int inaneAspectDuration = 40;
 
-    public static class LightningBoundOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-    }
+    // Leeching Aspect options
+    @SerialEntry
+    public boolean leechingAspectEnabled = true;
+    @SerialEntry
+    public boolean leechingAspectRandomSelection = true;
+    @SerialEntry
+    public boolean leechingAspectEnchantingTable = true;
+    @SerialEntry
+    public boolean leechingAspectBookOffer = true;
+    @SerialEntry
+    public float leechingAspectHealing = 0.25f;
 
-    public static class LuckyMinerOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = true;
-    }
+    // Lightning Bound options
+    @SerialEntry
+    public boolean lightningBoundEnabled = true;
+    @SerialEntry
+    public boolean lightningBoundRandomSelection = true;
+    @SerialEntry
+    public boolean lightningBoundEnchantingTable = true;
+    @SerialEntry
+    public boolean lightningBoundBookOffer = true;
 
-    public static class MoltenWalkerOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        @ConfigEntry.BoundedDiscrete(max = 16)
-        public int radius = 2;
-    }
+    // Lucky Miner options
+    @SerialEntry
+    public boolean luckyMinerEnabled = true;
+    @SerialEntry
+    public boolean luckyMinerRandomSelection = true;
+    @SerialEntry
+    public boolean luckyMinerEnchantingTable = false;
+    @SerialEntry
+    public boolean luckyMinerBookOffer = true;
 
-    public static class NightbloodOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        public boolean disablesExperience = true;
-        @ConfigEntry.Gui.Tooltip
-        public int witherDuration = 200;
-        @ConfigEntry.BoundedDiscrete(max = 255)
-        public int witherAmplifier = 1;
-        @ConfigEntry.Gui.Tooltip
-        public float drainRate = 1.0f;
-    }
+    // Molten Walker options
+    @SerialEntry
+    public boolean moltenWalkerEnabled = true;
+    @SerialEntry
+    public boolean moltenWalkerRandomSelection = true;
+    @SerialEntry
+    public boolean moltenWalkerEnchantingTable = true;
+    @SerialEntry
+    public boolean moltenWalkerBookOffer = true;
+    @SerialEntry
+    public int moltenWalkerRadius = 2;
 
-    public static class OmenOfImmunityOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        public boolean breakOnNoDurability = true;
-    }
+    // Nightblood options
+    @SerialEntry
+    public boolean nightbloodEnabled = true;
+    @SerialEntry
+    public boolean nightbloodRandomSelection = false;
+    @SerialEntry
+    public boolean nightbloodEnchantingTable = false;
+    @SerialEntry
+    public boolean nightbloodBookOffer = false;
+    @SerialEntry
+    public boolean nightbloodDisablesExperience = true;
+    @SerialEntry
+    public int nightbloodWitherDuration = 200;
+    @SerialEntry
+    public int nightbloodWitherAmplifier = 1;
+    @SerialEntry
+    public float nightbloodDrainRate = 1.0f;
 
-    public static class ReflectionOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        public float divergence = 1.0f;
-    }
+    // Omen Of Immunity options
+    @SerialEntry
+    public boolean omenOfImmunityEnabled = true;
+    @SerialEntry
+    public boolean omenOfImmunityRandomSelection = false;
+    @SerialEntry
+    public boolean omenOfImmunityEnchantingTable = false;
+    @SerialEntry
+    public boolean omenOfImmunityBookOffer = false;
+    @SerialEntry
+    public boolean omenOfImmunityBreakOnNoDurability = true;
 
-    public static class RegenerationBlessingOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-    }
+    // Reflection options
+    @SerialEntry
+    public boolean reflectionEnabled = true;
+    @SerialEntry
+    public boolean reflectionRandomSelection = true;
+    @SerialEntry
+    public boolean reflectionEnchantingTable = true;
+    @SerialEntry
+    public boolean reflectionBookOffer = true;
+    @SerialEntry
+    public float reflectionDivergence = 1.0f;
 
-    public static class ShapedGlassOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        public float damageMultiplier = 2.0f;
-        public float itemDamage = 1.0f;
-    }
+    // Regeneration Blessing options
+    @SerialEntry
+    public boolean regenerationBlessingEnabled = true;
+    @SerialEntry
+    public boolean regenerationBlessingRandomSelection = true;
+    @SerialEntry
+    public boolean regenerationBlessingEnchantingTable = true;
+    @SerialEntry
+    public boolean regenerationBlessingBookOffer = true;
 
-    public static class SkywalkerOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        @ConfigEntry.Gui.Tooltip
-        @ConfigEntry.BoundedDiscrete(max = 16)
-        public int radius = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int cloudDuration = 25;
-    }
+    // Shaped Glass options
+    @SerialEntry
+    public boolean shapedGlassEnabled = true;
+    @SerialEntry
+    public boolean shapedGlassRandomSelection = false;
+    @SerialEntry
+    public boolean shapedGlassEnchantingTable = false;
+    @SerialEntry
+    public boolean shapedGlassBookOffer = false;
+    @SerialEntry
+    public float shapedGlassDamageMultiplier = 2.0f;
+    @SerialEntry
+    public int shapedGlassItemDamage = 20;
 
-    public static class SpeedBlessingOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = true;
-        public boolean enchantingTable = true;
-        public boolean bookOffer = true;
-        @ConfigEntry.Gui.Tooltip
-        public float speedBoost = 0.2f;
-    }
+    // Skywalker options
+    @SerialEntry
+    public boolean skywalkerEnabled = true;
+    @SerialEntry
+    public boolean skywalkerRandomSelection = false;
+    @SerialEntry
+    public boolean skywalkerEnchantingTable = false;
+    @SerialEntry
+    public boolean skywalkerBookOffer = false;
+    @SerialEntry
+    public int skywalkerRadius = 0;
+    @SerialEntry
+    public int skywalkerCloudDuration = 25;
+    @SerialEntry
+    public boolean skywalkerHalfUltrawarmDuration = true;
 
-    public static class StripMinerOptions {
-        public boolean isEnabled = true;
-        public boolean randomSelection = false;
-        public boolean enchantingTable = false;
-        public boolean bookOffer = false;
-        @ConfigEntry.Gui.Tooltip
-        @ConfigEntry.BoundedDiscrete(min = 1, max = 16)
-        public int radius = 1;
-    }
+    // Speed Blessing options
+    @SerialEntry
+    public boolean speedBlessingEnabled = true;
+    @SerialEntry
+    public boolean speedBlessingRandomSelection = true;
+    @SerialEntry
+    public boolean speedBlessingEnchantingTable = true;
+    @SerialEntry
+    public boolean speedBlessingBookOffer = true;
+    @SerialEntry
+    public float speedBlessingSpeedBoost = 0.2f;
 
-    @Override
-    public void validatePostLoad() {
-        aggressionBlessingOptions.attackSpeed = MathHelper.clamp(aggressionBlessingOptions.attackSpeed, 0.0f, 255.0f);
-
-        agitationCurseOptions.radius = MathHelper.clamp(agitationCurseOptions.radius, 0.0, 64.0);
-
-        arrowsFlightOptions.arrowSpeed = MathHelper.clamp(arrowsFlightOptions.arrowSpeed, 0.0f, 20.0f);
-
-        bashingOptions.knockbackStrength = MathHelper.clamp(bashingOptions.knockbackStrength, 0.01f, 100.0f);
-
-        essenceOfEnderOptions.entityTeleportDistance = MathHelper.clamp(essenceOfEnderOptions.entityTeleportDistance, 2, 8);
-
-        freezingAspectOptions.duration = MathHelper.clamp(freezingAspectOptions.duration, 0, 99999);
-
-        inaneAspectOptions.duration = MathHelper.clamp(inaneAspectOptions.duration, 0, 99999);
-
-        leechingAspectOptions.healing = MathHelper.clamp(leechingAspectOptions.healing, 0.0f, 99999.0f);
-
-        moltenWalkerOptions.radius = MathHelper.clamp(moltenWalkerOptions.radius, 0, 16);
-
-        nightbloodOptions.witherDuration = MathHelper.clamp(nightbloodOptions.witherDuration, 0, 99999);
-        nightbloodOptions.witherAmplifier = MathHelper.clamp(nightbloodOptions.witherAmplifier, 0, 255);
-        nightbloodOptions.drainRate = MathHelper.clamp(nightbloodOptions.drainRate, 0.0f, 99999.0f);
-
-        reflectionOptions.divergence = MathHelper.clamp(reflectionOptions.divergence, 0.0f, 20.0f);
-
-        shapedGlassOptions.damageMultiplier = MathHelper.clamp(shapedGlassOptions.damageMultiplier, 0.0f, 99999.9f);
-        shapedGlassOptions.itemDamage = MathHelper.clamp(shapedGlassOptions.itemDamage, 0, 99999);
-
-        skywalkerOptions.radius = MathHelper.clamp(skywalkerOptions.radius, 0, 16);
-        skywalkerOptions.cloudDuration = MathHelper.clamp(skywalkerOptions.cloudDuration, 1, 99999);
-
-        speedBlessingOptions.speedBoost = MathHelper.clamp(speedBlessingOptions.speedBoost, 0.0f, 255.0f);
-
-        stripMinerOptions.radius = MathHelper.clamp(stripMinerOptions.radius, 1, 16);
-
-        QuEnchantments.LOGGER.info("Finished validating config for " + QuEnchantments.MOD_ID);
-    }
+    // Strip Miner options
+    @SerialEntry
+    public boolean stripMinerEnabled = true;
+    @SerialEntry
+    public boolean stripMinerRandomSelection = false;
+    @SerialEntry
+    public boolean stripMinerEnchantingTable = false;
+    @SerialEntry
+    public boolean stripMinerBookOffer = false;
+    @SerialEntry
+    public int stripMinerRadius = 1;
 }

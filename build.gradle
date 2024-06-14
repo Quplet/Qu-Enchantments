@@ -18,7 +18,14 @@ repositories {
 	// for more information about repositories.
 	maven { url 'https://jitpack.io' }
 	maven { url "https://maven.shedaniel.me/" }
-	maven { url = 'https://maven.terraformersmc.com/releases/' }
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
+	}
+	maven {
+		name 'Xander Maven'
+		url 'https://maven.isxander.dev/releases'
+	}
 }
 
 dependencies {
@@ -40,10 +47,7 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
-	include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+	modImplementation("dev.isxander:yet-another-config-lib:${project.yet_another_config_lib_version}")
 }
 
 loom {

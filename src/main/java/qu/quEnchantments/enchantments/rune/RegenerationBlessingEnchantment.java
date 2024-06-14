@@ -4,7 +4,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.GameRules;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.mixin.HungerManagerAccessor;
 import qu.quEnchantments.util.config.ModConfig;
@@ -12,7 +11,7 @@ import qu.quEnchantments.util.interfaces.IEntity;
 
 public class RegenerationBlessingEnchantment extends QuEnchantment {
 
-    private static final ModConfig.RegenerationBlessingOptions CONFIG = QuEnchantments.getConfig().regenerationBlessingOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public RegenerationBlessingEnchantment(Properties properties) {
         super(properties);
@@ -20,22 +19,17 @@ public class RegenerationBlessingEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.reflectionRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.reflectionBookOffer;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 1 : 0;
-//    }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.regenerationBlessingEnchantingTable;
     }
 
     @Override

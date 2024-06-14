@@ -43,7 +43,7 @@
     "fabric": ">=0.97.8+1.20.5",
     "minecraft": ">=1.20.5",
     "java": ">=21",
-    "cloth-config": ">=14.0.126"
+    "yet_another_config_lib_v3": "*"
   },
   "suggests": {
     "another-mod": "*"

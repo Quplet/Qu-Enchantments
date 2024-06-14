@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
@@ -19,30 +18,25 @@ import qu.quEnchantments.world.ModWorldEvents;
 public class SkywalkerEnchantment extends CorruptedEnchantment {
 
     public static final float SINK_DISTANCE = 0.875f;
-    private static final ModConfig.SkywalkerOptions CONFIG = QuEnchantments.getConfig().skywalkerOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public SkywalkerEnchantment(Properties properties) {
         super(EnchantmentType.WALKER, properties);
     }
 
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 2 : 0;
-//    }
-
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.skywalkerBookOffer;
     }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.skywalkerRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.skywalkerEnchantingTable;
     }
 
     @Override
@@ -57,7 +51,7 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
         if ((world = entity.getWorld()).isClient || !entity.isOnGround() || !entity.isSneaking()) return;
 
         final BlockState cloudDefaultState = ModBlocks.CLOUD.getDefaultState();
-        final int radius = Math.min(16, CONFIG.radius);
+        final int radius = Math.min(16, CONFIG.skywalkerRadius);
 
         for (BlockPos blockPosItr : BlockPos.iterate(
                 new BlockPos(entity.getBlockX() - radius, Math.round((float)entity.getY() - SINK_DISTANCE), entity.getBlockZ() - radius),
@@ -71,7 +65,7 @@ public class SkywalkerEnchantment extends CorruptedEnchantment {
 
             world.setBlockState(blockPosItr, cloudDefaultState);
             int overworldMultiplier = world.getDimension().ultrawarm() ? 1 : 2;
-            int duration = Math.max(1, CONFIG.cloudDuration) * overworldMultiplier * level;
+            int duration = Math.max(1, CONFIG.skywalkerCloudDuration) * overworldMultiplier * level;
             world.scheduleBlockTick(
                     blockPosItr,
                     ModBlocks.CLOUD,

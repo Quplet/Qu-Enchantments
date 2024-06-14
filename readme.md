@@ -1,3 +1,5 @@
+![Qu Enchantments Banner](https://i.imgur.com/rkXBNCN.png)
+
 # Qu Enchantments Mod (For Fabric/Quilt)
 
 Welcome! This is a mod adding various enchantments that ~~in my opinion~~ add much needed variation to the enchantments 
@@ -101,5 +103,3 @@ Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I 
 ## 📜 License
 
 Copyright 2022 Quplet, Apache License 2.0. Please credit if you use or distribute my work.
-
-For the web graphics, Copyright 2023 E_Leven, All Rights Reserved.

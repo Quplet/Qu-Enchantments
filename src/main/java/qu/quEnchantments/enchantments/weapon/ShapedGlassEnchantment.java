@@ -4,13 +4,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class ShapedGlassEnchantment extends CorruptedEnchantment {
 
-    private static final ModConfig.ShapedGlassOptions CONFIG = QuEnchantments.getConfig().shapedGlassOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public ShapedGlassEnchantment(Properties properties) {
         super(EnchantmentType.DAMAGE, properties);
@@ -18,27 +17,22 @@ public class ShapedGlassEnchantment extends CorruptedEnchantment {
 
     @Override
     public float getAttackDamage(int level, @Nullable EntityType<?> entityType) {
-        return level * CONFIG.damageMultiplier;
+        return level * CONFIG.shapedGlassDamageMultiplier;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 5 : 0;
-//    }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.shapedGlassBookOffer;
     }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.shapedGlassRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.shapedGlassEnchantingTable;
     }
 
     @Override

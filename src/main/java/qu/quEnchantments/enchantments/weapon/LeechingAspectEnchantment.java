@@ -11,13 +11,12 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class LeechingAspectEnchantment extends QuEnchantment {
 
-    private static final ModConfig.LeechingAspectOptions CONFIG = QuEnchantments.getConfig().leechingAspectOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public LeechingAspectEnchantment(Properties properties) {
         super(properties);
@@ -28,24 +27,19 @@ public class LeechingAspectEnchantment extends QuEnchantment {
         return !(other == Enchantments.FIRE_ASPECT || other instanceof FreezingAspectEnchantment || other instanceof InaneAspectEnchantment) && super.canAccept(other);
     }
 
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 2 : 0;
-//    }
-
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.leechingAspectRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.leechingAspectBookOffer;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.leechingAspectEnchantingTable;
     }
 
     @Override
@@ -54,7 +48,7 @@ public class LeechingAspectEnchantment extends QuEnchantment {
         if ((world = user.getWorld()).isClient) return;
 
         user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, false, false, false));
-        user.heal(CONFIG.healing * level);
+        user.heal(CONFIG.leechingAspectHealing * level);
 
         Random random = world.getRandom();
         double d = random.nextGaussian() * 0.02;

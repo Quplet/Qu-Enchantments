@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.util.config.ModConfig;
 
 @Mixin(MiningToolItem.class)
 public class MiningToolItemMixin {
@@ -18,7 +18,7 @@ public class MiningToolItemMixin {
     private void quEnchantments$setItemPostHitDamageForShapedGlass(Args args, ItemStack stack, LivingEntity target, LivingEntity attacker) {
         int shapedGlassLevel;
         if ((shapedGlassLevel = EnchantmentHelper.getLevel(ModEnchantments.SHAPED_GLASS, stack)) > 0) {
-            args.set(0, (int)((20 + (shapedGlassLevel - 1) * 2) * QuEnchantments.getConfig().shapedGlassOptions.itemDamage));
+            args.set(0, ModConfig.CONFIG_HANDLER.instance().shapedGlassItemDamage + (shapedGlassLevel - 1) * 2);
         }
     }
 

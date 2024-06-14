@@ -10,7 +10,6 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.config.ModConfig;
 import qu.quEnchantments.util.interfaces.IItemStack;
@@ -19,7 +18,7 @@ import java.util.Map;
 
 public class RuneItem extends Item {
 
-    private static final ModConfig.RuneOptions CONFIG = QuEnchantments.getConfig().runeOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public RuneItem(Settings settings) {
         super(settings);
@@ -44,7 +43,7 @@ public class RuneItem extends Item {
                 ((selected || (entity instanceof LivingEntity livingEntity && livingEntity.getOffHandStack() == stack)) && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode))) return;
 
         stack.setDamage(Math.max(0, stack.getDamage() - 1));
-        if (CONFIG.breakOnNoDurability && entity instanceof LivingEntity livingEntity && stack.getDamage() >= stack.getMaxDamage()) {
+        if (CONFIG.runeBreakOnNoDurability && entity instanceof LivingEntity livingEntity && stack.getDamage() >= stack.getMaxDamage()) {
             Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(ModEnchantments.BASHING, livingEntity);
             if (entry != null) {
                 stack.damage(1, livingEntity, entry.getKey());

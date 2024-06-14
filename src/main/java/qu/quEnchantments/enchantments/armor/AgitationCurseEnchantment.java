@@ -6,7 +6,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class AgitationCurseEnchantment extends QuEnchantment {
 
-    private static final ModConfig.AgitationCurseOptions CONFIG = QuEnchantments.getConfig().agitationCurseOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public AgitationCurseEnchantment(Properties properties) {
         super(properties);
@@ -30,19 +29,14 @@ public class AgitationCurseEnchantment extends QuEnchantment {
         return true;
     }
 
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 1 : 0;
-//    }
-
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.agitationCurseBookOffer;
     }
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.agitationCurseRandomSelection;
     }
 
     @Override
@@ -59,7 +53,7 @@ public class AgitationCurseEnchantment extends QuEnchantment {
 
         List<Entity> mobs = world.getOtherEntities(
                 livingEntity,
-                livingEntity.getBoundingBox().expand(CONFIG.radius),
+                livingEntity.getBoundingBox().expand(CONFIG.agitationCurseRadius),
                 entity -> entity.isAlive() && !entity.isTeammate(livingEntity) && entity instanceof MobEntity
         );
 

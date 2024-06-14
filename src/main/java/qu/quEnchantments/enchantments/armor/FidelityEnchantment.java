@@ -1,12 +1,11 @@
 package qu.quEnchantments.enchantments.armor;
 
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.QuEnchantment;
 import qu.quEnchantments.util.config.ModConfig;
 
 public class FidelityEnchantment extends QuEnchantment {
 
-    private static final ModConfig.FidelityOptions CONFIG = QuEnchantments.getConfig().fidelityOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     public FidelityEnchantment(Properties properties) {
         super(properties);
@@ -14,18 +13,13 @@ public class FidelityEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.fidelityRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.fidelityBookOffer;
     }
-
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 1 : 0;
-//    }
 
     @Override
     public boolean isTreasure() {
@@ -34,6 +28,6 @@ public class FidelityEnchantment extends QuEnchantment {
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.fidelityEnchantingTable;
     }
 }

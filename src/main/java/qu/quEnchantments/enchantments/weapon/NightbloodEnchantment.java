@@ -19,7 +19,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import qu.quEnchantments.QuEnchantments;
 import qu.quEnchantments.enchantments.CorruptedEnchantment;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.util.ModTags;
@@ -31,7 +30,8 @@ import java.util.Collections;
 
 public class NightbloodEnchantment extends CorruptedEnchantment {
 
-    private static final ModConfig.NightbloodOptions CONFIG = QuEnchantments.getConfig().nightbloodOptions;
+    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
+
     private static final ImmutableMap<ArmorItem.Type, Float> ARMOR_CHANCE_MAP = ImmutableMap.of(
             ArmorItem.Type.HELMET, 0.2f,
             ArmorItem.Type.CHESTPLATE, 0.4f,
@@ -43,24 +43,19 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         super(EnchantmentType.ASPECT, properties);
     }
 
-//    @Override
-//    public int getMaxLevel() {
-//        return CONFIG.isEnabled ? 2 : 0;
-//    }
-
     @Override
     public boolean isAvailableForRandomSelection() {
-        return CONFIG.randomSelection;
+        return CONFIG.nightbloodRandomSelection;
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return CONFIG.bookOffer;
+        return CONFIG.nightbloodBookOffer;
     }
 
     @Override
     public boolean isAvailableForEnchantingTable() {
-        return CONFIG.enchantingTable;
+        return CONFIG.nightbloodEnchantingTable;
     }
 
     @Override
@@ -83,7 +78,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
         if ((key = Registries.ENTITY_TYPE.getKey(target.getType())).isPresent() &&
                 (entry = Registries.ENTITY_TYPE.getEntry(key.get())).isPresent() &&
                 entry.get().isIn(ModTags.NIGHTBLOOD_IMMUNE_ENTITIES)) {
-            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, CONFIG.witherDuration, CONFIG.witherAmplifier, false, true), livingEntity.getAttacker());
+            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, CONFIG.nightbloodWitherDuration, CONFIG.nightbloodWitherAmplifier, false, true), livingEntity.getAttacker());
             return 0.0f;
         }
 
@@ -102,7 +97,7 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
             }
         }
 
-        if (CONFIG.disablesExperience) livingEntity.disableExperienceDropping();
+        if (CONFIG.nightbloodDisablesExperience) livingEntity.disableExperienceDropping();
         return 1000000.0f;
     }
 
@@ -115,16 +110,16 @@ public class NightbloodEnchantment extends CorruptedEnchantment {
             if (player.getAbilities().creativeMode) return;
 
             if (player.experienceLevel > 0 || player.experienceProgress > 0) {
-                player.addExperience((int) (-4 * CONFIG.drainRate / level));
+                player.addExperience((int) (-4 * CONFIG.nightbloodDrainRate / level));
                 return;
             }
 
             if (world.getDifficulty().getId() != 0 && player.getHungerManager().getFoodLevel() > 0) {
-                player.getHungerManager().addExhaustion(1.5f * CONFIG.drainRate / level);
+                player.getHungerManager().addExhaustion(1.5f * CONFIG.nightbloodDrainRate / level);
                 return;
             }
         }
 
-        wearer.damage(world.getDamageSources().magic(), 2.0f * CONFIG.drainRate / level);
+        wearer.damage(world.getDamageSources().magic(), 2.0f * CONFIG.nightbloodDrainRate / level);
     }
 }
