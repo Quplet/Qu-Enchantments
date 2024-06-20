@@ -59,6 +59,8 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
+
+	accessWidenerPath = file("src/main/resources/qu-enchantments.accesswidener")
 }
 
 processResources {

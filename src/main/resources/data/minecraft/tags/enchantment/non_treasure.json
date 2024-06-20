@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "qu-enchantments:aggression_blessing",
+    "qu-enchantments:regeneration_blessing",
+    "qu-enchantments:speed_blessing",
+    "qu-enchantments:bashing",
+    "qu-enchantments:reflection",
+    "qu-enchantments:accuracy",
+    "qu-enchantments:arrows_flight",
+    "qu-enchantments:freezing_aspect",
+    "qu-enchantments:inane_aspect",
+    "qu-enchantments:leeching_aspect",
+    "qu-enchantments:lightning_bound"
+  ]
+}

@@ -43,11 +43,5 @@ public class RuneItem extends Item {
                 ((selected || (entity instanceof LivingEntity livingEntity && livingEntity.getOffHandStack() == stack)) && !(entity instanceof PlayerEntity player && player.getAbilities().creativeMode))) return;
 
         stack.setDamage(Math.max(0, stack.getDamage() - 1));
-        if (CONFIG.runeBreakOnNoDurability && entity instanceof LivingEntity livingEntity && stack.getDamage() >= stack.getMaxDamage()) {
-            Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(ModEnchantments.BASHING, livingEntity);
-            if (entry != null) {
-                stack.damage(1, livingEntity, entry.getKey());
-            }
-        }
     }
 }

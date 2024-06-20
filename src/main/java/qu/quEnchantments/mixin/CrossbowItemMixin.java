@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 
 @Mixin(CrossbowItem.class)
 public class CrossbowItemMixin {
@@ -20,9 +21,9 @@ public class CrossbowItemMixin {
     private void quEnchantments$setDivergence(Args args, World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
         int lvl;
-        if ((lvl = EnchantmentHelper.getLevel(ModEnchantments.ACCURACY, stack)) > 0) {
+        if ((lvl = QuEnchantmentHelper.getAccuracyLevel(stack, user)) > 0) {
             // 6th arg is the divergence variable
-            args.set(6, Math.max(0.0f, (1.0f - (0.5f * lvl))));
+            args.set(6, Math.max(0.0f, ((float)args.get(6) - (0.5f * lvl))));
         }
     }
 }

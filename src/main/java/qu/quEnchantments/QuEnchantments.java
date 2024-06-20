@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qu.quEnchantments.blocks.ModBlocks;
+import qu.quEnchantments.enchantments.ModEnchantmentEffects;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.items.ModItems;
 import qu.quEnchantments.particle.ModParticles;
@@ -22,6 +23,7 @@ public class QuEnchantments implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModEnchantments.registerModEnchantments();
+		ModEnchantmentEffects.registerEnchantmentEffects();
 		ModBlocks.registerModBlocks();
 		ModItems.initializeModItems();
 		ModParticles.registerModParticles();
@@ -29,6 +31,6 @@ public class QuEnchantments implements ModInitializer {
 		ModLootTableModifier.ModifyLootTables();
 		ModTradeRegistry.initializeModTrades();
 
-		LOGGER.info("Finished Initializing " + MOD_ID);
+		LOGGER.info("Finished initializing " + MOD_ID);
 	}
 }
