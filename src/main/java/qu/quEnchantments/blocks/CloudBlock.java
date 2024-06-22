@@ -16,11 +16,12 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import qu.quEnchantments.enchantments.armor.SkywalkerEnchantment;
 
 public class CloudBlock extends Block {
 
     private static final VoxelShape COLLISION_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 14.0, 16.0);
+
+    private static final float SINK_DISTANCE = 0.875f;
 
     public CloudBlock(Settings settings) {
         super(settings);
@@ -46,7 +47,7 @@ public class CloudBlock extends Block {
         Entity entity;
         if (context instanceof EntityShapeContext && (entity = ((EntityShapeContext)context).getEntity()) != null) {
             if (entity.isSneaking() || entity instanceof SpiderEntity || entity instanceof SilverfishEntity || entity instanceof EndermiteEntity) {
-                if (entity.getY() >= pos.getY() + SkywalkerEnchantment.SINK_DISTANCE && entity.fallDistance <= 1.0f) {
+                if (entity.getY() >= pos.getY() + SINK_DISTANCE && entity.fallDistance <= 1.0f) {
                     return COLLISION_SHAPE;
                 }
             }

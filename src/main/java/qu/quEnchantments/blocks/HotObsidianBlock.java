@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -23,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
+import qu.quEnchantments.enchantments.QuEnchantmentHelper;
+import qu.quEnchantments.util.ModTags;
 
 public class HotObsidianBlock extends Block {
 
@@ -36,7 +39,7 @@ public class HotObsidianBlock extends Block {
     @Override
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, state, blockEntity, stack);
-        if (EnchantmentHelper.getEquipmentLevel(Enchantments.SILK_TOUCH, player) != 0) return;
+        if (EnchantmentHelper.hasAnyEnchantmentsIn(stack, EnchantmentTags.PREVENTS_ICE_MELTING)) return;
 
         BlockState blockStateDown = world.getBlockState(pos.down());
         if (blockStateDown.blocksMovement() || blockStateDown.isLiquid()) {
@@ -46,7 +49,7 @@ public class HotObsidianBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!entity.isFireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
+        if (!entity.isFireImmune() && entity instanceof LivingEntity livingEntity && !QuEnchantmentHelper.hasAnyEnchantmentsIn(livingEntity, ModTags.PREVENTS_FEET_BURNING)) {
             int i = state.get(AGE);
             if (i > 0 && i < 4) {
                 entity.damage(world.getDamageSources().hotFloor(), 1.0f + 0.1f * (i - 1));

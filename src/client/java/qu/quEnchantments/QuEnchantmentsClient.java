@@ -7,14 +7,11 @@ import net.minecraft.client.render.RenderLayer;
 import qu.quEnchantments.blocks.ModBlocks;
 import qu.quEnchantments.particle.InaneParticle;
 import qu.quEnchantments.particle.ModParticles;
-import qu.quEnchantments.util.ModClientEvents;
 
 public class QuEnchantmentsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ModClientEvents.registerClientEvents();
-
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CLOUD, RenderLayer.getTranslucent());
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.INANE_PARTICLE, InaneParticle.Factory::new);

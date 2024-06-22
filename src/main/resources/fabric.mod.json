@@ -25,9 +25,6 @@
     ],
     "client": [
       "qu.quEnchantments.QuEnchantmentsClient"
-    ],
-    "modmenu": [
-      "qu.quEnchantments.util.config.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -40,10 +37,9 @@
 
   "depends": {
     "fabricloader": ">=0.15.11",
-    "fabric": ">=0.97.8+1.20.5",
-    "minecraft": ">=1.20.5",
-    "java": ">=21",
-    "yet_another_config_lib_v3": "*"
+    "fabric": ">=0.100.3+1.21",
+    "minecraft": "~1.21",
+    "java": ">=21"
   },
   "suggests": {
     "another-mod": "*"

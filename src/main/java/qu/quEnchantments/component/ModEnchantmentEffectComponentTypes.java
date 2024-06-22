@@ -18,6 +18,7 @@ public class ModEnchantmentEffectComponentTypes {
 
     public static ComponentType<List<TargetedEnchantmentEffect<EnchantmentEntityEffect>>> ON_BLOCK = register("on_block", builder -> builder.codec(TargetedEnchantmentEffect.createPostAttackCodec(EnchantmentEntityEffect.CODEC, LootContextTypes.ENCHANTED_DAMAGE).listOf()));
     public static ComponentType<EnchantmentValueEffect> OMEN_IMMUNITY = register("omen_immunity", builder -> builder.codec(EnchantmentValueEffect.CODEC));
+    public static ComponentType<EnchantmentValueEffect> FIDELITY = register("fidelity", builder -> builder.codec(EnchantmentValueEffect.CODEC));
     public static ComponentType<List<EnchantmentEffectEntry<EnchantmentValueEffect>>> PROJECTILE_ACCURACY = register("projectile_accuracy", builder -> builder.codec(EnchantmentEffectEntry.createCodec(EnchantmentValueEffect.CODEC, LootContextTypes.ENCHANTED_ENTITY).listOf()));
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {

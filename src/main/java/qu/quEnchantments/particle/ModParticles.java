@@ -9,10 +9,13 @@ import qu.quEnchantments.QuEnchantments;
 
 public class ModParticles {
 
-    public static final SimpleParticleType INANE_PARTICLE = FabricParticleTypes.simple();
+    public static final SimpleParticleType INANE_PARTICLE = particleOf("inane_particle");
 
     public static void registerModParticles() {
-        Registry.register(Registries.PARTICLE_TYPE, new Identifier(QuEnchantments.MOD_ID, "inane_particle"), INANE_PARTICLE);
         QuEnchantments.LOGGER.info("Finished registering Mod Particles for " + QuEnchantments.MOD_ID);
+    }
+
+    private static SimpleParticleType particleOf(String id) {
+        return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(QuEnchantments.MOD_ID, id), FabricParticleTypes.simple());
     }
 }

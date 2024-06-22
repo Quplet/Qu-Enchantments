@@ -8,7 +8,6 @@ import qu.quEnchantments.enchantments.ModEnchantmentEffects;
 import qu.quEnchantments.enchantments.ModEnchantments;
 import qu.quEnchantments.items.ModItems;
 import qu.quEnchantments.particle.ModParticles;
-import qu.quEnchantments.util.ModEvents;
 import qu.quEnchantments.util.ModLootTableModifier;
 import qu.quEnchantments.util.ModTradeRegistry;
 
@@ -27,7 +26,6 @@ public class QuEnchantments implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModItems.initializeModItems();
 		ModParticles.registerModParticles();
-		ModEvents.RegisterModEvents();
 		ModLootTableModifier.ModifyLootTables();
 		ModTradeRegistry.initializeModTrades();
 

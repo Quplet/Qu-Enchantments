@@ -3,7 +3,6 @@
   "package": "qu.quEnchantments.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ClientPlayerInteractionManagerMixin",
     "HorseArmorFeatureRendererMixin",
     "InGameHudMixin",
     "WorldRendererMixin"

@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,14 +22,14 @@ import qu.quEnchantments.util.interfaces.IEntity;
 public abstract class InGameHudMixin {
 
     @Unique
-    private static final Identifier INANE_OUTLINE = new Identifier(QuEnchantments.MOD_ID, "textures/misc/inane_outline.png");
+    private static final Identifier INANE_OUTLINE = Identifier.of(QuEnchantments.MOD_ID, "textures/misc/inane_outline.png");
 
     @Shadow @Final private MinecraftClient client;
 
     @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
     @Inject(method = "renderMiscOverlays", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;getFrozenTicks()I"))
-    private void qu_Enchantments$renderInaneLayer(DrawContext context, float tickDelta, CallbackInfo ci) {
+    private void qu_Enchantments$renderInaneLayer(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         if (this.client.player == null) return;
         int inaneLevel;
         if ((inaneLevel = ((IEntity)this.client.player).getInaneTicks()) > 0) {

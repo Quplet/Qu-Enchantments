@@ -15,4 +15,6 @@ public interface IEnchantment {
     void qu_Enchantments$onTargetBlockDamage(ServerWorld world, int level, EnchantmentEffectContext context, EnchantmentEffectTarget target, LivingEntity user, DamageSource damageSource);
 
     void qu_Enchantments$modifyImmunity(LivingEntity user, int level, MutableFloat mutableFloat);
+
+    void qu_Enchantments$modifyFidelity(LivingEntity user, int level, MutableFloat mutableFloat);
 }

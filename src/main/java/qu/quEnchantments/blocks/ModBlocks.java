@@ -31,7 +31,7 @@ public class ModBlocks {
     );
 
     private static Block register(String name, Block block) {
-        return Registry.register(Registries.BLOCK, new Identifier(QuEnchantments.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(QuEnchantments.MOD_ID, name), block);
     }
 
     public static void registerModBlocks() {

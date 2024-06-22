@@ -11,7 +11,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import qu.quEnchantments.util.config.ModConfig;
 
 public record FreezeEnchantmentEffect(EnchantmentLevelBasedValue duration) implements EnchantmentEntityEffect {
 
@@ -20,8 +19,6 @@ public record FreezeEnchantmentEffect(EnchantmentLevelBasedValue duration) imple
                     .group(EnchantmentLevelBasedValue.CODEC.fieldOf("duration").forGetter(effect -> effect.duration))
                     .apply(instance, FreezeEnchantmentEffect::new)
     );
-
-    private static final ModConfig CONFIG = ModConfig.CONFIG_HANDLER.instance();
 
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {

@@ -1,6 +1,8 @@
 package qu.quEnchantments.items;
 
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -25,5 +27,16 @@ public class ModItems {
 
     public static void initializeModItems() {
         QuEnchantments.LOGGER.info("Registering ModItems for " + QuEnchantments.MOD_ID);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            entries.add(ModItems.RUNE_0);
+            entries.add(ModItems.RUNE_1);
+            entries.add(ModItems.RUNE_2);
+            entries.add(ModItems.RUNE_3);
+            entries.add(ModItems.RUNE_4);
+            entries.add(ModItems.RUNE_5);
+            entries.add(ModItems.RUNE_6);
+            entries.add(ModItems.RUNE_7);
+            entries.add(ModItems.RUNE_8);
+        });
     }
 }

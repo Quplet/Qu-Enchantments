@@ -2,27 +2,11 @@ package qu.quEnchantments.enchantments;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import qu.quEnchantments.QuEnchantments;
-import qu.quEnchantments.enchantments.armor.*;
-import qu.quEnchantments.enchantments.rune.AggressionBlessingEnchantment;
-import qu.quEnchantments.enchantments.rune.OmenOfImmunityEnchantment;
-import qu.quEnchantments.enchantments.rune.RegenerationBlessingEnchantment;
-import qu.quEnchantments.enchantments.rune.SpeedBlessingEnchantment;
-import qu.quEnchantments.enchantments.shield.BashingEnchantment;
-import qu.quEnchantments.enchantments.shield.ReflectionEnchantment;
-import qu.quEnchantments.enchantments.tool.LuckyMinerEnchantment;
-import qu.quEnchantments.enchantments.tool.StripMinerEnchantment;
-import qu.quEnchantments.enchantments.weapon.*;
-import qu.quEnchantments.util.ModTags;
-import qu.quEnchantments.util.config.ModConfig;
 
 public class ModEnchantments {
 

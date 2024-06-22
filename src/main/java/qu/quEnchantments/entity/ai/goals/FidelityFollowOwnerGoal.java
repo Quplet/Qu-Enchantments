@@ -13,6 +13,7 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 import qu.quEnchantments.enchantments.ModEnchantments;
+import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 
 import java.util.EnumSet;
 
@@ -52,7 +53,7 @@ public class FidelityFollowOwnerGoal extends Goal {
         if (livingEntity == null ||
                 livingEntity.isSpectator() ||
                 this.horse.squaredDistanceTo(livingEntity) < (this.maxDistance * this.maxDistance) ||
-                EnchantmentHelper.getEquipmentLevel(ModEnchantments.FIDELITY, horse) == 0) return false;
+                !QuEnchantmentHelper.hasFidelity(this.horse)) return false;
 
         this.owner = livingEntity;
         return true;

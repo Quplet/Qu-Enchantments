@@ -3,30 +3,8 @@
   "package": "qu.quEnchantments.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractHorseEntityMixin",
-    "AnimalArmorItemMixin",
-    "AnvilScreenHandlerMixin",
-    "BlockMixin",
-    "BowItemMixin",
-    "CrossbowItemMixin",
-    "EnchantmentHelperMixin",
     "EnchantmentMixin",
-    "EntityMixin",
-    "HungerManagerAccessor",
-    "ItemMixin",
-    "ItemStackMixin",
-    "LivingEntityMixin",
-    "LootTablesInvoker",
-    "MiningToolItemMixin",
-    "MobEntityMixin",
-    "PersistentProjectileEntityMixin",
-    "PlayerEntityMixin",
-    "PlayerInventoryMixin",
-    "ProjectileEntityMixin",
-    "RangedWeaponItemMixin",
-    "ServerPlayerInteractionManagerMixin",
-    "SwordItemMixin",
-    "TridentEntityMixin"
+    "LootTablesInvoker"
   ],
   "injectors": {
     "defaultRequire": 1
