@@ -1,0 +1,43 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.qu-enchantments.omen_of_immunity"
+  },
+  "effects": {
+    "qu-enchantments:omen_immunity": {
+      "type": "minecraft:add",
+      "value": {
+        "type": "minecraft:linear",
+        "base": 1.0,
+        "per_level_above_first": 1.0
+      }
+    },
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "qu-enchantments:clear_effects"
+        }
+      },
+      {
+        "effect": {
+          "type": "qu-enchantments:rune_break"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 10
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#qu-enchantments:enchantable/rune",
+  "weight": 1
+}

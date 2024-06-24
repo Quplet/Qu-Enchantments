@@ -24,4 +24,8 @@ public class ModEnchantmentEffectComponentTypes {
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.ENCHANTMENT_EFFECT_COMPONENT_TYPE, Identifier.of(QuEnchantments.MOD_ID, id), builderOperator.apply(ComponentType.builder()).build());
     }
+
+    public static void registerEnchantmentEffectComponentTypes() {
+        QuEnchantments.LOGGER.info("Registering custom enchantment effect component types for " + QuEnchantments.MOD_ID);
+    }
 }

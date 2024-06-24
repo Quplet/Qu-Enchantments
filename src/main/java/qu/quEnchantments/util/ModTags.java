@@ -3,7 +3,6 @@ package qu.quEnchantments.util;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -18,6 +17,8 @@ public class ModTags {
     public static final TagKey<Enchantment> RUNE_ENCHANTMENTS = enchantmentTagKeyOf("rune_enchantments");
     public static final TagKey<Enchantment> MINING_TOOL_DROP_ENCHANTMENTS = enchantmentTagKeyOf("mining_tool_drop_enchantments");
     public static final TagKey<Enchantment> PREVENTS_FEET_BURNING = enchantmentTagKeyOf("prevents_feet_burning");
+    public static final TagKey<Enchantment> CORRUPTED = enchantmentTagKeyOf("corrupted");
+    public static final TagKey<Enchantment> COMPOUND = enchantmentTagKeyOf("compound");
 
     public static final TagKey<EntityType<?>> NIGHTBLOOD_IMMUNE_ENTITIES = entityTypeTagKeyOf("nightblood_immune_entities");
 
@@ -35,6 +36,10 @@ public class ModTags {
 
     private static TagKey<Item> itemTagKeyOf(String id) {
         return TagKey.of(RegistryKeys.ITEM, Identifier.of(QuEnchantments.MOD_ID, id));
+    }
+
+    public static void registerModTags() {
+        QuEnchantments.LOGGER.info("Registering ModTags for " + QuEnchantments.MOD_ID);
     }
 
 }

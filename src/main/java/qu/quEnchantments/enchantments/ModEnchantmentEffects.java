@@ -7,10 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import qu.quEnchantments.QuEnchantments;
-import qu.quEnchantments.enchantments.effect.entity.BashingEnchantmentEffect;
-import qu.quEnchantments.enchantments.effect.entity.FreezeEnchantmentEffect;
-import qu.quEnchantments.enchantments.effect.entity.InaneEnchantmentEffect;
-import qu.quEnchantments.enchantments.effect.entity.LeechingEnchantmentEffect;
+import qu.quEnchantments.enchantments.effect.entity.*;
 
 public class ModEnchantmentEffects {
 
@@ -28,7 +25,9 @@ public class ModEnchantmentEffects {
         registerEntityEffect("inane_effect", InaneEnchantmentEffect.CODEC);
         registerEntityEffect("leeching_effect", LeechingEnchantmentEffect.CODEC);
         registerEntityEffect("bashing_effect", BashingEnchantmentEffect.CODEC);
+        registerEntityEffect("clear_effects", ClearEffectsEnchantmentEffect.CODEC);
+        registerEntityEffect("rune_break", RuneBreakEnchantmentEffect.CODEC);
 
-        QuEnchantments.LOGGER.info("Registering mod enchantment effects");
+        QuEnchantments.LOGGER.info("Registering mod enchantment effects for " + QuEnchantments.MOD_ID);
     }
 }

@@ -1,9 +1,16 @@
 package qu.quEnchantments.util.interfaces;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+
 public interface IEntity {
 
-    int getInaneTicks();
+    int qu_Enchantments$getInaneTicks();
 
-    void setInaneTicks(int value);
+    void qu_Enchantments$setInaneTicks(int value);
+
+    static boolean isCreativePlayer(Entity entity) {
+        return entity instanceof PlayerEntity player && player.getAbilities().creativeMode;
+    }
 
 }

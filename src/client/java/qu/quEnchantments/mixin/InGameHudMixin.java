@@ -32,7 +32,7 @@ public abstract class InGameHudMixin {
     private void qu_Enchantments$renderInaneLayer(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         if (this.client.player == null) return;
         int inaneLevel;
-        if ((inaneLevel = ((IEntity)this.client.player).getInaneTicks()) > 0) {
+        if ((inaneLevel = ((IEntity)this.client.player).qu_Enchantments$getInaneTicks()) > 0) {
             this.renderOverlay(context, INANE_OUTLINE, Math.min(inaneLevel, 80.0f) / 80.0f);
         }
     }

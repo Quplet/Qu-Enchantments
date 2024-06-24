@@ -9,7 +9,7 @@
         "affected": "attacker",
         "effect": {
           "type": "qu-enchantments:leeching_effect",
-          "duration": {
+          "healing": {
             "type": "minecraft:linear",
             "base": 0.25,
             "per_level_above_first": 0.25

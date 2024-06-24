@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,6 +25,7 @@ import net.minecraft.world.WorldEvents;
 import org.jetbrains.annotations.Nullable;
 import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.util.ModTags;
+import qu.quEnchantments.world.ModWorldEvents;
 
 public class HotObsidianBlock extends Block {
 
@@ -34,6 +34,14 @@ public class HotObsidianBlock extends Block {
     public HotObsidianBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        world.scheduleBlockTick(pos, this, MathHelper.nextInt(world.getRandom(), 60, 120));
+        if (oldState.equals(Blocks.LAVA.getDefaultState())) {
+            world.syncWorldEvent(ModWorldEvents.HOT_OBSIDIAN_CREATION, pos, 0);
+        }
     }
 
     @Override

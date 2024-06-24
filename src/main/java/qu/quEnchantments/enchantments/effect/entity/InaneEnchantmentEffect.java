@@ -21,7 +21,7 @@ public record InaneEnchantmentEffect(EnchantmentLevelBasedValue duration) implem
 
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
-        ((IEntity)user).setInaneTicks(40 + MathHelper.floor(duration.getValue(level)));
+        ((IEntity)user).qu_Enchantments$setInaneTicks(40 + MathHelper.floor(duration.getValue(level)));
     }
 
     @Override

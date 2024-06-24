@@ -1,15 +1,6 @@
 {
   "replace": false,
   "values": [
-    "qu-enchantments:agitation_curse",
-    "qu-enchantments:essence_of_ender",
-    "qu-enchantments:fidelity",
-    "qu-enchantments:molten_walker",
-    "qu-enchantments:skywalker",
-    "qu-enchantments:omen_of_immunity",
-    "qu-enchantments:lucky_miner",
-    "qu-enchantments:strip_miner",
-    "qu-enchantments:nightblood",
-    "qu-enchantments:shaped_glass"
+    "qu-enchantments:molten_walker"
   ]
 }

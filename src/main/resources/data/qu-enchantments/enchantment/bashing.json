@@ -15,7 +15,7 @@
             "per_level_above_first": 0.6
           }
         },
-        "enchanted": "attacker"
+        "enchanted": "victim"
       }
     ]
   },
@@ -28,10 +28,11 @@
     "base": 10,
     "per_level_above_first": 20
   },
-  "primary_items": "qu-enchantment:enchantable/shield",
   "slots": [
     "mainhand",
     "offhand"
   ],
-  "supported_items": "#c:shields"
+  "supported_items": "#qu-enchantments:enchantable/shield",
+  "primary_items": "#qu-enchantments:enchantable/shield",
+  "weight": 2
 }

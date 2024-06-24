@@ -14,24 +14,25 @@ import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableFloat;
 import org.apache.commons.lang3.mutable.MutableInt;
+import qu.quEnchantments.util.ModTags;
 import qu.quEnchantments.util.interfaces.IEnchantment;
 
 public class QuEnchantmentHelper {
 
     public static void onTargetBlockDamage(ServerWorld world, LivingEntity target, DamageSource damageSource) {
-        EnchantmentHelper.forEachEnchantment(target, (RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> ((IEnchantment)(Object)enchantment.value()).qu_Enchantments$onTargetBlockDamage(world, level, context, EnchantmentEffectTarget.VICTIM, target, damageSource));
+        EnchantmentHelper.forEachEnchantment(target, (RegistryEntry<Enchantment> enchantment, int level, EnchantmentEffectContext context) -> ((IEnchantment)(Object)enchantment.value()).quEnchantments$onTargetBlockDamage(world, level, context, EnchantmentEffectTarget.VICTIM, target, damageSource));
     }
 
     public static int omenImmunityLevel(LivingEntity user) {
         MutableFloat ret = new MutableFloat();
-        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).qu_Enchantments$modifyImmunity(user, level, ret));
+        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).quEnchantments$modifyImmunity(user, level, ret));
 
         return MathHelper.floor(ret.floatValue());
     }
 
     public static boolean hasFidelity(LivingEntity user) {
         MutableFloat mutableFloat = new MutableFloat();
-        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).qu_Enchantments$modifyFidelity(user, level, mutableFloat));
+        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).quEnchantments$modifyFidelity(user, level, mutableFloat));
 
         return mutableFloat.floatValue() > 0.0f;
     }
@@ -61,5 +62,23 @@ public class QuEnchantmentHelper {
         }
 
         return bl;
+    }
+
+    public static boolean isCorrupted(ItemStack stack) {
+        MutableBoolean mutableBoolean = new MutableBoolean();
+        EnchantmentHelper.forEachEnchantment(stack, (enchantment, level) -> {
+            if (enchantment.isIn(ModTags.CORRUPTED)) mutableBoolean.setTrue();
+        });
+
+        return mutableBoolean.booleanValue();
+    }
+
+    public static int getCorruptedLevel(ItemStack stack) {
+        MutableInt mutableInt = new MutableInt();
+        EnchantmentHelper.forEachEnchantment(stack, (enchantment, level) -> {
+            if (enchantment.isIn(ModTags.CORRUPTED)) mutableInt.add(level);
+        });
+
+        return mutableInt.intValue();
     }
 }
