@@ -1,0 +1,32 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.qu-enchantments.speed_blessing"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": 0.02,
+        "attribute": "minecraft:generic.movement_speed",
+        "id": "qu-enchantments:enchantment.speed_blessing",
+        "operation": "add_value"
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 10
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#qu-enchantments:enchantable/rune",
+  "primary_items": "#qu-enchantments:enchantable/rune",
+  "weight": 5
+}
