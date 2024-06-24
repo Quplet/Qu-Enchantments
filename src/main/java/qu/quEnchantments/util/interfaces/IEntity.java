@@ -5,9 +5,9 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public interface IEntity {
 
-    int qu_Enchantments$getInaneTicks();
+    int quEnchantments$getInaneTicks();
 
-    void qu_Enchantments$setInaneTicks(int value);
+    void quEnchantments$setInaneTicks(int value);
 
     static boolean isCreativePlayer(Entity entity) {
         return entity instanceof PlayerEntity player && player.getAbilities().creativeMode;

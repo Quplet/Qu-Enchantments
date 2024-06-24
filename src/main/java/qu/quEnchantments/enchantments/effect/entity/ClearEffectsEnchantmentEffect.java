@@ -21,7 +21,7 @@ public record ClearEffectsEnchantmentEffect(Optional<Boolean> bs) implements Enc
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         user.extinguish();
         user.setFrozenTicks(0);
-        ((IEntity)user).qu_Enchantments$setInaneTicks(0);
+        ((IEntity)user).quEnchantments$setInaneTicks(0);
 
         if (!(user instanceof LivingEntity livingEntity)) return;
 

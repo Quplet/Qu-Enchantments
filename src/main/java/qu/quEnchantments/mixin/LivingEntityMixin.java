@@ -22,7 +22,7 @@ public abstract class LivingEntityMixin extends EntityMixin {
 
     @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getFrozenTicks()I"))
     private void quEnchantments$tickInaneReduction(CallbackInfo ci) {
-        this.qu_Enchantments$setInaneTicks(Math.max(0, this.qu_Enchantments$getInaneTicks() - 1));
+        this.quEnchantments$setInaneTicks(Math.max(0, this.quEnchantments$getInaneTicks() - 1));
     }
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;takeShieldHit(Lnet/minecraft/entity/LivingEntity;)V"))

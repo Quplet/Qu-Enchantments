@@ -17,7 +17,7 @@ public class ModClientEvents {
 
             if (!world.isClient) return;
             // Inane effect client particle logic
-            if (((IEntity)livingEntity).qu_Enchantments$getInaneTicks() > 0 && livingEntity != MinecraftClient.getInstance().player) {
+            if (((IEntity)livingEntity).quEnchantments$getInaneTicks() > 0 && livingEntity != MinecraftClient.getInstance().player) {
                 double px = livingEntity.getParticleX(1.0);
                 double py = livingEntity.getRandomBodyY();
                 double pz = livingEntity.getParticleZ(1.0);

@@ -36,25 +36,25 @@ public abstract class EntityMixin implements IEntity {
     }
 
     @Override
-    public int qu_Enchantments$getInaneTicks() {
+    public int quEnchantments$getInaneTicks() {
         return this.dataTracker.get(INANE_TICKS);
     }
 
     @Override
-    public void qu_Enchantments$setInaneTicks(int value) {
+    public void quEnchantments$setInaneTicks(int value) {
         this.dataTracker.set(INANE_TICKS, value);
     }
 
     @Inject(method = "writeNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;writeCustomDataToNbt(Lnet/minecraft/nbt/NbtCompound;)V"))
     private void quEnchantments$writeInaneTicksToNbt(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir) {
         int inaneTicks;
-        if ((inaneTicks = this.qu_Enchantments$getInaneTicks()) > 0) {
+        if ((inaneTicks = this.quEnchantments$getInaneTicks()) > 0) {
             nbt.putInt("TicksInane", inaneTicks);
         }
     }
 
     @Inject(method = "readNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setFrozenTicks(I)V"))
     private void quEnchantments$readInaneTicksFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        this.qu_Enchantments$setInaneTicks(nbt.getInt("TicksInane"));
+        this.quEnchantments$setInaneTicks(nbt.getInt("TicksInane"));
     }
 }
