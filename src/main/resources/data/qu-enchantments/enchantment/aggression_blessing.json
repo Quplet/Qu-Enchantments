@@ -1,14 +1,14 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.qu-enchantments.speed_blessing"
+    "translate": "enchantment.qu-enchantments.aggression_blessing"
   },
   "effects": {
     "minecraft:attributes": [
       {
-        "amount": 0.02,
-        "attribute": "minecraft:generic.movement_speed",
-        "id": "qu-enchantments:enchantment.speed_blessing",
+        "amount": 0.5,
+        "attribute": "minecraft:generic.attack_speed",
+        "id": "qu-enchantments:enchantment.aggression_blessing",
         "operation": "add_value"
       }
     ]
@@ -19,7 +19,7 @@
   },
   "max_level": 1,
   "min_cost": {
-    "base": 5,
+    "base": 15,
     "per_level_above_first": 10
   },
   "slots": [

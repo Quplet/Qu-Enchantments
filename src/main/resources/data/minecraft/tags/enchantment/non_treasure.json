@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "qu-enchantments:aggression_blessing",
     "qu-enchantments:speed_blessing",
     "qu-enchantments:bashing",
     "qu-enchantments:freezing_aspect",
