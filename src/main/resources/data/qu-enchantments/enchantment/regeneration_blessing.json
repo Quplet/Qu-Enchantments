@@ -1,0 +1,32 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.qu-enchantments.regeneration_blessing"
+  },
+  "effects": {
+    "qu-enchantments:regeneration_blessing": {
+      "type": "minecraft:add",
+      "value": {
+        "type": "minecraft:linear",
+        "base": 1.0,
+        "per_level_above_first": 1.0
+      }
+    }
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 10
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#qu-enchantments:enchantable/rune",
+  "primary_items": "#qu-enchantments:enchantable/rune",
+  "weight": 5
+}

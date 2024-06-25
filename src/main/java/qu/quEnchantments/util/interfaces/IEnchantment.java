@@ -14,4 +14,6 @@ public interface IEnchantment {
     void quEnchantments$modifyImmunity(LivingEntity user, int level, MutableFloat mutableFloat);
 
     void quEnchantments$modifyFidelity(LivingEntity user, int level, MutableFloat mutableFloat);
+
+    void quEnchantments$modifyRegenerationBlessing(LivingEntity user, int level, MutableFloat mutableFloat);
 }

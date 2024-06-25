@@ -6,6 +6,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
+import net.minecraft.enchantment.effect.EnchantmentValueEffect;
 import net.minecraft.enchantment.effect.TargetedEnchantmentEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -33,6 +34,9 @@ public abstract class EnchantmentMixin implements IEnchantment {
     @Shadow
     public abstract <T> List<T> getEffect(ComponentType<List<T>> type);
 
+    @Shadow
+    public abstract void modifyValue(ComponentType<EnchantmentValueEffect> type, net.minecraft.util.math.random.Random random, int level, MutableFloat value);
+
     @Unique
     private static final Random random = new Random();
 
@@ -47,12 +51,17 @@ public abstract class EnchantmentMixin implements IEnchantment {
 
     @Override
     public void quEnchantments$modifyImmunity(LivingEntity user, int level, MutableFloat mutableFloat) {
-        ((Enchantment)(Object)this).modifyValue(ModEnchantmentEffectComponentTypes.OMEN_IMMUNITY, user.getRandom(), level, mutableFloat);
+        this.modifyValue(ModEnchantmentEffectComponentTypes.OMEN_IMMUNITY, user.getRandom(), level, mutableFloat);
     }
 
     @Override
     public void quEnchantments$modifyFidelity(LivingEntity user, int level, MutableFloat mutableFloat) {
-        ((Enchantment)(Object)this).modifyValue(ModEnchantmentEffectComponentTypes.FIDELITY, user.getRandom(), level, mutableFloat);
+        this.modifyValue(ModEnchantmentEffectComponentTypes.FIDELITY, user.getRandom(), level, mutableFloat);
+    }
+
+    @Override
+    public void quEnchantments$modifyRegenerationBlessing(LivingEntity user, int level, MutableFloat mutableFloat) {
+        this.modifyValue(ModEnchantmentEffectComponentTypes.REGENERATION_BLESSING, user.getRandom(), level, mutableFloat);
     }
 
     @ModifyReturnValue(method = "getName", at = @At("RETURN"))

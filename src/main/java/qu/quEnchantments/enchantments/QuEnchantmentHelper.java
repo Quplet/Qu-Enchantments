@@ -24,10 +24,10 @@ public class QuEnchantmentHelper {
     }
 
     public static int omenImmunityLevel(LivingEntity user) {
-        MutableFloat ret = new MutableFloat();
-        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).quEnchantments$modifyImmunity(user, level, ret));
+        MutableFloat mutableFloat = new MutableFloat();
+        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).quEnchantments$modifyImmunity(user, level, mutableFloat));
 
-        return MathHelper.floor(ret.floatValue());
+        return MathHelper.floor(mutableFloat.floatValue());
     }
 
     public static boolean hasFidelity(LivingEntity user) {
@@ -80,5 +80,12 @@ public class QuEnchantmentHelper {
         });
 
         return mutableInt.intValue();
+    }
+
+    public static boolean hasRegenerationBlessing(LivingEntity user) {
+        MutableFloat mutableFloat = new MutableFloat();
+        EnchantmentHelper.forEachEnchantment(user, (enchantment, level, context) -> ((IEnchantment)(Object)enchantment.value()).quEnchantments$modifyRegenerationBlessing(user, level, mutableFloat));
+
+        return mutableFloat.floatValue() > 0.0f;
     }
 }

@@ -5,6 +5,7 @@
   "mixins": [
     "EnchantmentMixin",
     "EntityMixin",
+    "HungerManagerMixin",
     "LivingEntityMixin",
     "LootTablesInvoker"
   ],
