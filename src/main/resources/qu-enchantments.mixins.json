@@ -3,6 +3,7 @@
   "package": "qu.quEnchantments.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractHorseEntityMixin",
     "EnchantmentMixin",
     "EntityMixin",
     "HungerManagerMixin",

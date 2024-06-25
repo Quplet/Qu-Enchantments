@@ -1,0 +1,31 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.qu-enchantments.fidelity"
+  },
+  "effects": {
+    "qu-enchantments:fidelity": {
+      "type": "minecraft:add",
+      "value": {
+        "type": "minecraft:linear",
+        "base": 1.0,
+        "per_level_above_first": 1.0
+      }
+    }
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 10
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "any"
+  ],
+  "supported_items": "#qu-enchantments:enchantable/horse_armor",
+  "primary_items": "#qu-enchantments:enchantable/horse_armor",
+  "weight": 10
+}
