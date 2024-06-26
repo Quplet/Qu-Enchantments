@@ -27,6 +27,7 @@ public class ModEnchantmentEffects {
         registerEntityEffect("bashing_effect", BashingEnchantmentEffect.CODEC);
         registerEntityEffect("clear_effects", ClearEffectsEnchantmentEffect.CODEC);
         registerEntityEffect("rune_break", RuneBreakEnchantmentEffect.CODEC);
+        registerEntityEffect("agitation", AgitationCurseEffect.CODEC);
 
         QuEnchantments.LOGGER.info("Registering mod enchantment effects for " + QuEnchantments.MOD_ID);
     }
