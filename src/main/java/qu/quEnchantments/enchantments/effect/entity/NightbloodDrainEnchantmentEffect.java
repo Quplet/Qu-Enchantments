@@ -11,7 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import qu.quEnchantments.enchantments.QuEnchantmentHelper;
 import qu.quEnchantments.util.interfaces.IEntity;
 
 public record NightbloodDrainEnchantmentEffect(float drainRate) implements EnchantmentEntityEffect {
