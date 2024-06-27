@@ -27,7 +27,7 @@ public record AgitationCurseEffect(float radius) implements EnchantmentEntityEff
         world.getEntitiesByType(
                 TypeFilter.instanceOf(MobEntity.class),
                 user.getBoundingBox().expand(radius),
-                entity -> entity.isAlive() && !entity.isTeammate(user)
+                entity -> entity.isAlive() && !entity.isTeammate(user) && entity != user
         ).forEach(mobEntity -> mobEntity.setTarget(livingEntity));
     }
 
