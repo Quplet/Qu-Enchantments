@@ -28,6 +28,8 @@ public class ModEnchantmentEffects {
         registerEntityEffect("clear_effects", ClearEffectsEnchantmentEffect.CODEC);
         registerEntityEffect("rune_break", RuneBreakEnchantmentEffect.CODEC);
         registerEntityEffect("agitation", AgitationCurseEffect.CODEC);
+        registerEntityEffect("spawn_nightblood_particles", SpawnNightBloodParticlesEnchantmentEffect.CODEC);
+        registerEntityEffect("nightblood_drain", NightbloodDrainEnchantmentEffect.CODEC);
 
         QuEnchantments.LOGGER.info("Registering mod enchantment effects for " + QuEnchantments.MOD_ID);
     }

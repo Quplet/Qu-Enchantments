@@ -1,0 +1,273 @@
+{
+  "anvil_cost": 5,
+  "description": {
+    "translate": "enchantment.qu-enchantments.nightblood"
+  },
+  "effects": {
+    "minecraft:damage": [
+      {
+        "effect": {
+          "type": "minecraft:set",
+          "value": 100
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "type": "#qu-enchantments:nightblood_immune_entities"
+                }
+              }
+            },
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "mainhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "offhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "max_amplifier": 1.0,
+          "max_duration": 10,
+          "min_amplifier": 1.0,
+          "min_duration": 5,
+          "to_apply": "minecraft:wither"
+        },
+        "enchanted": "attacker",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "#qu-enchantments:nightblood_immune_entities"
+              }
+            },
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "mainhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "offhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "is_direct": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "qu-enchantments:spawn_nightblood_particles",
+          "amount": {
+            "min": 10,
+            "max": 30
+          }
+        },
+        "enchanted": "attacker",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "mainhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "offhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "is_direct": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "qu-enchantments:nightblood_drain",
+          "drainRate": 1.0
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "mainhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "condition": "inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "equipment": {
+                    "offhand": {
+                      "predicates": {
+                        "minecraft:enchantments": [
+                          {
+                            "enchantments": "qu-enchantments:omen_of_immunity"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 20
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 15,
+    "per_level_above_first": 20
+  },
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#minecraft:enchantable/sword",
+  "weight": 1
+}
