@@ -1,0 +1,45 @@
+{
+  "anvil_cost": 1,
+  "description": {
+    "translate": "enchantment.qu-enchantments.shaped_glass"
+  },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 1.0,
+          "per_level_above_first": 0
+        },
+        "attribute": "minecraft:generic.attack_damage",
+        "id": "qu-enchantments:enchantment.shaped_glass",
+        "operation": "add_multiplied_base"
+      },
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": -0.5,
+          "per_level_above_first": 0
+        },
+        "attribute": "minecraft:generic.max_health",
+        "id": "qu-enchantments:enchantment.shaped_glass",
+        "operation": "add_multiplied_base"
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 10
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#qu-enchantments:enchantable/rune",
+  "weight": 1
+}
