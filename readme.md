@@ -93,12 +93,9 @@ and the `luck_miner_nether.json` json files.
 
 ## 📝 Dependencies and Credits
 
-This mod relies on [Fabric-ASM](https://github.com/Chocohead/Fabric-ASM) by Chocohead. It is built into the mod, so there 
-is no need to download anything.
+Uses the [Fabric API](https://modrinth.com/mod/fabric-api) by modmuss50.
 
-This mod uses [Cloth Config](https://modrinth.com/mod/cloth-config) by Shedaniel for the configuration system.
-
-Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I requested made (Hot Obsidian Block and Rune textures and web graphics).
+Thanks to [E_Leven](https://www.instagram.com/evan_cdg/) for all the textures I requested made (Hot Obsidian Block, Rune textures, and web graphics).
 
 ## 📜 License
 
