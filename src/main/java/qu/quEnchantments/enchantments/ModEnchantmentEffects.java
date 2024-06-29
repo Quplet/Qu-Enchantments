@@ -3,6 +3,7 @@ package qu.quEnchantments.enchantments;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.enchantment.effect.EnchantmentLocationBasedEffect;
+import qu.quEnchantments.enchantments.effect.entity.ReplaceDiskDoubleOffsetEnchantmentEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -30,6 +31,7 @@ public class ModEnchantmentEffects {
         registerEntityEffect("agitation", AgitationCurseEffect.CODEC);
         registerEntityEffect("spawn_nightblood_particles", SpawnNightBloodParticlesEnchantmentEffect.CODEC);
         registerEntityEffect("nightblood_drain", NightbloodDrainEnchantmentEffect.CODEC);
+        registerEntityEffect("replace_disk_double_offset", ReplaceDiskDoubleOffsetEnchantmentEffect.CODEC);
 
         QuEnchantments.LOGGER.info("Registering mod enchantment effects for " + QuEnchantments.MOD_ID);
     }

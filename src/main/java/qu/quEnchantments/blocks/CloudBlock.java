@@ -16,6 +16,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import qu.quEnchantments.world.ModWorldEvents;
 
 public class CloudBlock extends Block {
 
@@ -25,6 +26,17 @@ public class CloudBlock extends Block {
 
     public CloudBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        int overworldMultiplier = world.getDimension().ultrawarm() ? 1 : 2;
+        int duration = 25 * overworldMultiplier;
+
+        world.scheduleBlockTick(pos, this, MathHelper.nextInt(world.getRandom(), duration, duration * 2));
+        if (oldState.equals(Blocks.AIR.getDefaultState())) {
+            world.syncWorldEvent(ModWorldEvents.CLOUD_BLOCK_CREATION, pos, 0);
+        }
     }
 
     @Override
