@@ -32,6 +32,8 @@ public class ModEnchantmentEffects {
         registerEntityEffect("spawn_nightblood_particles", SpawnNightBloodParticlesEnchantmentEffect.CODEC);
         registerEntityEffect("nightblood_drain", NightbloodDrainEnchantmentEffect.CODEC);
         registerEntityEffect("replace_disk_double_offset", ReplaceDiskDoubleOffsetEnchantmentEffect.CODEC);
+        registerEntityEffect("teleport_away_from_source", TeleportAwayFromSourceEnchantmentEffect.CODEC);
+        registerEntityEffect("damage_and_teleport_when_wet", DamageAndTeleportWhenWetEnchantmentEffect.CODEC);
 
         QuEnchantments.LOGGER.info("Registering mod enchantment effects for " + QuEnchantments.MOD_ID);
     }

@@ -1,0 +1,114 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.qu-enchantments.essence_of_ender"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "qu-enchantments:teleport_away_from_source",
+          "range": {
+            "type": "minecraft:linear",
+            "base": 5.0,
+            "per_level_above_first": 3.0
+          }
+        },
+        "enchanted": "victim",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "chance": {
+                "type": "minecraft:enchantment_level",
+                "amount": {
+                  "type": "minecraft:linear",
+                  "base": 0.15,
+                  "per_level_above_first": 0.15
+                }
+              },
+              "condition": "minecraft:random_chance"
+            },
+            {
+              "condition": "minecraft:damage_source_properties",
+              "predicate": {
+                "is_direct": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "qu-enchantments:damage_and_teleport_when_wet",
+          "damage": 1.0,
+          "range": {
+            "type": "minecraft:linear",
+            "base": 16.0,
+            "per_level_above_first": 0.0
+          }
+        },
+        "requirements": {
+          "chance": {
+            "type": "minecraft:enchantment_level",
+            "amount": {
+              "type": "minecraft:linear",
+              "base": 0.05,
+              "per_level_above_first": 0.0
+            }
+          },
+          "condition": "minecraft:random_chance"
+        }
+      },
+      {
+        "effect": {
+          "type": "minecraft:spawn_particles",
+          "horizontal_position": {
+            "type": "in_bounding_box"
+          },
+          "horizontal_velocity": {
+            "movement_scale": -0.2,
+            "base": {
+              "type": "minecraft:uniform",
+              "min_inclusive": -1.0,
+              "max_exclusive": 1.0
+            }
+          },
+          "vertical_position": {
+            "type": "in_bounding_box",
+            "offset": -0.5
+          },
+          "vertical_velocity": {
+            "base": {
+              "type": "minecraft:uniform",
+              "min_inclusive": -1.0,
+              "max_exclusive": 1.0
+            }
+          },
+          "particle": {
+            "type": "minecraft:portal"
+          },
+          "speed": 1.0
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 20
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 20
+  },
+  "primary_items": "#minecraft:enchantable/chest_armor",
+  "slots": [
+    "any"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 1
+}
