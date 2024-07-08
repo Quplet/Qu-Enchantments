@@ -52,15 +52,33 @@
           }
         },
         "requirements": {
-          "chance": {
-            "type": "minecraft:enchantment_level",
-            "amount": {
-              "type": "minecraft:linear",
-              "base": 0.05,
-              "per_level_above_first": 0.0
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": {
+                "type": "minecraft:enchantment_level",
+                "amount": {
+                  "type": "minecraft:linear",
+                  "base": 0.05,
+                  "per_level_above_first": 0.0
+                }
+              }
+            },
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type_specific": {
+                  "type": "minecraft:player",
+                  "gamemode": [
+                    "survival",
+                    "adventure"
+                  ]
+                }
+              }
             }
-          },
-          "condition": "minecraft:random_chance"
+          ]
         }
       },
       {
